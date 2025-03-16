@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import FloatingDockDemo from "@/components/ui/floating-dock-demo";
 import { FloatingDock } from "@/components/ui/floating-dock";
 import {
   IconBrandGithub,
