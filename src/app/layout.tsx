@@ -17,31 +17,17 @@ const links = [
     icon: (
       <IconHome className="h-full w-full text-neutral-500 dark:text-neutral-300" />
     ),
-    href: "#",
+    href: "/",
   },
 
   {
-    title: "Products",
+    title: "Projects",
     icon: (
       <IconTerminal2 className="h-full w-full text-neutral-500 dark:text-neutral-300" />
     ),
-    href: "#",
+    href: "/projects",
   },
-  {
-    title: "Components",
-    icon: (
-      <IconNewSection className="h-full w-full text-neutral-500 dark:text-neutral-300" />
-    ),
-    href: "#",
-  },
-  {
-    title: "Changelog",
-    icon: (
-      <IconExchange className="h-full w-full text-neutral-500 dark:text-neutral-300" />
-    ),
-    href: "#",
-  },
-
+  
   {
     title: "Twitter",
     icon: (
@@ -81,10 +67,10 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased realtive`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
-        <div className="flex justify-center items-center absolute bottom-4 inset-x-0">
+        <div className="flex justify-center items-center fixed bottom-4 inset-x-0">
           <FloatingDock items={links} />
         </div>
       </body>
