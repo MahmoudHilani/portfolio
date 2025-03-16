@@ -1,8 +1,6 @@
 import AuroraBackgroundDemo from "@/components/aurora-background-demo";
-import { AuroraBackground } from "@/components/ui/aurora-background";
-import Image from "next/image";
 
-export default function Home() {
+export default function AuroraPage() {
   return (
     <div className="dark">
       <AuroraBackgroundDemo />
