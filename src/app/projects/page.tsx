@@ -1,4 +1,3 @@
-import GlowingStarsBackgroundCardPreview from "@/components/ui/glowing-stars-demo";
 import {
   GlowingStarsBackgroundCard,
   GlowingStarsDescription,
