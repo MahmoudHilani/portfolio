@@ -1,5 +1,5 @@
 import AuroraBackgroundDemo from "@/components/aurora-background-demo";
-import { AuroraBackground } from "@/components/ui/aurora-background";
+import FloatingDockDemo from "@/components/ui/floating-dock-demo";
 import Image from "next/image";
 
 export default function Home() {
