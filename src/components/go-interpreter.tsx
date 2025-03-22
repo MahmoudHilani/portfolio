@@ -14,7 +14,6 @@ const GoTerminal: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     if (!input.trim() || isLoading) return;
 
     setHistory([...history, input]);
@@ -23,21 +22,25 @@ const GoTerminal: React.FC = () => {
     setOutput([...output, `${input}\n`]);
     setIsLoading(true);
 
+    const payload = JSON.stringify({ "code": input });
+   console.log("Sending payload:", payload);
+
     try {
       const response = await fetch(API_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ code: input }),
+        body: JSON.stringify({ code: payload }),
       });
 
       const data = await response.json();
+      console.log(data);
 
       if (data.error) {
         setOutput((prev) => [...prev, `Error: ${data.error}`]);
       } else {
-        setOutput((prev) => [...prev, data.result || "No output"]);
+        setOutput((prev) => [...prev, data.result]);
       }
     } catch (error) {
       setOutput((prev) => [...prev, "Connection error. Can't reach service."]);
