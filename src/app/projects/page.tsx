@@ -3,25 +3,27 @@ import {
   GlowingStarsDescription,
   GlowingStarsTitle,
 } from "@/components/ui/glowing-stars";
+import Link from "next/link";
 
 export default function ProjectsPage() {
   // Sample project data
   const projects = [
     {
-      title: "Portfolio Website",
+      title: "Go Interpreter",
       description:
-        "A modern portfolio website built with Next.js and Tailwind CSS.",
+        "A Go interpreter built from scratch. Click here to try it out.",
+        href: "/interpreter"
     },
-    {
-      title: "E-commerce Platform",
-      description:
-        "A full-stack e-commerce solution with secure payment processing.",
-    },
-    {
-      title: "Mobile App",
-      description:
-        "A cross-platform mobile application built with React Native.",
-    },
+    // {
+    //   title: "E-commerce Platform",
+    //   description:
+    //     "A full-stack e-commerce solution with secure payment processing.",
+    // },
+    // {
+    //   title: "Mobile App",
+    //   description:
+    //     "A cross-platform mobile application built with React Native.",
+    // },
   ];
 
   return (
@@ -32,6 +34,7 @@ export default function ProjectsPage() {
       <section className="flex justify-center">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {projects.map((project, index) => (
+            <Link href={`${project.href}`} key={index}>
             <GlowingStarsBackgroundCard key={index} className="h-full mx-auto">
               <GlowingStarsTitle>{project.title}</GlowingStarsTitle>
               <div className="flex justify-between items-end mt-4">
@@ -43,6 +46,7 @@ export default function ProjectsPage() {
                 </div>
               </div>
             </GlowingStarsBackgroundCard>
+            </Link>
           ))}
         </div>
       </section>
