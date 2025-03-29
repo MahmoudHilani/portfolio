@@ -31,7 +31,7 @@ const GoTerminal: React.FC = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ code: payload }),
+        body: JSON.stringify({ code: input }),
       });
 
       const data = await response.json();
