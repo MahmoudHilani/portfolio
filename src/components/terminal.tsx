@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef } from "react";
 import { Terminal } from "@xterm/xterm";
+import { IconMinus, IconSquare, IconTerminal, IconTerminal2, IconX } from "@tabler/icons-react";
 import "@xterm/xterm/css/xterm.css";
 
 export function APITerminal() {
@@ -16,7 +17,7 @@ export function APITerminal() {
     });
 
     term.open(terminalRef.current);
-    term.write("Go Interpreter Ready\r\n$ ");
+    term.write("Hi! Type something\r\n$ ");
 
     // Handle user input
     term.onData(async (data) => {
@@ -57,6 +58,21 @@ export function APITerminal() {
   }, []);
 
   return (
-      <div ref={terminalRef} className="w-xl" />
+    <div className="drop-shadow-lg outline-1 outline-neutral-800">
+          <div className="flex justify-between bg-black text-white text-sm pl-2 ">
+            <div className="flex p-1">
+                <IconTerminal2 className="w-5 mr-1"/>
+              <>cmd.exe</>
+            </div>
+            <div className="flex items-center">
+              <IconMinus className="w-8 h-full px-1 hover:bg-muted transition duration-200"/>
+              <IconSquare className="w-8 h-full p-2 hover:bg-muted transition duration-200"/>
+              <IconX className="w-8 h-full px-1 hover:bg-red-700 transition duration-200"/>
+            </div>
+          </div>
+          {/* <Terminal /> */}
+          <div ref={terminalRef} className="w-full" />
+        </div>
+      
   );
 }
