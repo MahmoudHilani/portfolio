@@ -65,13 +65,13 @@ export function APITerminal() {
               <>cmd.exe</>
             </div>
             <div className="flex items-center">
-              <IconMinus className="w-8 h-full px-1 hover:bg-muted transition duration-200"/>
-              <IconSquare className="w-8 h-full p-2 hover:bg-muted transition duration-200"/>
-              <IconX className="w-8 h-full px-1 hover:bg-red-700 transition duration-200"/>
+              <IconMinus className="w-8 h-full px-1 hover:bg-muted transition duration-150"/>
+              <IconSquare className="w-8 h-full p-2 hover:bg-muted transition duration-150"/>
+              <IconX className="w-8 h-full px-1 hover:bg-red-700 transition duration-150"/>
             </div>
           </div>
           {/* <Terminal /> */}
-          <div ref={terminalRef} className="w-full" />
+          <div ref={terminalRef} className="" />
         </div>
       
   );
