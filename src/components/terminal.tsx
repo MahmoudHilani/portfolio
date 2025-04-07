@@ -1,12 +1,15 @@
 "use client";
 import { useEffect, useRef } from "react";
 import { Terminal } from "@xterm/xterm";
+import { ClipboardAddon } from '@xterm/addon-clipboard';
 import { IconMinus, IconSquare, IconTerminal, IconTerminal2, IconX } from "@tabler/icons-react";
 import "@xterm/xterm/css/xterm.css";
 
 export function APITerminal() {
   const terminalRef = useRef<HTMLDivElement>(null);
   const inputBuffer = useRef<string>("");
+
+  
 
   useEffect(() => {
     if (!terminalRef.current) return;
@@ -16,8 +19,23 @@ export function APITerminal() {
       allowProposedApi: true,
     });
 
+    const clipboardAddon = new ClipboardAddon();
+    term.loadAddon(clipboardAddon);
+
     term.open(terminalRef.current);
     term.write("Hi! Type something\r\n$ ");
+
+    const handlePaste = async () => {
+      try {
+        const text = await navigator.clipboard.readText();
+        if (text) {
+          inputBuffer.current += text;
+          term.write(text);
+        }
+      } catch (err) {
+        console.error('Failed to read clipboard contents: ', err);
+      }
+    };
 
     // Handle user input
     term.onData(async (data) => {
@@ -51,6 +69,16 @@ export function APITerminal() {
         term.write(data);
       }
     });
+
+    
+
+    term.attachCustomKeyEventHandler((arg) => { 
+      if (arg.ctrlKey && arg.code === "KeyV" && arg.type === "keydown") {
+          handlePaste();
+          return false;
+      }
+      return true;
+  }); 
 
     return () => {
       term.dispose();

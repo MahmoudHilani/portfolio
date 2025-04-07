@@ -10,7 +10,7 @@ import {
 const content = [
   {
     value: "syntax",
-    title: "syntax",
+    title: "Syntax",
     description: "How it works.",
     boxes: [
       {
@@ -141,9 +141,9 @@ const content = [
         boxCode: <div>push([1, 2], 3); // Returns [1, 2, 3]</div>,
       },
       {
-        boxTitle: "print(arg)",
+        boxTitle: "puts(arg)",
         boxDescription: "Prints the argument to the console.",
-        boxCode: <div>print("Hello, world!"); // Outputs: Hello, world!</div>,
+        boxCode: <div>puts("Hello, world!"); // Outputs: Hello, world!</div>,
       },
     ],
   },
@@ -157,82 +157,92 @@ const content = [
         boxCode: (
           <div>
             let fibonacci = fn(n) {"{"} <br />
-            &nbsp;&nbsp;if (n == 0) {"{"}<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;return 0;<br />
+            &nbsp;&nbsp;if (n == 0) {"{"}
+            <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;return 0;
+            <br />
             &nbsp;&nbsp;{"}"} else {"{"} <br />
             &nbsp;&nbsp;&nbsp;&nbsp;if (n == 1) {"{"} <br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return 1; <br />
             &nbsp;&nbsp;&nbsp;&nbsp;{"}"} else {"{"} <br />
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return fibonacci(n - 1) + fibonacci(n - 2); <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return fibonacci(n - 1) +
+            fibonacci(n - 2); <br />
             &nbsp;&nbsp;&nbsp;&nbsp;{"}"} <br />
             &nbsp;&nbsp;{"}"} <br />
-            {"}"}; fibonacci(10); // Returns 55 <br />
+            {"}"}; fibonacci(10);
           </div>
         ),
       },
       {
-        boxTitle: "Working with arrays",
-        boxCode: (
-            <div>
-                let map = fn(arr, f) {"{"}<br/>
-                  &nbsp;&nbsp;let iter = fn(arr, accumulated) {"{"}<br/>
-                  &nbsp;&nbsp;&nbsp;&nbsp;if (len(arr) == 0) {"{"}<br/>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return accumulated;<br/>
-                  &nbsp;&nbsp;&nbsp;&nbsp;{"}"} else {"{"}<br/>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return iter(rest(arr), push(accumulated, f(first(arr))));<br/>
-                  &nbsp;&nbsp;&nbsp;&nbsp;{"}"}<br/>
-                  &nbsp;&nbsp;{"}"};<br/>
-                  &nbsp;&nbsp;return iter(arr, []);<br/>
-                  {"}"};<br/><br/>
-                  let double = fn(x) {"{"} return x * 2; {"}"};<br/>
-                  map([1, 2, 3, 4], double); // Returns [2, 4, 6, 8]
-            </div>
-        )
-      },
-      {
         boxTitle: "Hash Usage",
         boxCode: (
-            <div>
-                let person = {"{"}"name": "John", "age": 30{"}"};<br/>
-                  person["name"]; // Returns "John"<br/>
-                  let getName = fn(p) {"{"} return p["name"]; {"}"};<br/>
-                  getName(person); // Returns "John"
-            </div>
-        )
+          <div>
+            let person = {"{"}"name": "John", "age": 30{"}"};<br />
+            person["name"];
+            <br />
+            let getName = fn(p) {"{"} return p["name"]; {"}"};<br />
+            getName(person);
+          </div>
+        ),
       },
       {
         boxTitle: "Closures",
         boxCode: (
-            <div>
-                let newAdder = fn(x) {"{"}<br/>
-                  &nbsp;&nbsp;fn(y) {"{"} return x + y; {"}"}<br/>
-                  {"}"};<br/><br/>
-                  let addTwo = newAdder(2);<br/>
-                  addTwo(5); // Returns 7 
-            </div>
-        )
+          <div>
+            let newAdder = fn(x) {"{"}
+            <br />
+            &nbsp;&nbsp;fn(y) {"{"} return x + y; {"}"}
+            <br />
+            {"}"};<br />
+            <br />
+            let addTwo = newAdder(2);
+            <br />
+            addTwo(5);
+          </div>
+        ),
       },
       {
-        boxTitle: "Reduce Function",
+        boxTitle: "Reduce and Sum",
         boxCode: (
-            <div>
-                let reduce = fn(arr, initial, f) {"{"} <br/>
-                &nbsp;&nbsp;let iter = fn(arr, result) {"{"} <br/>
-                &nbsp;&nbsp;&nbsp;&nbsp;if (len(arr) == 0) {"{"} <br/>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result <br/>
-                &nbsp;&nbsp;&nbsp;&nbsp;{"}"} else {"{"} <br/>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;iter(rest(arr), f(result, first(arr))); <br/>
-                &nbsp;&nbsp;&nbsp;&nbsp;{"}"} <br/>
-                &nbsp;&nbsp;{"}"}; <br/>
-                &nbsp;&nbsp;iter(arr, initial); <br/>
-                {"}"}; <br/>
-                let sum = fn(arr) {"{"} <br/>
-                &nbsp;&nbsp;reduce(arr, 0, fn(initial, el) {"{"} initial + el {"}"}); <br/>
-                {"}"}; <br/>
-                sum([1, 2, 3, 4, 5]);
-            </div>
-        )
-      }
+          <div>
+            let reduce = fn(arr, initial, f) {"{"} <br />
+            &nbsp;&nbsp;let iter = fn(arr, result) {"{"} <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;if (len(arr) == 0) {"{"} <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;{"}"} else {"{"} <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iter(rest(arr), f(result,
+            first(arr))); <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;{"}"} <br />
+            &nbsp;&nbsp;{"}"}; <br />
+            &nbsp;&nbsp;iter(arr, initial); <br />
+            {"}"}; <br />
+            let sum = fn(arr) {"{"} <br />
+            &nbsp;&nbsp;reduce(arr, 0, fn(initial, el) {"{"} initial + el {"}"}
+            ); <br />
+            {"}"}; <br />
+            sum([1, 2, 3, 4, 5]);
+          </div>
+        ),
+      },
+      {
+        boxTitle: "Map and double",
+        boxCode: (
+          <div>
+            let map = fn(arr, f) {"{"} <br />
+            &nbsp;&nbsp;let iter = fn(arr, accumulated) {"{"} <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;if (len(arr) == 0) {"{"} <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;accumulated <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;{"}"} else {"{"} <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iter(rest(arr), push(accumulated, f(first(arr)))); <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;{"}"} <br />
+            &nbsp;&nbsp;{"}"}; iter(arr, []); <br />
+            {"}"} <br />
+            let a = [1, 2, 3, 4]; <br />
+            let double = fn(x) {"{"} x * 2 {"}"}; <br />
+            map(a, double); <br />
+          </div>
+        ),
+      },
     ],
   },
 ];
