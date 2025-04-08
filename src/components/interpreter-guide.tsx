@@ -6,6 +6,13 @@ import {
   CardContent,
   CardDescription,
 } from "./ui/card";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./ui/tooltip";
+import { IconInfoCircle } from "@tabler/icons-react";
 
 const content = [
   {
@@ -64,7 +71,23 @@ const content = [
                 {"{"}"key": "value"{"}"}
               </code>
             </li>
-            <li className="font-semibold">Functions: First-class functions</li>
+            <div className="flex gap-1 items-center">
+              <li className="font-semibold items-center">Functions:</li>
+              <p className="font-normal">First-class functions</p>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <IconInfoCircle className="text-zinc-600 h-5" />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>
+                      Functions are treated like variables. You can use a
+                      function inside a function.
+                    </p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </div>
             <li className="font-semibold">
               Null:{" "}
               <code className="bg-muted px-1 font-normal rounded">null</code>
@@ -233,7 +256,8 @@ const content = [
             &nbsp;&nbsp;&nbsp;&nbsp;if (len(arr) == 0) {"{"} <br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;accumulated <br />
             &nbsp;&nbsp;&nbsp;&nbsp;{"}"} else {"{"} <br />
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iter(rest(arr), push(accumulated, f(first(arr)))); <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iter(rest(arr),
+            push(accumulated, f(first(arr)))); <br />
             &nbsp;&nbsp;&nbsp;&nbsp;{"}"} <br />
             &nbsp;&nbsp;{"}"}; iter(arr, []); <br />
             {"}"} <br />
