@@ -10,6 +10,7 @@ import {
   IconNewSection,
   IconTerminal2,
 } from "@tabler/icons-react";
+import { AuroraBackground } from "@/components/ui/aurora-background";
 
 const links = [
   {
@@ -27,7 +28,7 @@ const links = [
     ),
     href: "/projects",
   },
-  
+
   {
     title: "Twitter",
     icon: (
@@ -69,10 +70,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
-        <div className="flex justify-center items-center fixed bottom-4 inset-x-0">
-          <FloatingDock items={links} />
-        </div>
+        <AuroraBackground>
+          {children}
+          <div className="flex justify-center items-center fixed bottom-4 inset-x-0">
+            <FloatingDock items={links} />
+          </div>
+        </AuroraBackground>
       </body>
     </html>
   );

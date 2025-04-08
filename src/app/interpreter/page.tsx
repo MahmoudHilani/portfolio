@@ -10,7 +10,7 @@ const Terminal = dynamic(
 
 export default function InterpreterPage() {
   return (
-    <AuroraBackground className="p-16">
+    <div className="p-16">
       <div className="flex justify-center items-center gap-8">
         <div className="w-[735px]">
           <Terminal />
@@ -19,6 +19,6 @@ export default function InterpreterPage() {
           <GuideCard />
         </div>
       </div>
-    </AuroraBackground>
+    </div>
   );
 }

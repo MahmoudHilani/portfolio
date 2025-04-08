@@ -27,8 +27,8 @@ export default function ProjectsPage() {
   ];
 
   return (
-    <main className="container mx-auto px-4 py-12">
-      <h1 className="text-4xl font-bold mb-8 text-center">My Projects</h1>
+    <main className="container mx-auto px-4 py-12 backdrop-opacity-100">
+      <h1 className="text-4xl font-bold  text-white mb-8 text-center">My Projects</h1>
 
       {/* Custom implementation with project data */}
       <section className="flex justify-center">
