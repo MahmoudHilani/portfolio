@@ -11,6 +11,8 @@ import {
   IconTerminal2,
 } from "@tabler/icons-react";
 import { AuroraBackground } from "@/components/ui/aurora-background";
+import { Suspense } from "react";
+import Loading from "./loading";
 
 const links = [
   {
@@ -70,12 +72,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <AuroraBackground>
-          {children}
-          <div className="flex justify-center items-center fixed bottom-4 inset-x-0">
-            <FloatingDock items={links} />
-          </div>
-        </AuroraBackground>
+        <Suspense fallback={<Loading></Loading>}>
+          <AuroraBackground>
+            {children}
+            <div className="flex justify-center items-center fixed bottom-4 inset-x-0">
+              <FloatingDock items={links} />
+            </div>
+          </AuroraBackground>
+        </Suspense>
       </body>
     </html>
   );
