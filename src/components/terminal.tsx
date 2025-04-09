@@ -4,25 +4,29 @@ import { Terminal } from "@xterm/xterm";
 import { ClipboardAddon } from '@xterm/addon-clipboard';
 import { IconMinus, IconSquare, IconTerminal, IconTerminal2, IconX } from "@tabler/icons-react";
 import "@xterm/xterm/css/xterm.css";
+import { FitAddon } from "@xterm/addon-fit";
 
 export function APITerminal() {
   const terminalRef = useRef<HTMLDivElement>(null);
   const inputBuffer = useRef<string>("");
-
   
-
+  
+  
   useEffect(() => {
     if (!terminalRef.current) return;
-
+    
     const term = new Terminal({
       cursorBlink: true,
       allowProposedApi: true,
     });
-
+    
     const clipboardAddon = new ClipboardAddon();
+    const fitAddon = new FitAddon();
     term.loadAddon(clipboardAddon);
+    term.loadAddon(fitAddon)
 
     term.open(terminalRef.current);
+    fitAddon.fit()
     term.write("Hi! Type something\r\n$ ");
 
     const handlePaste = async () => {
