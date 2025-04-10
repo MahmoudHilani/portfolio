@@ -1,6 +1,5 @@
 "use client";
 import GuideCard from "@/components/interpreter-guide";
-import { AuroraBackground } from "@/components/ui/aurora-background";
 import dynamic from "next/dynamic";
 
 const Terminal = dynamic(

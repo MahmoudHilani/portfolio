@@ -1,33 +1,87 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { Terminal } from "@xterm/xterm";
-import { ClipboardAddon } from '@xterm/addon-clipboard';
-import { IconMinus, IconSquare, IconTerminal, IconTerminal2, IconX } from "@tabler/icons-react";
+import { ClipboardAddon } from "@xterm/addon-clipboard";
+import {
+  IconMinus,
+  IconSquare,
+  IconTerminal,
+  IconTerminal2,
+  IconX,
+} from "@tabler/icons-react";
 import "@xterm/xterm/css/xterm.css";
 import { FitAddon } from "@xterm/addon-fit";
+
+interface InterpretRequest {
+  code: string;
+}
+
+interface InterpretResponse {
+  result: string;
+}
+
+interface WebSocketErrorResponse {
+  error: string;
+  code: string;
+}
+
+type WebSocketResponse = InterpretResponse | WebSocketErrorResponse;
 
 export function APITerminal() {
   const terminalRef = useRef<HTMLDivElement>(null);
   const inputBuffer = useRef<string>("");
-  
-  
-  
+  const socketRef = useRef<WebSocket | null>(null);
+
   useEffect(() => {
     if (!terminalRef.current) return;
-    
+
     const term = new Terminal({
       cursorBlink: true,
       allowProposedApi: true,
     });
-    
+
     const clipboardAddon = new ClipboardAddon();
     const fitAddon = new FitAddon();
     term.loadAddon(clipboardAddon);
-    term.loadAddon(fitAddon)
+    term.loadAddon(fitAddon);
 
     term.open(terminalRef.current);
-    fitAddon.fit()
-    term.write("Hi! Type something\r\n$ ");
+    fitAddon.fit();
+    const socket = new WebSocket("ws://localhost:8080/socket");
+
+    socket.onopen = () => {
+      console.log("Socket opened");
+      term.write("Server connected. \r\n$ ");
+    };
+
+    socket.onclose = (event) => {
+      console.log("socket closed. ", event);
+      term.write("Server closed. \r\n$ ");
+    };
+
+    socket.onerror = (event) => {
+      console.log("socket error. ", event);
+    };
+
+    socket.onmessage = (event) => {
+      try {
+        const data = JSON.parse(event.data);
+        console.log("received websocket message: ", data);
+
+        if ("error" in data) {
+          term.write(`${data.error}\r\n$ `);
+        } else {
+          if (data.result == "continue") {
+            term.write(`$ `);
+          } else {
+            term.write(`${data.result}\r\n$ `);
+          }
+        }
+      } catch (err) {
+        console.error("Error parsing websocket message: ", err);
+      }
+    };
+    socketRef.current = socket;
 
     const handlePaste = async () => {
       try {
@@ -37,27 +91,17 @@ export function APITerminal() {
           term.write(text);
         }
       } catch (err) {
-        console.error('Failed to read clipboard contents: ', err);
+        console.error("Failed to read clipboard contents: ", err);
       }
     };
 
     // Handle user input
     term.onData(async (data) => {
       const charCode = data.charCodeAt(0);
-
       // Handle Enter key
       if (charCode === 13) {
         term.write("\r\n");
-        try {
-          const response = await fetch("/api/interpret", {
-            method: "POST",
-            body: JSON.stringify({ code: inputBuffer.current }),
-          });
-          const result = await response.json();
-          term.write(`${result.result}\r\n$ `);
-        } catch (error: any) {
-          term.write(`Error: ${error.message}\r\n$ `);
-        }
+        interpretCode(inputBuffer.current.trim());
         inputBuffer.current = "";
       }
       // Handle backspace
@@ -74,37 +118,43 @@ export function APITerminal() {
       }
     });
 
-    
-
-    term.attachCustomKeyEventHandler((arg) => { 
+    term.attachCustomKeyEventHandler((arg) => {
       if (arg.ctrlKey && arg.code === "KeyV" && arg.type === "keydown") {
-          handlePaste();
-          return false;
+        handlePaste();
+        return false;
       }
       return true;
-  }); 
+    });
 
     return () => {
       term.dispose();
     };
   }, []);
 
+  const interpretCode = useCallback((code: string) => {
+    if (!socketRef.current || socketRef.current.readyState !== WebSocket.OPEN) {
+      console.log("WebSocket not connected");
+      return;
+    }
+    const request: InterpretRequest = { code: code };
+    socketRef.current.send(JSON.stringify(request));
+  }, []);
+
   return (
     <div className="drop-shadow-lg outline-1 outline-neutral-800">
-          <div className="flex justify-between bg-black text-white text-sm pl-2 ">
-            <div className="flex p-1">
-                <IconTerminal2 className="w-5 mr-1"/>
-              <>cmd.exe</>
-            </div>
-            <div className="flex items-center">
-              <IconMinus className="w-8 h-full px-1 hover:bg-muted transition duration-150"/>
-              <IconSquare className="w-8 h-full p-2 hover:bg-muted transition duration-150"/>
-              <IconX className="w-8 h-full px-1 hover:bg-red-700 transition duration-150"/>
-            </div>
-          </div>
-          {/* <Terminal /> */}
-          <div ref={terminalRef} className="" />
+      <div className="flex justify-between bg-black text-white text-sm pl-2 ">
+        <div className="flex p-1">
+          <IconTerminal2 className="w-5 mr-1" />
+          <>cmd.exe</>
         </div>
-      
+        <div className="flex items-center">
+          <IconMinus className="w-8 h-full px-1 hover:bg-muted transition duration-150" />
+          <IconSquare className="w-8 h-full p-2 hover:bg-muted transition duration-150" />
+          <IconX className="w-8 h-full px-1 hover:bg-red-700 transition duration-150" />
+        </div>
+      </div>
+      {/* <Terminal /> */}
+      <div ref={terminalRef} className="" />
+    </div>
   );
 }
