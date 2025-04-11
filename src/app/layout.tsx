@@ -73,12 +73,12 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Suspense fallback={<Loading></Loading>}>
-          <AuroraBackground>
+          <div>
             {children}
             <div className="flex justify-center items-center fixed bottom-4 inset-x-0">
               <FloatingDock items={links} />
             </div>
-          </AuroraBackground>
+          </div>
         </Suspense>
       </body>
     </html>
