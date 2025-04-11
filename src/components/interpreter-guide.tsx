@@ -283,8 +283,8 @@ const GuideCard = () => {
 
         {content.map((card) => (
           <TabsContent value={card.value} key={card.value}>
-            <div className="w-full  overflow-hidden bg-background text-white  rounded-lg">
-              <div className="flex h-[500px] flex-col overflow-auto p-8 gap-3">
+            <div className="w-full overflow-hidden bg-background text-white rounded-lg">
+              <div className="flex h-[500px] flex-col overflow-auto p-8 gap-3 scrollbar-thin hover:scrollbar-thumb-zinc-500">
                 <div>
                   <div className="font-bold">{card.title}</div>
                   <div>{card.description}</div>

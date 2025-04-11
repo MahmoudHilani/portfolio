@@ -11,6 +11,7 @@ import {
 } from "@tabler/icons-react";
 import "@xterm/xterm/css/xterm.css";
 import { FitAddon } from "@xterm/addon-fit";
+import { cn } from "@/lib/utils";
 
 interface InterpretRequest {
   code: string;
@@ -47,6 +48,11 @@ export function APITerminal() {
 
     term.open(terminalRef.current);
     fitAddon.fit();
+
+    window.addEventListener('resize', () => {
+      fitAddon.fit();
+    });
+
     const socket = new WebSocket("ws://localhost:8080/socket");
 
     socket.onopen = () => {
@@ -154,7 +160,7 @@ export function APITerminal() {
         </div>
       </div>
       {/* <Terminal /> */}
-      <div ref={terminalRef} className="" />
+      <div ref={terminalRef} className="scrollbar-thin " />
     </div>
   );
 }
