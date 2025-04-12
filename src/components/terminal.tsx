@@ -12,6 +12,8 @@ import {
 import "@xterm/xterm/css/xterm.css";
 import { FitAddon } from "@xterm/addon-fit";
 import { cn } from "@/lib/utils";
+import { Button } from "./ui/button";
+import { toast } from "sonner";
 
 interface InterpretRequest {
   code: string;
@@ -49,7 +51,7 @@ export function APITerminal() {
     term.open(terminalRef.current);
     fitAddon.fit();
 
-    window.addEventListener('resize', () => {
+    window.addEventListener("resize", () => {
       fitAddon.fit();
     });
 
@@ -154,13 +156,19 @@ export function APITerminal() {
           <>cmd.exe</>
         </div>
         <div className="flex items-center">
-          <IconMinus className="w-8 h-full px-1 hover:bg-muted transition duration-150" />
-          <IconSquare className="w-8 h-full p-2 hover:bg-muted transition duration-150" />
-          <IconX className="w-8 h-full px-1 hover:bg-red-700 transition duration-150" />
+          <Button onClick={() => toast("That tickles.")} variant="ghost" size="icon" className="dark:hover:bg-muted rounded-none">
+            <IconMinus />
+          </Button>
+          <Button onClick={() => toast("Maybe one day.")} variant="ghost" size="icon" className="dark:hover:bg-muted rounded-none">
+            <IconSquare />
+          </Button>
+          <Button onClick={() => toast("Stop that.")} variant="ghost" size="icon" className="dark:hover:bg-red-700 rounded-none">
+            <IconX className="size-6"/>
+          </Button>
         </div>
       </div>
       {/* <Terminal /> */}
-      <div ref={terminalRef} className="scrollbar-thin " />
+      <div ref={terminalRef} />
     </div>
   );
 }

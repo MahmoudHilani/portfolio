@@ -13,6 +13,7 @@ import {
 import { AuroraBackground } from "@/components/ui/aurora-background";
 import { Suspense } from "react";
 import Loading from "./loading";
+import { Toaster } from "sonner";
 
 const links = [
   {
@@ -78,6 +79,7 @@ export default function RootLayout({
             <div className="flex justify-center items-center fixed bottom-4 inset-x-0">
               <FloatingDock items={links} />
             </div>
+            <Toaster />
           </div>
         </Suspense>
       </body>
