@@ -11,7 +11,7 @@ export default function ProjectsPage() {
     {
       title: "Go Interpreter",
       description:
-        "A Go interpreter built from scratch. Click here to try it out.",
+        "A Go interpreter built from scratch. Works in the browser!",
         href: "/interpreter"
     },
     {
