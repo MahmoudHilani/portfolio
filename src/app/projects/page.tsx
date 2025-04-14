@@ -14,27 +14,29 @@ export default function ProjectsPage() {
         "A Go interpreter built from scratch. Click here to try it out.",
         href: "/interpreter"
     },
-    // {
-    //   title: "E-commerce Platform",
-    //   description:
-    //     "A full-stack e-commerce solution with secure payment processing.",
-    // },
-    // {
-    //   title: "Mobile App",
-    //   description:
-    //     "A cross-platform mobile application built with React Native.",
-    // },
+    {
+      title: "Cube Surfer",
+      description:
+        "A casual mobile game with integrated ads.",
+      href: "https://github.com/MahmoudHilani/minimalistic-cube-surfer"
+    },
+    {
+      title: "Fitness App",
+      description:
+        "An app made for easily tracking your nutrition and fitness goals.",
+        href: "https://github.com/XII-A/Fitness-App"
+    },
   ];
 
   return (
-    <main className="container mx-auto px-4 py-12 backdrop-opacity-100">
-      <h1 className="text-4xl font-bold  text-white mb-8 text-center">My Projects</h1>
+    <main className="container flex flex-col mx-auto justify-between h-screen px-4">
+      <h1 className="text-4xl font-bold p-16 text-white text-center">My Projects</h1>
 
       {/* Custom implementation with project data */}
-      <section className="flex justify-center">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+      <section className="flex justify-center pb-56">
+        <div className="flex gap-8 max-w-6xl mx-auto">
           {projects.map((project, index) => (
-            <Link href={`${project.href}`} key={index}>
+            <Link href={`${project.href}`} key={index} className="h-full">
             <GlowingStarsBackgroundCard key={index} className="h-full mx-auto">
               <GlowingStarsTitle>{project.title}</GlowingStarsTitle>
               <div className="flex justify-between items-end mt-4">
