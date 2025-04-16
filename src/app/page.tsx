@@ -15,12 +15,12 @@ export default function Home() {
           duration: 0.8,
           ease: "easeInOut",
         }}
-        className="relative flex flex-col gap-4 items-center justify-center px-4"
+        className="relative flex flex-col gap-4 w-full h-full "
       >
-        <div className="text-3xl md:text-7xl dark:text-white text-center">
+        <div className="text-3xl md:text-[172px] tracking-tighter dark:text-white">
           Mahmoud Hilani
         </div>
-        <div className="font-extralight text-base md:text-4xl dark:text-neutral-200 py-4">
+        <div className="font-extralight text-xl md:text-4xl dark:text-neutral-200 px-3">
           Software Engineer
         </div>
         
