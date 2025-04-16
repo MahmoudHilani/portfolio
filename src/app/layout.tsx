@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { FloatingDock } from "@/components/ui/floating-dock";
 import {
@@ -64,16 +65,23 @@ export const metadata: Metadata = {
     "Here you can find Mahmoud Hilani's experience, projects, and plans.",
 };
 
+const satoshi = localFont({
+  src: [
+    { path: "./fonts/Satoshi-Variable.woff2", style: "normal" },
+    { path: "./fonts/Satoshi-VariableItalic.woff2", style: "italic" },
+  ],
+  variable: "--font-satoshi",
+  display: "swap",
+});
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+    <html lang="en" className={`dark ${satoshi.className}`}>
+      <body>
         <div>
           <Suspense fallback={<Loading />}>{children}</Suspense>
           <div className="flex justify-center items-center fixed bottom-4 inset-x-0">

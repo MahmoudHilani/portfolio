@@ -3,8 +3,8 @@
 @plugin "tailwindcss-animate";
 @plugin 'tailwind-scrollbar' {
   nocompatible: true;
-  preferredStrategy: 'pseudoelements';
-};
+  preferredstrategy: "pseudoelements";
+}
 
 @custom-variant dark (&:is(.dark *));
 
