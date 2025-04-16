@@ -60,7 +60,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Mahmoud's Portfolio",
-  description: "Here you can find Mahmoud Hilani's experience, projects, and plans.",
+  description:
+    "Here you can find Mahmoud Hilani's experience, projects, and plans.",
 };
 
 export default function RootLayout({
@@ -73,15 +74,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Suspense fallback={<Loading></Loading>}>
-          <div>
-            {children}
-            <div className="flex justify-center items-center fixed bottom-4 inset-x-0">
-              <FloatingDock items={links} />
-            </div>
-            <Toaster />
+        <div>
+          <Suspense fallback={<Loading />}>{children}</Suspense>
+          <div className="flex justify-center items-center fixed bottom-4 inset-x-0">
+            <FloatingDock items={links} />
           </div>
-        </Suspense>
+          <Toaster />
+        </div>
       </body>
     </html>
   );
