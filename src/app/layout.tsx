@@ -81,8 +81,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`dark ${satoshi.className}`}>
-      <body>
-        <div>
+      <body className="scrollbar-none">
+        <div >
           <Suspense fallback={<Loading />}>{children}</Suspense>
           <div className="flex justify-center items-center fixed bottom-4 inset-x-0">
             <FloatingDock items={links} />

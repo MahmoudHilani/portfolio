@@ -7,31 +7,87 @@ import { IconArrowDown } from "@tabler/icons-react";
 
 export default function Home() {
   return (
-    <AuroraBackground>
-      <motion.div
-        initial={{ opacity: 0.0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{
-          delay: 0.3,
-          duration: 0.8,
-          ease: "easeInOut",
-        }}
-        className="relative flex flex-col gap-4 w-full h-full px-13"
-      >
-        <div className="flex text-3xl absolute -top-7 left-9 lg:text-[120px] xl:text-[176px] tracking-tighter gap-6">
-          <p className="dark:text-white ">Mahmoud</p>
-          <p className="text-white mix-blend-exclusion">Hilani</p>
-        </div>
+    <div className="w-full h-full">
+      <AuroraBackground className="w-full h-full px-13">
+        <div className="w-full h-full relative flex flex-col">
+          <div className=" flex text-3xl absolute -top-7 lg:text-[120px] xl:text-[176px] tracking-tighter gap-6">
+            <motion.p
+              initial={{ opacity: 0.0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.8,
+                ease: "easeInOut",
+              }}
+              className="dark:text-white"
+            >
+              Mahmoud
+            </motion.p>
+            <motion.p
+              initial={{ opacity: 0.0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.8,
+                ease: "easeInOut",
+              }}
+              className="text-white mix-blend-soft-light"
+            >
+              Hilani
+            </motion.p>
+          </div>
 
-        <div className="flex justify-end font-light text-xl md:text-4xl dark:text-neutral-200 mr-40 mt-52">
-          <p className="w-md">Setting the standard for good development. Here to learn, here to improve.</p>
+          <div className="flex justify-end font-light text-xl md:text-4xl dark:text-neutral-200 mr-40 mt-52">
+            <div className="w-md">
+              {"Setting the standard for good development. Here to learn, here to improve."
+                .split(" ")
+                .map((word, index) => (
+                  <motion.span
+                    key={index}
+                    initial={{ opacity: 0, filter: "blur(2px)", y: 10 }}
+                    animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+                    transition={{
+                      duration: 0.3,
+                      delay: index * 0.1 + 0.7,
+                      ease: "easeInOut",
+                    }}
+                    className="mr-2 inline-block"
+                  >
+                    {word}
+                  </motion.span>
+                ))}
+            </div>
+          </div>
+          <div className="flex items-center text-xl md:text-4xl dark:text-neutral-200 ml-40 mt-86 gap-2">
+            {"What I've been up to".split(" ").map((word, index) => (
+              <motion.span
+                key={index}
+                initial={{ opacity: 0, filter: "blur(2px)", y: 10 }}
+                animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+                transition={{
+                  duration: 0.3,
+                  delay: index * 0.1 + 2,
+                  ease: "easeInOut",
+                }}
+                className="mr-2 inline-block"
+              >
+                {word}
+              </motion.span>
+            ))}
+            <motion.div
+              initial={{ opacity: 0, filter: "blur(2px)", y: 10 }}
+              animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+              transition={{
+                delay: 2.6,
+                duration: 0.3,
+                ease: "easeInOut",
+              }}
+            >
+
+            <IconArrowDown size={36} className="animate-bounce" />
+            </motion.div>
+          </div>
         </div>
-        <div className="flex items-center text-xl md:text-4xl dark:text-neutral-200 ml-40 mt-86 gap-2">
-          <p className="">What I've been up to</p>
-            <IconArrowDown size={36} className="animate-bounce"/>
-        </div>
-      </motion.div>
-    </AuroraBackground>
-    
+        <div className="h-[800px]"></div>
+      </AuroraBackground>
+    </div>
   );
 }
