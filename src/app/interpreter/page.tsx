@@ -10,7 +10,7 @@ const Terminal = dynamic(
 
 export default function InterpreterPage() {
   return (
-    <div className="p-16">
+    <div className="h-screen p-16 bg-background">
       <div className="flex justify-center items-center gap-8">
         <div className={cn("w-[200px] lg:w-[735px]")}>
           <Terminal />

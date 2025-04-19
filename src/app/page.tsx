@@ -4,6 +4,8 @@ import { AuroraBackground } from "@/components/ui/aurora-background";
 import { motion } from "motion/react";
 import Image from "next/image";
 import { IconArrowDown } from "@tabler/icons-react";
+import { Card } from "@/components/ui/card";
+import { TerminalCard } from "@/components/terminal-card";
 
 export default function Home() {
   return (
@@ -67,7 +69,6 @@ export default function Home() {
                   delay: index * 0.1 + 2,
                   ease: "easeInOut",
                 }}
-                className="mr-2 inline-block"
               >
                 {word}
               </motion.span>
@@ -81,13 +82,14 @@ export default function Home() {
                 ease: "easeInOut",
               }}
             >
-
-            <IconArrowDown size={36} className="animate-bounce" />
+              <IconArrowDown size={36} className="animate-bounce" />
             </motion.div>
           </div>
         </div>
-        <div className="h-[800px]"></div>
       </AuroraBackground>
+      <div className="h-[800px] ">
+        <TerminalCard />
+      </div>
     </div>
   );
 }
