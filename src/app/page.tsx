@@ -10,7 +10,7 @@ import { TerminalCard } from "@/components/terminal-card";
 export default function Home() {
   return (
     <div className="w-full h-full">
-      <AuroraBackground className="w-full h-full px-13">
+      <AuroraBackground className="w-full h-screen px-13">
         <div className="w-full h-full relative flex flex-col">
           <div className=" flex text-3xl absolute -top-7 lg:text-[120px] xl:text-[176px] tracking-tighter gap-6">
             <motion.p
@@ -87,7 +87,8 @@ export default function Home() {
           </div>
         </div>
       </AuroraBackground>
-      <div className="h-[800px] ">
+      <div className="flex flex-col h-full w-full p-13 justify-center items-center">
+        <div className="text-6xl pb-16">Projects</div>
         <TerminalCard />
       </div>
     </div>

@@ -84,7 +84,7 @@ export default function RootLayout({
       <body className="scrollbar-none">
         <div >
           <Suspense fallback={<Loading />}>{children}</Suspense>
-          <div className="flex justify-center items-center fixed bottom-4 inset-x-0">
+          <div className="flex z-50 justify-center items-center fixed bottom-4 inset-x-0">
             <FloatingDock items={links} />
           </div>
           <Toaster />

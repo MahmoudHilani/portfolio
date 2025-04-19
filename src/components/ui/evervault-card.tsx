@@ -32,21 +32,22 @@ export const EvervaultCard = ({ className }: { className?: string }) => {
         className
       )}
     >
-        <div className="absolute w-full h-full bg-gradient-to-r from-black from-30% to-transparent to-40% z-10"></div>
+      <div className="absolute w-full h-full bg-gradient-to-r from-black from-28% to-transparent to-45% z-10"></div>
       <div
         onMouseMove={onMouseMove}
         className="group/card w-full relative overflow-hidden flex items-center justify-center h-full"
       >
-        <div className="h-full flex flex-col z-50">
-          <h2 className="dark:text-white text-black mt-4 text-sm font-light">
-            Hover over this card to reveal an awesome effect. Running out of
-            copy here.
-          </h2>
+        <div className="h-full flex flex-col z-20 p-4 gap-4 max-w-sm">
+          <div className="text-3xl font-bold">Go Interpreter</div>
+          <div className="dark:text-white text-black text-xl">
+            An interpreted language that uses Go as its foundation built from
+            scratch. Works in the browser!
+          </div>
           <p className="text-sm w-fit border font-light dark:border-white/[0.2] border-black/[0.2] rounded-full mt-4 text-black dark:text-white px-2 py-0.5">
             Watch me hover
           </p>
         </div>
-        
+
         <CardPattern
           mouseX={mouseX}
           mouseY={mouseY}
