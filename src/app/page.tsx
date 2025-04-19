@@ -6,6 +6,7 @@ import Image from "next/image";
 import { IconArrowDown } from "@tabler/icons-react";
 import { Card } from "@/components/ui/card";
 import { TerminalCard } from "@/components/terminal-card";
+import { EvervaultCard } from "@/components/ui/evervault-card";
 
 export default function Home() {
   return (
@@ -17,7 +18,7 @@ export default function Home() {
               initial={{ opacity: 0.0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
-                duration: 0.8,
+                duration: 0.5,
                 ease: "easeInOut",
               }}
               className="dark:text-white"
@@ -28,7 +29,7 @@ export default function Home() {
               initial={{ opacity: 0.0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
-                duration: 0.8,
+                duration: 0.5,
                 ease: "easeInOut",
               }}
               className="text-white mix-blend-soft-light"
@@ -47,8 +48,8 @@ export default function Home() {
                     initial={{ opacity: 0, filter: "blur(2px)", y: 10 }}
                     animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
                     transition={{
-                      duration: 0.3,
-                      delay: index * 0.1 + 0.7,
+                      duration: 0.2,
+                      delay: index * 0.1 + 0.4,
                       ease: "easeInOut",
                     }}
                     className="mr-2 inline-block"
@@ -65,8 +66,8 @@ export default function Home() {
                 initial={{ opacity: 0, filter: "blur(2px)", y: 10 }}
                 animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
                 transition={{
-                  duration: 0.3,
-                  delay: index * 0.1 + 2,
+                  duration: 0.2,
+                  delay: index * 0.1 + 1.3,
                   ease: "easeInOut",
                 }}
               >
@@ -77,8 +78,8 @@ export default function Home() {
               initial={{ opacity: 0, filter: "blur(2px)", y: 10 }}
               animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
               transition={{
-                delay: 2.6,
-                duration: 0.3,
+                delay: 2,
+                duration: 0.2,
                 ease: "easeInOut",
               }}
             >
@@ -89,7 +90,7 @@ export default function Home() {
       </AuroraBackground>
       <div className="flex flex-col h-full w-full p-13 justify-center items-center">
         <div className="text-6xl pb-16">Projects</div>
-        <TerminalCard />
+        <TerminalCard href="/interpreter" card={<EvervaultCard />} />
       </div>
     </div>
   );

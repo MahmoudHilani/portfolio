@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useMotionTemplate, motion } from "motion/react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import { ArrowRightIcon } from "lucide-react";
 
 export const EvervaultCard = ({ className }: { className?: string }) => {
   let mouseX = useMotionValue(0);
@@ -39,11 +40,11 @@ export const EvervaultCard = ({ className }: { className?: string }) => {
       >
         <div className="h-full flex flex-col z-20 p-4 gap-4 max-w-sm">
           <div className="text-3xl font-bold">Go Interpreter</div>
-          <div className="dark:text-white text-black text-xl">
+          <div className=" text-xl">
             An interpreted language that uses Go as its foundation built from
             scratch. Works in the browser!
           </div>
-          <p className="text-sm w-fit border font-light dark:border-white/[0.2] border-black/[0.2] rounded-full mt-4 text-black dark:text-white px-2 py-0.5">
+          <p className="text-sm w-fit border font-light dark:border-white/[0.2] border-black/[0.2] rounded-full mt-4 px-2 py-0.5">
             Watch me hover
           </p>
         </div>
@@ -99,20 +100,4 @@ export const generateRandomString = (length: number) => {
     result += characters.charAt(Math.floor(Math.random() * characters.length));
   }
   return result;
-};
-
-export const Icon = ({ className, ...rest }: any) => {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      strokeWidth="1.5"
-      stroke="currentColor"
-      className={className}
-      {...rest}
-    >
-      <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m6-6H6" />
-    </svg>
-  );
 };
