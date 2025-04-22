@@ -6,6 +6,8 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { ArrowRightIcon } from "lucide-react";
 
+const terminalTags = ["Go", "Go Testing", "Web Socket", "API"];
+
 export const EvervaultCard = ({ className }: { className?: string }) => {
   let mouseX = useMotionValue(0);
   let mouseY = useMotionValue(0);
@@ -44,9 +46,13 @@ export const EvervaultCard = ({ className }: { className?: string }) => {
             An interpreted language that uses Go as its foundation built from
             scratch. Works in the browser!
           </div>
-          <p className="text-sm w-fit border font-light dark:border-white/[0.2] border-black/[0.2] rounded-full mt-4 px-2 py-0.5">
-            Watch me hover
-          </p>
+          <div className="flex gap-2 flex-wrap max-w-sm">
+            {terminalTags.map((tag) => (
+              <p key={tag} className="text-sm w-fit border font-light bg-black dark:border-white/[0.2] border-black/[0.2] rounded-full px-2 py-0.5">
+                {tag}
+              </p>
+            ))}
+          </div>
         </div>
 
         <CardPattern

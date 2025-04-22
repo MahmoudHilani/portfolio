@@ -4,7 +4,7 @@ import { motion } from "motion/react";
 import Link from "next/link";
 import { PlusIcon } from "lucide-react";
 
-export function TerminalCard({ href, card }: { href: string; card: React.JSX.Element }) {
+export function PlusCard({ href, card }: { href: string; card: React.JSX.Element }) {
   return (
     <Link href={href}>
       <motion.div

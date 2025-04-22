@@ -5,7 +5,7 @@ import { motion } from "motion/react";
 import Image from "next/image";
 import { IconArrowDown } from "@tabler/icons-react";
 import { Card } from "@/components/ui/card";
-import { TerminalCard } from "@/components/terminal-card";
+import { PlusCard } from "@/components/terminal-card";
 import { EvervaultCard } from "@/components/ui/evervault-card";
 
 export default function Home() {
@@ -90,7 +90,7 @@ export default function Home() {
       </AuroraBackground>
       <div className="flex flex-col h-full w-full p-13 justify-center items-center">
         <div className="text-6xl pb-16">Projects</div>
-        <TerminalCard href="/interpreter" card={<EvervaultCard />} />
+        <PlusCard href="/interpreter" card={<EvervaultCard />} />
       </div>
     </div>
   );
