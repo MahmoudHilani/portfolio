@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { ArrowRightIcon } from "lucide-react";
 
-const terminalTags = ["Go", "Go Testing", "Web Socket", "API"];
+const terminalTags = ["Go", "Go Testing", "Web Sockets", "API"];
 
 export const EvervaultCard = ({ className }: { className?: string }) => {
   let mouseX = useMotionValue(0);

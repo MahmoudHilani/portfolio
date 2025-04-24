@@ -2,7 +2,7 @@ import React from "react"
 import { cn } from "@/lib/utils"
 import Image from "next/image";
 
-const tags = ["Go", "Go Testing", "Web Socket", "API"];
+const tags = ["C#", "Unity", "Design", "API"];
 
 export const SurferCard = ({className} : {className?: string}) => {
     return (
@@ -12,15 +12,14 @@ export const SurferCard = ({className} : {className?: string}) => {
                 className
               )}
             >
-              <div className="absolute w-full h-full bg-gradient-to-r from-black from-40% to-transparent to-55% z-10"></div>
+              <div className="absolute w-full h-full bg-gradient-to-r from-black from-40% to-transparent to-45% z-10"></div>
               <div
                 className="group/card w-full relative overflow-hidden flex items-center justify-center h-full"
               >
-                <div className="h-full flex flex-col z-20 p-4 gap-4 max-w-sm">
-                  <div className="text-3xl font-bold">Go Interpreter</div>
+                <div className="h-full flex flex-col z-20 p-4 gap-4 w-sm">
+                  <div className="text-3xl font-bold">Extreme Cube Surfer</div>
                   <div className=" text-xl">
-                    An interpreted language that uses Go as its foundation built from
-                    scratch. Works in the browser!
+                    A casual mobile game built in Unity with integrated ads.
                   </div>
                   <div className="flex gap-2 flex-wrap max-w-sm">
                     {tags.map((tag) => (
@@ -30,13 +29,13 @@ export const SurferCard = ({className} : {className?: string}) => {
                     ))}
                   </div>
                 </div>
-                <div className="relative  flex items-center justify-center h-full">
+                <div className="relative flex items-center object-right h-full">
                   
                   <Image
                     src="/Game9.png"
                     alt="Showcase of the terminal window"
                     height={703}
-                    width={1523}
+                    width={623}
                     className="object-cover h-full"
                   />
                 </div>
