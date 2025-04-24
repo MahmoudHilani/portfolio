@@ -5,8 +5,9 @@ import { motion } from "motion/react";
 import Image from "next/image";
 import { IconArrowDown } from "@tabler/icons-react";
 import { Card } from "@/components/ui/card";
-import { PlusCard } from "@/components/terminal-card";
+import { PlusCard } from "@/components/plus-card";
 import { EvervaultCard } from "@/components/ui/evervault-card";
+import { SurferCard } from "@/components/surfer-card";
 
 export default function Home() {
   return (
@@ -90,7 +91,10 @@ export default function Home() {
       </AuroraBackground>
       <div className="flex flex-col h-full w-full p-13 justify-center items-center">
         <div className="text-6xl pb-16">Projects</div>
-        <PlusCard href="/interpreter" card={<EvervaultCard />} />
+        <div className="flex flex-col gap-8">
+          <PlusCard href="/interpreter" card={<EvervaultCard />} />
+          <PlusCard href="/cube-surfer" card={<SurferCard />} />
+        </div>
       </div>
     </div>
   );

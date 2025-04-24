@@ -3,6 +3,7 @@ import { EvervaultCard } from "./ui/evervault-card";
 import { motion } from "motion/react";
 import Link from "next/link";
 import { PlusIcon } from "lucide-react";
+import { SurferCard } from "./surfer-card";
 
 export function PlusCard({ href, card }: { href: string; card: React.JSX.Element }) {
   return (
@@ -13,8 +14,8 @@ export function PlusCard({ href, card }: { href: string; card: React.JSX.Element
       >
         <PlusIcon className="absolute z-20 h-6 w-6 -top-3 -left-3 " />
         <PlusIcon className="absolute z-20 h-6 w-6 -bottom-3 -left-3" />
-        <PlusIcon className="absolute h-6 w-6 -top-3 -right-3" />
-        <PlusIcon className="absolute h-6 w-6 -bottom-3 -right-3" />
+        <PlusIcon className="absolute z-20 h-6 w-6 -top-3 -right-3" />
+        <PlusIcon className="absolute z-20 h-6 w-6 -bottom-3 -right-3" />
 
         {card}
       </motion.div>
