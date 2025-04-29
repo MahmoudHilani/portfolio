@@ -2,7 +2,7 @@
 import { ParallaxScroll } from "./ui/parallax-scroll";
 
 export function SurferParallax() {
-  return <ParallaxScroll images={images} />;
+  return <ParallaxScroll images={images} className="h-screen" />;
 }
 
 const images = [

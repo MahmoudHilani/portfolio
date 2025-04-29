@@ -1,5 +1,5 @@
 "use client";
-import { useScroll, useTransform, useSpring } from "motion/react";
+import { useScroll, useTransform, useSpring, useInView } from "motion/react";
 import { useRef } from "react";
 import { motion } from "motion/react";
 
@@ -14,14 +14,13 @@ export const ParallaxScroll = ({
 }) => {
   const gridRef = useRef<any>(null);
   const { scrollYProgress } = useScroll({
-    container: gridRef, // remove this if your container is not fixed height
-    offset: ["start start", "end start"], // remove this if your container is not fixed height
-
+    
   });
-
-  const translateFirst = useTransform(scrollYProgress, [0, 1], [0, -200]);
-  const translateSecond = useTransform(scrollYProgress, [0, 1], [0, 200]);
-  const translateThird = useTransform(scrollYProgress, [0, 1], [0, -200]);
+  const isInView = useInView(gridRef, {margin: "100px"})
+  const offset = 0.42
+  const translateFirst = useTransform(scrollYProgress, [offset, 1], [0, -200]);
+  const translateSecond = useTransform(scrollYProgress, [offset, 1], [0, 200]);
+  const translateThird = useTransform(scrollYProgress, [offset, 1], [0, -200]);
 
   const third = Math.ceil(images.length / 3);
 
@@ -32,7 +31,7 @@ export const ParallaxScroll = ({
 
   return (
     <div
-      className={cn("h-[40rem] items-start overflow-y-auto w-full scrollbar", className)}
+      className={cn("items-start w-full scrollbar", className)}
       ref={gridRef}
     >
       <div
