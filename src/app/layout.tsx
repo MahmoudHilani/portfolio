@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Roboto } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import { FloatingDock } from "@/components/ui/floating-dock";
@@ -59,6 +59,11 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const roboto = Roboto({
+  variable: "--font-roboto",
+  subsets: ["latin"],
+});
+
 export const metadata: Metadata = {
   title: "Mahmoud's Portfolio",
   description:
@@ -80,9 +85,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`dark ${satoshi.className}`}>
+    <html lang="en" className={`dark ${roboto.variable} ${geistMono.variable} ${satoshi.className}`}>
       <body className="scrollbar-none">
-        <div >
+        <div>
           <Suspense fallback={<Loading />}>{children}</Suspense>
           <div className="flex z-50 justify-center items-center fixed bottom-4 inset-x-0">
             <FloatingDock items={links} />

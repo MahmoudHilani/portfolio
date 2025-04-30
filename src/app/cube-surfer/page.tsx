@@ -19,10 +19,12 @@ const images = [
 
 export default function SurferPage() {
   return (
-    <div className="w-full h-full px-48">
-      <div className="flex flex-col justify-center items-center text-6xl my-8 text-gray-500 ">
-        <div className="font-extrabold ">CUBE SURFER</div>
-        <div className="font-light text-8xl">EXTREME</div>
+    <div className="w-full  px-48 bg-zinc-500 ">
+      <div className="flex flex-col justify-center items-center text-6xl mt-8 mb-24 text-gray-500 relative font-roboto">
+        <div className="font-extrabold">CUBE SURFER</div>
+        <div className="font-extralight text-[88px] absolute top-11">
+          EXTREME
+        </div>
       </div>
       <div className="grid grid-cols-2 my-12 ">
         <div className="pr-8 text-2xl">
@@ -48,14 +50,17 @@ export default function SurferPage() {
       <ParallaxScroll images={images} className="h-full w-full" />
       <div className=" py-28 text-2xl">
         The game was built using Unity. With free ready assets ready for use
-        (Thank you open-source). The logic for the game was made using C#. You
-        can look into the code in details on my{" "}
+        (Thank you open-source). The logic for the game was made using C#, with
+        ad intergration on the HUAWEI App Gallery. <br /> For sound design, I
+        just used a bunch of copyrighted sound effects and songs and I hope I
+        won't get sued. Thank you for reading. You can look into the code in
+        details on my{" "}
         <Link
           href={"https://github.com/MahmoudHilani/minimalistic-cube-surfer"}
           className="inline-flex items-center  text-blue-500 transition-all ease-in-out duration-150 hover:underline hover:text-blue-700 "
         >
           Github
-          <IconBrandGithub className="ml-1 " width={18} />
+          <IconBrandGithub className="ml-1 " width={18} />.
         </Link>
       </div>
       <div className="mb-32 text-lg">
