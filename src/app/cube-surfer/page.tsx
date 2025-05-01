@@ -19,10 +19,10 @@ const images = [
 
 export default function SurferPage() {
   return (
-    <div className="w-full  px-48 bg-zinc-500 ">
-      <div className="flex flex-col justify-center items-center text-6xl mt-8 mb-24 text-gray-500 relative font-roboto">
+    <div className="w-full  px-48 bg-zinc-900 ">
+      <div className="flex flex-col justify-center items-center text-6xl pt-8 mb-24 text-gray-500 relative font-roboto">
         <div className="font-extrabold">CUBE SURFER</div>
-        <div className="font-extralight text-[88px] absolute top-11">
+        <div className="font-extralight text-[88px] absolute top-19">
           EXTREME
         </div>
       </div>
@@ -36,11 +36,13 @@ export default function SurferPage() {
           <br />
           <br /> I made it so you can go outside of the platform which allows
           for more creative gameplay. I also added different verticality to the
-          game, allowing for multiple routes to complete the same level.{" "}
+          game, allowing for multiple routes to complete the same level. <br />
+          Finally, for the curious, some easter eggs were added, such as a new
+          character skin.
         </div>
         <div className="w-lg relative aspect-square">
           <CubeSurfer />
-          <div className="flex absolute bottom-1 left-2 items-center gap-2">
+          <div className="flex absolute bottom-6 left-2 items-center gap-2">
             <InfoIcon width={18} />
             The initial model for the character!
           </div>
@@ -63,7 +65,7 @@ export default function SurferPage() {
           <IconBrandGithub className="ml-1 " width={18} />.
         </Link>
       </div>
-      <div className="mb-32 text-lg">
+      <div className="pb-32 text-lg">
         P. S. This game was made in a big hurry and has many mistakes. I
         consider a terrible piece of work.
       </div>
