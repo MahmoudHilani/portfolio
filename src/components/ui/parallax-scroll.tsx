@@ -35,10 +35,10 @@ export const ParallaxScroll = ({
         ref={gridRef}
       >
         <div
-          className="flex h-full w-full overflow-x-scroll md:grid md:grid-cols-2 lg:grid-cols-3 items-start md:max-w-2xl lg:max-w-5xl mx-auto md:gap-6 lg:gap-10 pt-10  lg:pb-40 xl:px-10"
-          ref={gridRef}
+          className="flex h-full w-full md:grid md:grid-cols-2 lg:grid-cols-3 items-start md:max-w-2xl lg:max-w-5xl mx-auto md:gap-6 lg:gap-10 pt-10  lg:pb-40 xl:px-10"
+          
         >
-          <div className="flex h-full w-full overflow-x-scroll md:grid md:gap-6 lg:gap-10">
+          <div className="flex h-full w-full md:grid md:gap-6 lg:gap-10">
             {firstPart.map((el, idx) => (
               <motion.div style={{ y: translateFirst }} key={"grid-1" + idx}>
                 <img
@@ -51,7 +51,7 @@ export const ParallaxScroll = ({
               </motion.div>
             ))}
           </div>
-          <div className="flex h-full w-full overflow-x-scroll md:grid md:gap-6 lg:gap-10">
+          <div className="flex h-full w-full md:grid md:gap-6 lg:gap-10">
             {secondPart.map((el, idx) => (
               <motion.div style={{ y: translateSecond }} key={"grid-2" + idx}>
                 <img
@@ -64,7 +64,7 @@ export const ParallaxScroll = ({
               </motion.div>
             ))}
           </div>
-          <div className="flex h-full w-full overflow-x-scroll md:grid md:gap-6 lg:gap-10">
+          <div className="flex h-full w-full md:grid md:gap-6 lg:gap-10">
             {thirdPart.map((el, idx) => (
               <motion.div style={{ y: translateThird }} key={"grid-3" + idx}>
                 <img
@@ -80,9 +80,9 @@ export const ParallaxScroll = ({
         </div>
       </div>
 
-      <div className="flex overflow-x-scroll snap-x px-12 scrollbar md:hidden">
-        {images.map((image, idx) => (
-          <img key={image} src={image} height={850} width={484} alt="thumbnail" className="rounded-xl mx-4 max-w-xs shadow-lg snap-center"></img>
+      <div className="flex overflow-x-scroll snap-x px-12 pb-16 scrollbar md:hidden">
+        {images.map((image) => (
+          <img key={image} src={image} height={850} width={484} alt="thumbnail" className=" rounded-xl mx-2 sm:mx-4 max-w-3xs sm:max-w-xs shadow-lg snap-center"></img>
         ))}
       </div>
     </div>
