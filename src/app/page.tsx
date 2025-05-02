@@ -8,6 +8,7 @@ import { Card } from "@/components/ui/card";
 import { PlusCard } from "@/components/plus-card";
 import { EvervaultCard } from "@/components/ui/evervault-card";
 import { SurferCard } from "@/components/surfer-card";
+import { FitnessCard } from "@/components/ui/fitness-card";
 
 export default function Home() {
   return (
@@ -94,6 +95,7 @@ export default function Home() {
         <div className="flex flex-col gap-8">
           <PlusCard href="/interpreter" card={<EvervaultCard />} />
           <PlusCard href="/cube-surfer" card={<SurferCard />} />
+          <PlusCard href="/fitness" card={<FitnessCard />} />
         </div>
       </div>
     </div>
