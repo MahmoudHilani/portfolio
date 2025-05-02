@@ -19,15 +19,15 @@ const images = [
 
 export default function SurferPage() {
   return (
-    <div className="w-full  px-48 bg-zinc-900 ">
-      <div className="flex flex-col justify-center items-center text-6xl pt-8 mb-24 text-gray-500 relative font-roboto">
+    <div className="md:px-12 xl:px-48 bg-zinc-900 ">
+      <div className="flex flex-col justify-center items-center text-5xl lg:text-6xl pt-8 mb-24 text-gray-500 relative font-roboto">
         <div className="font-extrabold">CUBE SURFER</div>
-        <div className="font-extralight text-[88px] absolute top-19">
+        <div className="font-extralight text-7xl lg:text-[88px] absolute top-17 lg:top-19">
           EXTREME
         </div>
       </div>
-      <div className="grid grid-cols-2 my-12 ">
-        <div className="pr-8 text-2xl">
+      <div className="grid grid-cols-1 lg:grid-cols-2 my-12 px-12">
+        <div className="lg:pr-8 text-xl md:text-2xl">
           This Unity game was made for a university project where we met some of
           Huawei's dev team where they taught us the basics of game development.{" "}
           <br />
@@ -36,21 +36,21 @@ export default function SurferPage() {
           <br />
           <br /> I made it so you can go outside of the platform which allows
           for more creative gameplay. I also added different verticality to the
-          game, allowing for multiple routes to complete the same level. <br />
+          game, allowing for multiple routes to complete the same level. <br /> <br />
           Finally, for the curious, some easter eggs were added, such as a new
           character skin.
         </div>
-        <div className="w-lg relative aspect-square">
+        <div className="relative aspect-square lg:aspect-auto xl:aspect-square">
           <CubeSurfer />
-          <div className="flex absolute bottom-6 left-2 items-center gap-2">
-            <InfoIcon width={18} />
+          <div className="flex absolute bottom-0 text-xs md:text-base md:bottom-7 md:left-2 lg:bottom-0 lg:right-8 xl:bottom-7 xl:left-2 items-center gap-2">
+            <InfoIcon  className="w-4 md:w-6" />
             The initial model for the character!
           </div>
         </div>
       </div>
 
-      <ParallaxScroll images={images} className="h-full w-full" />
-      <div className=" py-28 text-2xl">
+      <ParallaxScroll images={images} className="h-full w-full max-w-screen" />
+      <div className="px-12 py-28 text-2xl">
         The game was built using Unity. With free ready assets ready for use
         (Thank you open-source). The logic for the game was made using C#, with
         ad intergration on the HUAWEI App Gallery. <br /> For sound design, I
@@ -65,7 +65,7 @@ export default function SurferPage() {
           <IconBrandGithub className="ml-1 " width={18} />.
         </Link>
       </div>
-      <div className="pb-32 text-lg">
+      <div className="px-12 pb-32 text-lg">
         P. S. This game was made in a big hurry and has many mistakes. I
         consider a terrible piece of work.
       </div>
