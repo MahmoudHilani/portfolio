@@ -73,7 +73,7 @@ const content = [
             </li>
             <div className="flex gap-1 items-center">
               <li className="font-semibold items-center">Functions:</li>
-              <p className="font-normal">First-class functions</p>
+              <p className="font-normal text-sm md:text-base">First-class functions</p>
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger>
@@ -274,8 +274,8 @@ const content = [
 const GuideCard = () => {
   return (
     <div className="flex flex-col backdrop-opacity-100">
-      <Tabs defaultValue="syntax" className="w-xl">
-        <TabsList className="w-xl flex ">
+      <Tabs defaultValue="syntax" className="w-xs sm:w-md md:w-xl">
+        <TabsList className="w-xs sm:w-md md:w-xl flex ">
           <TabsTrigger value="syntax">Syntax</TabsTrigger>
           <TabsTrigger value="functions">Built-in Functions</TabsTrigger>
           <TabsTrigger value="examples">Examples</TabsTrigger>
@@ -284,7 +284,7 @@ const GuideCard = () => {
         {content.map((card) => (
           <TabsContent value={card.value} key={card.value}>
             <div className="w-full overflow-hidden bg-card text-white rounded-lg">
-              <div className="flex h-[32rem] flex-col overflow-auto p-8 gap-3 scrollbar-thin hover:scrollbar-thumb-zinc-500">
+              <div className="flex md:h-[32rem] flex-col overflow-auto p-4 sm:p-8 gap-3 scrollbar-thin hover:scrollbar-thumb-zinc-500">
                 <div>
                   <div className="font-bold">{card.title}</div>
                   <div>{card.description}</div>
@@ -292,14 +292,14 @@ const GuideCard = () => {
                 <div className="flex flex-col gap-4">
                   {card.boxes.map((box) => (
                     <div
-                      className="flex flex-col rounded-lg px-3 gap-1 text-white"
+                      className="flex flex-col rounded-lg md:px-3 gap-1 text-white"
                       key={box.boxTitle}
                     >
                       <div className="font-bold">{box.boxTitle}</div>
                       {box.boxDescription && <div>{box.boxDescription}</div>}
                       {box.boxCode && (
                         <pre className="bg-zinc-800 text-green-400 rounded-md overflow-hidden">
-                          <div className="p-3 overflow-auto scrollbar scrollbar-thumb-zinc-500">{box.boxCode}</div>
+                          <div className="p-2 sm:p-3 overflow-auto scrollbar scrollbar-thumb-zinc-500">{box.boxCode}</div>
                         </pre>
                       )}
                     </div>

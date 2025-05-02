@@ -10,12 +10,12 @@ const Terminal = dynamic(
 
 export default function InterpreterPage() {
   return (
-    <div className="h-screen p-16 bg-background">
-      <div className="flex justify-center items-center gap-8">
-        <div className={cn("w-[200px] lg:w-[735px]")}>
+    <div className="h-screen md:p-16 bg-background">
+      <div className="flex flex-col xl:flex-row justify-center items-center xl:gap-8">
+        <div className={cn("w-full md:block md:w-[600px] lg:w-[735px]")}>
           <Terminal />
         </div>
-        <div className="flex w-xl justify-center">
+        <div className="flex md:w-xl justify-center pt-12 pb-16 md:pb-32 xl:pb-0">
           <GuideCard />
         </div>
       </div>
