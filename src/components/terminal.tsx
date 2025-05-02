@@ -57,6 +57,7 @@ export function APITerminal() {
 
     const socket = new WebSocket("ws://localhost:8080/socket");
 
+    term.write("Connecting... \r\n$ ");
     socket.onopen = () => {
       console.log("Socket opened");
       term.write("Server connected. \r\n$ ");
@@ -64,7 +65,7 @@ export function APITerminal() {
 
     socket.onclose = (event) => {
       console.log("socket closed. ", event);
-      term.write("Server closed. \r\n$ ");
+      term.write("Server closed. Please try again later. \r\n$ ");
     };
 
     socket.onerror = (event) => {
