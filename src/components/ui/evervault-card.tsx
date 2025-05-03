@@ -40,11 +40,13 @@ export const EvervaultCard = ({ className }: { className?: string }) => {
         onMouseMove={onMouseMove}
         className="group/card w-full relative overflow-hidden flex items-center justify-center h-full"
       >
-        <div className="h-full flex flex-col z-20 p-4 gap-4 max-w-sm">
+        <div className="h-full flex flex-col z-20 p-4 gap-4 max-w-sm justify-between">
+          <div className="flex flex-col gap-4">
           <div className="text-3xl font-bold">Go Interpreter</div>
           <div className=" text-xl">
             An interpreted language that uses Go as its foundation built from
             scratch. Works in the browser!
+          </div>
           </div>
           <div className="flex gap-2 flex-wrap max-w-sm">
             {terminalTags.map((tag) => (
