@@ -8,9 +8,12 @@ import { cn } from "@/lib/utils";
 export const ParallaxScroll = ({
   images,
   className,
+  imageClassName
+  //TODO: add height and width properties
 }: {
   images: string[];
   className?: string;
+  imageClassName?: string;
 }) => {
   const gridRef = useRef<any>(null);
   const { scrollYProgress } = useScroll({
@@ -43,7 +46,7 @@ export const ParallaxScroll = ({
               <motion.div style={{ y: translateFirst }} key={"grid-1" + idx}>
                 <img
                   src={el}
-                  className="h-full w-full object-cover object-left-top rounded-lg gap-6 lg:gap-10 !m-0 !p-0"
+                  className={cn("h-full w-full object-cover object-left-top rounded-lg gap-6 lg:gap-10 !m-0 !p-0", imageClassName)}
                   height="850"
                   width="484"
                   alt="thumbnail"
@@ -56,7 +59,7 @@ export const ParallaxScroll = ({
               <motion.div style={{ y: translateSecond }} key={"grid-2" + idx}>
                 <img
                   src={el}
-                  className="h-full w-full object-cover object-left-top rounded-lg gap-6 lg:gap-10 !m-0 !p-0"
+                  className={cn("h-full w-full object-cover object-left-top rounded-lg gap-6 lg:gap-10 !m-0 !p-0", imageClassName)}
                   height="850"
                   width="484"
                   alt="thumbnail"
@@ -69,7 +72,7 @@ export const ParallaxScroll = ({
               <motion.div style={{ y: translateThird }} key={"grid-3" + idx}>
                 <img
                   src={el}
-                  className="h-full w-full object-cover object-left-top rounded-lg gap-6 lg:gap-10 !m-0 !p-0"
+                  className={cn("h-full w-full object-cover object-left-top rounded-lg gap-6 lg:gap-10 !m-0 !p-0", imageClassName)}
                   height="850"
                   width="484"
                   alt="thumbnail"
