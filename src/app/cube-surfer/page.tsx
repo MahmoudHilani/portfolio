@@ -11,6 +11,7 @@ const images = [
   "/Game2.png",
   "/Game3.png",
   "/Game4.png",
+  "/Game9.png",
   "/Game5.png",
   "/Game6.png",
   "/Game7.png",
@@ -27,7 +28,7 @@ export default function SurferPage() {
         </div>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 my-12 px-12">
-        <div className="lg:pr-8 text-lg sm:text-xl md:text-2xl">
+        <div className="lg:pr-8  sm:text-xl md:text-2xl">
           This Unity game was made for a university project where we met some of
           Huawei's dev team where they taught us the basics of game development.{" "}
           <br />
@@ -49,8 +50,8 @@ export default function SurferPage() {
         </div>
       </div>
 
-      <ParallaxScroll images={images} className="h-full w-full max-w-screen" />
-      <div className="px-12 pb-10 sm:pb-28 lg:pt-28 text-lg sm:text-2xl">
+      <ParallaxScroll images={images} className="px-12"/>
+      <div className="px-12 pb-10 sm:pb-28 lg:pt-28 sm:text-2xl">
         The game was built using Unity. With free ready assets ready for use
         (Thank you open-source). The logic for the game was made using C#, with
         ad intergration on the HUAWEI App Gallery. <br /> For sound design, I
@@ -65,9 +66,9 @@ export default function SurferPage() {
           <IconBrandGithub className="ml-1 " width={18} />.
         </Link>
       </div>
-      <div className="px-12 pb-32 sm:text-lg">
+      <div className="px-12 pb-32 text-xs sm:text-lg">
         P. S. This game was made in a big hurry and has many mistakes. I
-        consider a terrible piece of work.
+        consider this a terrible piece of work.
       </div>
     </div>
   );

@@ -29,7 +29,8 @@ export default function FitnessApp() {
         rings.
       </div>
 
-      <ParallaxScroll images={images} imageClassName="scale-110 "/>
+      <ParallaxScroll images={images} width={500} height={400} imageClassName="md:hidden lg:flex scale-110 "/>
+
     </div>
   );
 }
