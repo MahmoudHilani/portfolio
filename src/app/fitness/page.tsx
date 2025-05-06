@@ -25,9 +25,11 @@ export default function FitnessApp() {
     // "/fitness/16.png",
   ];
   return (
-    <div className="w-full h-full bg-zinc-900 ">
-      <div className="flex w-full md:text-5xl lg:text-6xl justify-center p-8">Fitness App</div>
-      <div className="text-2xl md:px-28 xl:px-48">
+    <div className="w-full h-full bg-zinc-900 text-lg md:text-2xl">
+      <div className="flex w-full text-4xl md:text-5xl lg:text-6xl justify-center p-8">
+        Fitness App
+      </div>
+      <div className="px-6 sm:px-12 md:px-28 xl:px-48">
         An app built using React Native and deployed on Expo for testing. The
         app allows users to quickly and easily track their nutrition and
         exercise. The rings may or may not have been inspired by Apple's fitness
@@ -38,25 +40,42 @@ export default function FitnessApp() {
           href={"https://github.com/XII-A"}
           className="inline-flex items-center text-blue-500 transition-all ease-in-out duration-150 hover:underline hover:text-blue-700 "
         >
-          <IconBrandGithub />
-          Abdulrazak.
+          Abdulrazak
+          <IconBrandGithub width={24} className="m-1" />.
         </Link>
         The focus of this project was practicality, allowing users to be able to
         easily and quickly log their fitness and nutrition to easily keep track
         of their needs for steady progress.
       </div>
 
-      <ParallaxScroll images={images} className="hidden py-10 lg:flex md:px-28 xl:px-48" />
+      <ParallaxScroll
+        images={images}
+        className="hidden md:py-10 lg:flex md:px-28 xl:px-48"
+      />
       <ParallaxScrollTwo
         images={images}
         className="hidden md:flex lg:hidden pt-10 pb-52 px-28"
       />
-      <div className="text-2xl xl:py-10 md:px-28 xl:px-48">
+      <div className="px-6 sm:px-12 xl:py-10 md:px-28 xl:px-48">
+        The app contains cool development things such as authentication, APIs,
+        and a database. <br />
+        <br />
         We also made a landing page as a form of marketing for the app. Although
         the design was a free template from figma. It was fully developed in
         Next.js with custom components and responsive design.
       </div>
-      <img src="/fitness/dribbble.png" width={640} height={480} className="flex w-full justify-center pt-10 pb-24" />
+      <img
+        src="/fitness/dribbble.png"
+        width={640}
+        height={480}
+        className="hidden lg:flex w-full justify-center pt-10 pb-24"
+      />
+      <img
+        src="/fitness/Mobile App.png"
+        width={300}
+        height={1000}
+        className="flex px-6 sm:px-12 lg:hidden w-full justify-center pt-10 pb-16 shadow-2xl"
+      />
     </div>
   );
 }

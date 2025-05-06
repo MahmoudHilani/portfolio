@@ -90,7 +90,7 @@ export const ParallaxScroll = ({
         </div>
       </div>
 
-      <div className="flex overflow-x-scroll snap-x px-12 pb-16 scrollbar md:hidden">
+      <div className="flex overflow-x-scroll snap-x px-12 py-10 scrollbar md:hidden">
         {images.map((el) => (
           <img
             key={el}
