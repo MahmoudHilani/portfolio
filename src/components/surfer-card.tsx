@@ -12,10 +12,10 @@ export const SurferCard = ({ className }: { className?: string }) => {
         className
       )}
     >
-      <div className="group/card w-full relative overflow-hidden flex items-center justify-center h-full flex-col-reverse">
-        <div className="flex flex-col">
-          <div className="absolute w-full h-full bg-gradient-to-r from-black from-40% to-transparent to-45% z-10"></div>
-          <div className="h-full flex flex-col z-20 p-4 gap-4 w-sm justify-between">
+      <div className="group/card w-full relative overflow-hidden flex items-center justify-center h-full flex-col-reverse lg:flex-row">
+        <div className="flex flex-col h-full">
+          <div className="hidden lg:flex absolute w-full h-full bg-gradient-to-r from-black from-45% to-transparent to-50% z-10"></div>
+          <div className="h-full w-full flex flex-col z-20 p-4 gap-4 justify-between">
             <div className="flex flex-col gap-4">
               <div className="flex justify-center lg:justify-normal text-3xl font-bold">
                 Extreme Cube Surfer
@@ -24,7 +24,7 @@ export const SurferCard = ({ className }: { className?: string }) => {
                 A casual mobile game built in Unity with integrated ads.
               </div>
             </div>
-            <div className="flex justify-center lg:justify-normal gap-2 flex-wrap max-w-sm">
+            <div className="flex justify-center lg:justify-normal gap-2 flex-wrap ">
               {tags.map((tag) => (
                 <p
                   key={tag}
