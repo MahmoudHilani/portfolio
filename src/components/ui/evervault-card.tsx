@@ -30,47 +30,53 @@ export const EvervaultCard = ({ className }: { className?: string }) => {
 
   return (
     <div
+    onMouseMove={onMouseMove}
       className={cn(
-        " flex items-center justify-center w-full h-full relative",
+        " flex flex-col-reverse lg:flex-row items-center justify-center w-full h-full relative group/card",
         className
       )}
     >
-      <div className="absolute w-full h-full bg-gradient-to-r from-black from-28% to-transparent to-45% z-10"></div>
-      <div
-        onMouseMove={onMouseMove}
-        className="group/card w-full relative overflow-hidden flex items-center justify-center h-full"
-      >
-        <div className="h-full flex flex-col z-20 p-4 gap-4 max-w-sm justify-between">
-          <div className="flex flex-col gap-4">
-          <div className="text-3xl font-bold">Go Interpreter</div>
-          <div className=" text-xl">
-            An interpreted language that uses Go as its foundation built from
-            scratch. Works in the browser!
-          </div>
-          </div>
-          <div className="flex gap-2 flex-wrap max-w-sm">
-            {terminalTags.map((tag) => (
-              <p key={tag} className="text-sm w-fit border font-light bg-black dark:border-white/[0.2] border-black/[0.2] rounded-full px-2 py-0.5">
-                {tag}
-              </p>
-            ))}
+      <div className="flex flex-col-reverse lg:flex-row w-full h-full ">
+        <div className="hidden lg:flex absolute w-full h-full lg:bg-gradient-to-r from-black from-28% to-transparent to-45% z-10"></div>
+        <div
+          className="w-full relative overflow-hidden flex items-center justify-center h-full"
+        >
+          <div className="h-full flex flex-col z-20 p-4 gap-4 max-w-sm justify-between ">
+            <div className="flex flex-col w-full gap-4">
+              <div className="flex text-3xl font-bold justify-center lg:justify-normal">Go Interpreter</div>
+              <div className="flex text-center lg:text-start w-full text-xl">
+                An interpreted language that uses Go as its foundation built
+                from scratch. Works in the browser!
+              </div>
+            </div>
+            <div className="flex gap-2 flex-wrap max-w-sm justify-center lg:justify-normal  ">
+              {terminalTags.map((tag) => (
+                <p
+                  key={tag}
+                  className="text-sm w-fit border font-light bg-black dark:border-white/[0.2] border-black/[0.2] rounded-full px-2 py-0.5"
+                >
+                  {tag}
+                </p>
+              ))}
+            </div>
           </div>
         </div>
-
-        <CardPattern
-          mouseX={mouseX}
-          mouseY={mouseY}
-          randomString={randomString}
-        />
-        <div className="relative z-10 flex items-center justify-center p-8">
-          {/* 5:8 ratio */}
-          <Image
-            src="/Terminal.png"
-            alt="Showcase of the terminal window"
-            height={575}
-            width={920}
-            className=""
+        <div className="">
+          <CardPattern
+            mouseX={mouseX}
+            mouseY={mouseY}
+            randomString={randomString}
           />
+          <div className="relative h-full lg:z-10 flex items-center justify-center p-1 lg:p-8">
+            {/* 5:8 ratio */}
+            <Image
+              src="/Terminal.png"
+              alt="Showcase of the terminal window"
+              height={575}
+              width={920}
+              className=""
+            />
+          </div>
         </div>
       </div>
     </div>

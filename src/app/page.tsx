@@ -2,9 +2,7 @@
 
 import { AuroraBackground } from "@/components/ui/aurora-background";
 import { motion } from "motion/react";
-import Image from "next/image";
 import { IconArrowDown } from "@tabler/icons-react";
-import { Card } from "@/components/ui/card";
 import { PlusCard } from "@/components/plus-card";
 import { EvervaultCard } from "@/components/ui/evervault-card";
 import { SurferCard } from "@/components/surfer-card";
@@ -15,7 +13,7 @@ export default function Home() {
     <div className="w-full h-full">
       <AuroraBackground className="w-full h-screen px-13">
         <div className="w-full h-full relative flex flex-col">
-          <div className=" flex text-3xl absolute -top-7 lg:text-[120px] xl:text-[176px] tracking-tighter gap-6">
+          <div className=" flex text-3xl absolute -left-14 xl:left-0 -top-7 lg:text-[120px] xl:text-[176px] tracking-tighter gap-6">
             <motion.p
               initial={{ opacity: 0.0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
