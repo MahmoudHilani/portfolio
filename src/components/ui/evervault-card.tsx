@@ -67,7 +67,7 @@ export const EvervaultCard = ({ className }: { className?: string }) => {
             mouseY={mouseY}
             randomString={randomString}
           />
-          <div className="relative h-full lg:z-10 flex items-center justify-center p-1 lg:p-8">
+          <div className="relative h-full lg:z-10 flex items-center justify-center lg:p-8">
             {/* 5:8 ratio */}
             <Image
               src="/Terminal.png"
