@@ -48,14 +48,14 @@ export const FitnessCard = ({ className }: { className?: string }) => {
             height={386}
             width={686}
             alt="cbum"
-            className="absolute right-1/5 top-7 rotate-6 lg:right-1/10 lg:top-8 object-cover rounded-lg h-36 w-36 md:h-48 md:w-48 z-10 shadow-lg transition-transform duration-300 group-hover:rotate-6"
+            className="absolute right-1/5 top-7 rotate-6 md:rotate-0 lg:right-1/12 lg:top-8 object-cover rounded-lg h-36 w-36 md:h-48 md:w-48 z-10 shadow-lg transition-transform duration-300 group-hover:rotate-6"
           />
           <Image
             src="/fitness/tnf.jpg"
             alt="Showcase of the fitness website"
             height={703}
             width={623}
-            className="absolute left-1/5 top-7 -rotate-6 lg:left-1/10 lg:top-10 object-cover rounded-lg h-36 w-36 md:h-48 md:w-48 z-10 shadow-lg transition-transform duration-300 group-hover:-rotate-6"
+            className="absolute left-1/5 top-7 -rotate-6 md:rotate-0 lg:left-1/12 lg:top-10 object-cover rounded-lg h-36 w-36 md:h-48 md:w-48 z-10 shadow-lg transition-transform duration-300 group-hover:-rotate-6"
           />
         </div>
       </div>
