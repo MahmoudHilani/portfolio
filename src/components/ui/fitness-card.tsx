@@ -14,7 +14,7 @@ export const FitnessCard = ({ className }: { className?: string }) => {
     >
       <div className="group/card w-full relative overflow-hidden flex items-center justify-center h-full flex-col-reverse lg:flex-row">
         <div className="absolute w-full h-full bg-gradient-to-t lg:bg-gradient-to-r from-black from-45% md:from-35% lg:from-40% to-transparent to-60% md:to-50% z-10" />
-        <div className="h-full flex flex-col z-20 p-4 gap-4 md:w-sm justify-between">
+        <div className="h-full flex lg:shrink-3 flex-col z-20 p-4 gap-4 justify-between">
           <div className="flex flex-col gap-4 ">
             <div className="flex justify-center lg:justify-normal text-3xl font-bold">
               Fitness App
