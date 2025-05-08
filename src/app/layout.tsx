@@ -77,7 +77,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`dark ${roboto.variable} ${geistMono.variable} ${satoshi.className}`}>
+    <html
+      lang="en"
+      className={`dark ${roboto.variable} ${geistMono.variable} ${satoshi.className}`}
+    >
       <body className="scrollbar-none">
         <div>
           <Suspense fallback={<Loading />}>{children}</Suspense>

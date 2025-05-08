@@ -25,7 +25,7 @@ export default function Home() {
             >
               Mahmoud
             </motion.p>
-            
+
             <motion.p
               initial={{ opacity: 0.0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}

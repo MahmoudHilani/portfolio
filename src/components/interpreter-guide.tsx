@@ -73,7 +73,9 @@ const content = [
             </li>
             <div className="flex gap-1 items-center">
               <li className="font-semibold items-center">Functions:</li>
-              <p className="font-normal text-sm md:text-base">First-class functions</p>
+              <p className="font-normal text-sm md:text-base">
+                First-class functions
+              </p>
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger>
@@ -299,7 +301,9 @@ const GuideCard = () => {
                       {box.boxDescription && <div>{box.boxDescription}</div>}
                       {box.boxCode && (
                         <pre className="bg-zinc-800 text-green-400 rounded-md overflow-hidden">
-                          <div className="p-2 sm:p-3 overflow-auto scrollbar scrollbar-thumb-zinc-500">{box.boxCode}</div>
+                          <div className="p-2 sm:p-3 overflow-auto scrollbar scrollbar-thumb-zinc-500">
+                            {box.boxCode}
+                          </div>
                         </pre>
                       )}
                     </div>

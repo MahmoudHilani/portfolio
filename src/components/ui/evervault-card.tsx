@@ -30,7 +30,7 @@ export const EvervaultCard = ({ className }: { className?: string }) => {
 
   return (
     <div
-    onMouseMove={onMouseMove}
+      onMouseMove={onMouseMove}
       className={cn(
         " flex flex-col-reverse lg:flex-row items-center justify-center w-full h-full relative group/card",
         className
@@ -38,12 +38,12 @@ export const EvervaultCard = ({ className }: { className?: string }) => {
     >
       <div className="flex flex-col-reverse lg:flex-row w-full h-full ">
         <div className="hidden lg:flex absolute w-full h-full lg:bg-gradient-to-r from-black from-28% to-transparent to-45% z-10"></div>
-        <div
-          className="w-full relative overflow-hidden flex items-center justify-center h-full"
-        >
+        <div className="w-full relative overflow-hidden flex items-center justify-center h-full">
           <div className="h-full flex flex-col z-20 p-4 gap-4 justify-between ">
             <div className="flex flex-col w-full gap-4">
-              <div className="flex text-3xl font-bold justify-center lg:justify-normal">Go Interpreter</div>
+              <div className="flex text-3xl font-bold justify-center lg:justify-normal">
+                Go Interpreter
+              </div>
               <div className="flex text-center lg:text-start w-full text-xl">
                 An interpreted language that uses Go as its foundation built
                 from scratch. Works in the browser!
@@ -79,13 +79,13 @@ export const EvervaultCard = ({ className }: { className?: string }) => {
           </div>
         </div>
         <div>
-        <Image
-              src="/Terminal.png"
-              alt="Showcase of the terminal window"
-              height={575}
-              width={920}
-              className="lg:hidden"
-            />
+          <Image
+            src="/Terminal.png"
+            alt="Showcase of the terminal window"
+            height={575}
+            width={920}
+            className="lg:hidden"
+          />
         </div>
       </div>
     </div>

@@ -157,14 +157,29 @@ export function APITerminal() {
           <>cmd.exe</>
         </div>
         <div className="flex items-center">
-          <Button onClick={() => toast("That tickles.")} variant="ghost" size="icon" className="dark:hover:bg-muted rounded-none">
+          <Button
+            onClick={() => toast("That tickles.")}
+            variant="ghost"
+            size="icon"
+            className="dark:hover:bg-muted rounded-none"
+          >
             <IconMinus />
           </Button>
-          <Button onClick={() => toast("Maybe one day.")} variant="ghost" size="icon" className="dark:hover:bg-muted rounded-none">
+          <Button
+            onClick={() => toast("Maybe one day.")}
+            variant="ghost"
+            size="icon"
+            className="dark:hover:bg-muted rounded-none"
+          >
             <IconSquare />
           </Button>
-          <Button onClick={() => toast("Stop that.")} variant="ghost" size="icon" className="dark:hover:bg-red-700 rounded-none">
-            <IconX className="size-6"/>
+          <Button
+            onClick={() => toast("Stop that.")}
+            variant="ghost"
+            size="icon"
+            className="dark:hover:bg-red-700 rounded-none"
+          >
+            <IconX className="size-6" />
           </Button>
         </div>
       </div>

@@ -10,16 +10,16 @@ const GoTerminal: React.FC = () => {
   const [history, setHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [isLoading, setIsLoading] = useState(false);
-  const [isFocused, setIsFocused] = useState(true)
+  const [isFocused, setIsFocused] = useState(true);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim() || isLoading) return;
-    const curInput = input 
+    const curInput = input;
     setHistory([...history, input]);
     setHistoryIndex(-1);
-    setInput("")
+    setInput("");
     setOutput([...output, `${curInput}\n`]);
     setIsLoading(true);
 
@@ -91,9 +91,7 @@ const GoTerminal: React.FC = () => {
           disabled={isLoading}
           autoFocus
         ></input>
-        {isFocused &&
-          <span className="h-5 w-3 bg-gray-400"></span> 
-        }
+        {isFocused && <span className="h-5 w-3 bg-gray-400"></span>}
       </form>
     </div>
   );
