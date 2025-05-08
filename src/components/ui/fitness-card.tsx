@@ -13,8 +13,8 @@ export const FitnessCard = ({ className }: { className?: string }) => {
       )}
     >
       <div className="group/card w-full relative overflow-hidden flex items-center justify-center h-full flex-col-reverse lg:flex-row">
-        <div className="absolute w-full h-full bg-gradient-to-t lg:bg-gradient-to-r from-black from-35% lg:from-40% to-transparent to-50% z-10" />
-        <div className="h-full flex flex-col z-20 p-4 gap-4 w-sm justify-between">
+        <div className="absolute w-full h-full bg-gradient-to-t lg:bg-gradient-to-r from-black from-45% md:from-35% lg:from-40% to-transparent to-60% md:to-50% z-10" />
+        <div className="h-full flex flex-col z-20 p-4 gap-4 md:w-sm justify-between">
           <div className="flex flex-col gap-4 ">
             <div className="flex justify-center lg:justify-normal text-3xl font-bold">
               Fitness App
@@ -35,7 +35,7 @@ export const FitnessCard = ({ className }: { className?: string }) => {
             ))}
           </div>
         </div>
-        <div className=" relative  flex items-center object-right h-72 lg:h-full w-md md:w-xl ">
+        <div className=" relative  flex items-center object-right h-48 md:h-72 lg:h-full w-md md:w-xl ">
           <Image
             src="/fitness/lee priest.png"
             height={1522}
@@ -48,14 +48,14 @@ export const FitnessCard = ({ className }: { className?: string }) => {
             height={386}
             width={686}
             alt="cbum"
-            className="absolute right-1/7 top-7 lg:right-1/10 lg:top-8 object-cover rounded-lg h-48 w-48 z-10 shadow-lg transition-transform duration-300 group-hover:rotate-6"
+            className="absolute right-1/5 top-7 rotate-6 lg:right-1/10 lg:top-8 object-cover rounded-lg h-36 w-36 md:h-48 md:w-48 z-10 shadow-lg transition-transform duration-300 group-hover:rotate-6"
           />
           <Image
             src="/fitness/tnf.jpg"
             alt="Showcase of the fitness website"
             height={703}
             width={623}
-            className="absolute left-1/7 top-7 lg:left-1/10 lg:top-10 object-cover rounded-lg h-48 w-48 z-10 shadow-lg transition-transform duration-300 group-hover:-rotate-6"
+            className="absolute left-1/5 top-7 -rotate-6 lg:left-1/10 lg:top-10 object-cover rounded-lg h-36 w-36 md:h-48 md:w-48 z-10 shadow-lg transition-transform duration-300 group-hover:-rotate-6"
           />
         </div>
       </div>

@@ -17,7 +17,7 @@ export const SurferCard = ({ className }: { className?: string }) => {
           <div className="hidden lg:flex absolute w-full h-full bg-gradient-to-r from-black from-45% to-transparent to-50% z-10"></div>
           <div className="h-full w-full flex flex-col z-20 p-4 gap-4 justify-between">
             <div className="flex flex-col gap-4">
-              <div className="flex justify-center lg:justify-normal text-3xl font-bold">
+              <div className="flex justify-center text-center lg:justify-normal text-3xl font-bold">
                 Extreme Cube Surfer
               </div>
               <div className="flex text-center lg:text-start text-xl">

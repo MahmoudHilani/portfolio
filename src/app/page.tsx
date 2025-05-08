@@ -11,9 +11,9 @@ import { FitnessCard } from "@/components/ui/fitness-card";
 export default function Home() {
   return (
     <div className="w-full h-full">
-      <AuroraBackground className="w-full h-screen px-13">
+      <AuroraBackground className="w-full h-screen">
         <div className="w-full h-full relative flex flex-col">
-          <div className=" flex text-3xl absolute -left-14 xl:left-0 -top-7 lg:text-[120px] xl:text-[176px] tracking-tighter gap-6">
+          <div className=" flex flex-col lg:flex-row text-[77px] text-7xl sm:text-[150px] sm:text-9xl absolute  lg:left-0 lg:-top-3 xl:text-[176px] tracking-tighter lg:gap-6">
             <motion.p
               initial={{ opacity: 0.0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
@@ -25,6 +25,7 @@ export default function Home() {
             >
               Mahmoud
             </motion.p>
+            
             <motion.p
               initial={{ opacity: 0.0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
@@ -38,8 +39,8 @@ export default function Home() {
             </motion.p>
           </div>
 
-          <div className="flex justify-end font-light text-xl md:text-4xl dark:text-neutral-200 mr-40 mt-52">
-            <div className="w-md">
+          <div className="flex absolute right-0 xl:right-36 top-72 sm:top-96 lg:top-64 font-light text-3xl sm:text-4xl dark:text-neutral-200">
+            <div className="w-3xs sm:w-xs md:w-md">
               {"Setting the standard for good development. Here to learn, here to improve."
                 .split(" ")
                 .map((word, index) => (
@@ -59,7 +60,7 @@ export default function Home() {
                 ))}
             </div>
           </div>
-          <div className="flex items-center text-xl md:text-4xl dark:text-neutral-200 ml-40 mt-86 gap-2">
+          <div className="flex absolute bottom-4 md:bottom-6 left-8 lg:bottom-8 xl:left-36 items-center text-xl md:text-4xl dark:text-neutral-200 gap-2">
             {"What I've been up to".split(" ").map((word, index) => (
               <motion.span
                 key={index}
@@ -70,6 +71,7 @@ export default function Home() {
                   delay: index * 0.1 + 1.3,
                   ease: "easeInOut",
                 }}
+                className="hidden lg:flex"
               >
                 {word}
               </motion.span>
@@ -88,13 +90,19 @@ export default function Home() {
           </div>
         </div>
       </AuroraBackground>
-      <div className="flex flex-col h-full w-full p-13 justify-center items-center">
-        <div className="text-6xl pb-16">Projects</div>
+      <div className="flex flex-col w-full p-13 justify-center items-center">
+        <div className="text-5xl sm:text-6xl pb-16">Projects</div>
         <div className="flex flex-col gap-8">
           <PlusCard href="/interpreter" card={<EvervaultCard />} />
           <PlusCard href="/cube-surfer" card={<SurferCard />} />
           <PlusCard href="/fitness" card={<FitnessCard />} />
         </div>
+      </div>
+      <div className="flex justify-center text-4xl md:text-6xl lg:text-7xl pb-24">
+        and this website!
+      </div>
+      <div className="flex text-center justify-center text-4xl md:text-4xl lg:text-5xl pb-24 px-10 md:px-40 lg:px-80">
+        Want to work with me? Contact me! <br /> (it's worth it)
       </div>
     </div>
   );
