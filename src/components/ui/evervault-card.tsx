@@ -41,7 +41,7 @@ export const EvervaultCard = ({ className }: { className?: string }) => {
         <div
           className="w-full relative overflow-hidden flex items-center justify-center h-full"
         >
-          <div className="h-full flex flex-col z-20 p-4 gap-4 max-w-sm justify-between ">
+          <div className="h-full flex flex-col z-20 p-4 gap-4 justify-between ">
             <div className="flex flex-col w-full gap-4">
               <div className="flex text-3xl font-bold justify-center lg:justify-normal">Go Interpreter</div>
               <div className="flex text-center lg:text-start w-full text-xl">
@@ -49,7 +49,7 @@ export const EvervaultCard = ({ className }: { className?: string }) => {
                 from scratch. Works in the browser!
               </div>
             </div>
-            <div className="flex gap-2 flex-wrap max-w-sm justify-center lg:justify-normal  ">
+            <div className="flex gap-2 flex-wrap max-w-sm self-center lg:self-start justify-center lg:justify-normal  ">
               {terminalTags.map((tag) => (
                 <p
                   key={tag}
@@ -61,7 +61,7 @@ export const EvervaultCard = ({ className }: { className?: string }) => {
             </div>
           </div>
         </div>
-        <div className="">
+        <div className="hidden lg:flex">
           <CardPattern
             mouseX={mouseX}
             mouseY={mouseY}
@@ -77,6 +77,15 @@ export const EvervaultCard = ({ className }: { className?: string }) => {
               className=""
             />
           </div>
+        </div>
+        <div>
+        <Image
+              src="/Terminal.png"
+              alt="Showcase of the terminal window"
+              height={575}
+              width={920}
+              className="lg:hidden"
+            />
         </div>
       </div>
     </div>
