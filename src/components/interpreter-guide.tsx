@@ -288,7 +288,7 @@ const GuideCard = () => {
             <div className="w-full overflow-hidden bg-card text-white rounded-lg">
               <div className="flex md:h-[32rem] flex-col overflow-auto p-4 sm:p-8 gap-3 scrollbar-thin hover:scrollbar-thumb-zinc-500">
                 <div>
-                  <div className="font-bold">{card.title}</div>
+                  <div className="font-bold text-3xl">{card.title}</div>
                   <div>{card.description}</div>
                 </div>
                 <div className="flex flex-col gap-4">
@@ -297,7 +297,7 @@ const GuideCard = () => {
                       className="flex flex-col rounded-lg md:px-3 gap-1 text-white"
                       key={box.boxTitle}
                     >
-                      <div className="font-bold">{box.boxTitle}</div>
+                      <div className="font-bold text-xl">{box.boxTitle}</div>
                       {box.boxDescription && <div>{box.boxDescription}</div>}
                       {box.boxCode && (
                         <pre className="bg-zinc-800 text-green-400 rounded-md overflow-hidden">

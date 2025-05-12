@@ -11,7 +11,7 @@ import { FitnessCard } from "@/components/ui/fitness-card";
 export default function Home() {
   return (
     <div className="w-full h-full">
-      <AuroraBackground className="w-full h-screen">
+      <AuroraBackground className="w-full h-dvh">
         <div className="w-full h-full relative flex flex-col">
           <div className=" flex flex-col lg:flex-row text-[77px] text-7xl sm:text-[150px] sm:text-9xl absolute  lg:left-0 lg:-top-3 xl:text-[176px] tracking-tighter lg:gap-6">
             <motion.p
@@ -91,7 +91,7 @@ export default function Home() {
         </div>
       </AuroraBackground>
       <div className="flex flex-col w-full p-13 justify-center items-center">
-        <div className="text-5xl sm:text-6xl pb-16">Projects</div>
+        <div className="text-5xl sm:text-6xl pb-16 font-semibold">Projects</div>
         <div className="flex flex-col gap-8">
           <PlusCard href="/interpreter" card={<EvervaultCard />} />
           <PlusCard href="/cube-surfer" card={<SurferCard />} />
@@ -101,8 +101,8 @@ export default function Home() {
       <div className="flex justify-center text-4xl md:text-6xl lg:text-7xl pb-24">
         and this website!
       </div>
-      <div className="flex text-center justify-center text-4xl md:text-4xl lg:text-5xl pb-24 px-10 md:px-40 lg:px-80">
-        Want to work with me? Contact me! <br /> (it's worth it)
+      <div className="flex flex-col text-center justify-center text-4xl md:text-4xl lg:text-5xl pb-24 px-10 md:px-40 lg:px-80">
+        Want to work with me? Contact me! <br /> <p className="font-bold">(it's worth it)</p>
       </div>
     </div>
   );
