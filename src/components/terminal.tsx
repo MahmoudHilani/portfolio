@@ -30,10 +30,14 @@ interface WebSocketErrorResponse {
 
 type WebSocketResponse = InterpretResponse | WebSocketErrorResponse;
 
+const WS_URL = process.env.NEXT_PUBLIC_WS_URL || "/api/terminal";
+
 export function APITerminal() {
   const terminalRef = useRef<HTMLDivElement>(null);
   const inputBuffer = useRef<string>("");
   const socketRef = useRef<WebSocket | null>(null);
+  const [isConnected, setIsConnected] = useState<boolean>(false);
+  const attemptedConnection = useRef<boolean>(false);
 
   useEffect(() => {
     if (!terminalRef.current) return;
@@ -55,42 +59,61 @@ export function APITerminal() {
       fitAddon.fit();
     });
 
-    const socket = new WebSocket("ws://localhost:8080/socket");
+    term.write("Connecting... \r\n");
 
-    term.write("Connecting... \r\n$ ");
-    socket.onopen = () => {
-      console.log("Socket opened");
-      term.write("Server connected. \r\n$ ");
-    };
+    let socket: WebSocket;
 
-    socket.onclose = (event) => {
-      console.log("socket closed. ", event);
-      term.write("Server closed. Please try again later. \r\n$ ");
-    };
+    try {
+      socket = new WebSocket(WS_URL);
 
-    socket.onerror = (event) => {
-      console.log("socket error. ", event);
-    };
+      socket.onopen = () => {
+        // console.log("Socket opened");
+        setIsConnected(true);
+        attemptedConnection.current = true;
+        term.write("Server connected. \r\n$ ");
+      };
 
-    socket.onmessage = (event) => {
-      try {
-        const data = JSON.parse(event.data);
-        console.log("received websocket message: ", data);
-
-        if ("error" in data) {
-          term.write(`${data.error}\r\n$ `);
+      socket.onclose = (event) => {
+        // console.log("socket closed. ", event);
+        setIsConnected(false);
+        if (attemptedConnection.current) {
+          term.write("Server closed. Please try again later. \r\n$ ");
         } else {
-          if (data.result == "continue") {
-            term.write(`$ `);
-          } else {
-            term.write(`${data.result}\r\n$ `);
-          }
+          term.write(
+            "Unable to connect to server. Please try again later. \r\n$ "
+          );
         }
-      } catch (err) {
-        console.error("Error parsing websocket message: ", err);
-      }
-    };
-    socketRef.current = socket;
+      };
+
+      socket.onerror = () => {
+        // console.log("socket error. ", event);
+      };
+
+      socket.onmessage = (event) => {
+        try {
+          const data = JSON.parse(event.data);
+          // console.log("received websocket message: ", data);
+
+          if ("error" in data) {
+            term.write(`${data.error}\r\n$ `);
+          } else {
+            if (data.result == "continue") {
+              term.write(`$ `);
+            } else {
+              term.write(`${data.result}\r\n$ `);
+            }
+          }
+        } catch (err) {
+          // console.error("Error parsing websocket message: ", err);
+          term.write("Error processing server response\r\n$ ");
+        }
+      };
+      socketRef.current = socket;
+    } catch (err) {
+      term.write(
+        "Failed to initialize connection. Please try again later.\r\n$ "
+      );
+    }
 
     const handlePaste = async () => {
       try {
@@ -100,7 +123,7 @@ export function APITerminal() {
           term.write(text);
         }
       } catch (err) {
-        console.error("Failed to read clipboard contents: ", err);
+        // console.error("Failed to read clipboard contents: ", err);
       }
     };
 
@@ -110,7 +133,11 @@ export function APITerminal() {
       // Handle Enter key
       if (charCode === 13) {
         term.write("\r\n");
-        interpretCode(inputBuffer.current.trim());
+        if (isConnected) {
+          interpretCode(inputBuffer.current.trim());
+        } else {
+          term.write("Not connected to server.\r\n$ ");
+        }
         inputBuffer.current = "";
       }
       // Handle backspace
@@ -142,7 +169,7 @@ export function APITerminal() {
 
   const interpretCode = useCallback((code: string) => {
     if (!socketRef.current || socketRef.current.readyState !== WebSocket.OPEN) {
-      console.log("WebSocket not connected");
+      // console.log("WebSocket not connected");
       return;
     }
     const request: InterpretRequest = { code: code };
