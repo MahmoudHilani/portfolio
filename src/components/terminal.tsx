@@ -1,17 +1,15 @@
 "use client";
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useCallback } from "react";
 import { Terminal } from "@xterm/xterm";
 import { ClipboardAddon } from "@xterm/addon-clipboard";
 import {
   IconMinus,
   IconSquare,
-  IconTerminal,
   IconTerminal2,
   IconX,
 } from "@tabler/icons-react";
 import "@xterm/xterm/css/xterm.css";
 import { FitAddon } from "@xterm/addon-fit";
-import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import { toast } from "sonner";
 
@@ -28,15 +26,12 @@ interface WebSocketErrorResponse {
   code: string;
 }
 
-type WebSocketResponse = InterpretResponse | WebSocketErrorResponse;
-
 const WS_URL = process.env.NEXT_PUBLIC_WS_URL || "/api/terminal";
 
 export function APITerminal() {
   const terminalRef = useRef<HTMLDivElement>(null);
   const inputBuffer = useRef<string>("");
   const socketRef = useRef<WebSocket | null>(null);
-  const [isConnected, setIsConnected] = useState<boolean>(false);
   const attemptedConnection = useRef<boolean>(false);
 
   useEffect(() => {
@@ -68,14 +63,12 @@ export function APITerminal() {
 
       socket.onopen = () => {
         // console.log("Socket opened");
-        setIsConnected(true);
         attemptedConnection.current = true;
         term.write("Server connected. \r\n$ ");
       };
 
       socket.onclose = (event) => {
         // console.log("socket closed. ", event);
-        setIsConnected(false);
         if (attemptedConnection.current) {
           term.write("Server closed. Please try again later. \r\n$ ");
         } else {
@@ -85,14 +78,14 @@ export function APITerminal() {
         }
       };
 
-      socket.onerror = () => {
+      socket.onerror = (event) => {
         // console.log("socket error. ", event);
       };
 
       socket.onmessage = (event) => {
         try {
           const data = JSON.parse(event.data);
-          // console.log("received websocket message: ", data);
+          console.log("received websocket message: ", data);
 
           if ("error" in data) {
             term.write(`${data.error}\r\n$ `);
@@ -133,11 +126,7 @@ export function APITerminal() {
       // Handle Enter key
       if (charCode === 13) {
         term.write("\r\n");
-        if (isConnected) {
-          interpretCode(inputBuffer.current.trim());
-        } else {
-          term.write("Not connected to server.\r\n$ ");
-        }
+        interpretCode(inputBuffer.current.trim());
         inputBuffer.current = "";
       }
       // Handle backspace
