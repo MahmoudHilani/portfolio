@@ -26,7 +26,7 @@ interface WebSocketErrorResponse {
   code: string;
 }
 
-const WS_URL = process.env.NEXT_WS_URL || "/api/terminal";
+const WS_URL = process.env.NEXT_PUBLIC_WS_URL || "/api/terminal";
 
 export function APITerminal() {
   const terminalRef = useRef<HTMLDivElement>(null);
