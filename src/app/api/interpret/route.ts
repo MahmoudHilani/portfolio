@@ -3,8 +3,7 @@ import { NextRequest } from "next/server";
 export async function POST(req: NextRequest) {
   const body = await req.json();
   console.log(body);
-  //"https://gointerpreter-production.up.railway.app/interpret",
-  const response = await fetch("http://localhost:8080/interpret", {
+  const response = await fetch("https://api.mahmoudhilani.com/socket", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
