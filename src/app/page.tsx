@@ -7,6 +7,7 @@ import { PlusCard } from "@/components/plus-card";
 import { EvervaultCard } from "@/components/ui/evervault-card";
 import { SurferCard } from "@/components/surfer-card";
 import { FitnessCard } from "@/components/ui/fitness-card";
+import Link from "next/link";
 
 export default function Home() {
   return (

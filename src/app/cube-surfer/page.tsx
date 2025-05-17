@@ -1,7 +1,7 @@
 import { CubeSurfer } from "@/components/spline/cube-surfer";
 import { SurferParallax } from "@/components/surfer-parallax";
 import { Button } from "@/components/ui/button";
-import { ParallaxScroll } from "@/components/ui/parallax-scroll";
+import { ParallaxScroll, ParallaxScrollTwo } from "@/components/ui/parallax-scroll";
 import { IconBrandGithub } from "@tabler/icons-react";
 import { InfoIcon } from "lucide-react";
 import Link from "next/link";
@@ -50,8 +50,15 @@ export default function SurferPage() {
         </div>
       </div>
 
-      <ParallaxScroll images={images} className="px-12"/>
-      <div className="px-12 pb-10 sm:pb-28 lg:pt-28 sm:text-2xl">
+      <ParallaxScroll
+              images={images}
+              className="hidden md:py-10 lg:flex px-12"
+            />
+            <ParallaxScrollTwo
+              images={images}
+              className="hidden md:flex lg:hidden pt-10 pb-52 px-12"
+            />
+      <div className="px-12 pb-10 sm:pb-28 sm:text-2xl">
         The game was built using Unity. With free ready assets ready for use
         (Thank you open-source). The logic for the game was made using C#, with
         ad intergration on the HUAWEI App Gallery. <br /> For sound design, I
@@ -66,7 +73,7 @@ export default function SurferPage() {
           <IconBrandGithub className="ml-1 " width={18} />.
         </Link>
       </div>
-      <div className="px-6 sm:px-12 pb-32 text-xs sm:text-lg">
+      <div className="px-12 pb-32 text-xs sm:text-lg">
         P. S. This game was made in a big hurry and has many mistakes. I
         consider this a terrible piece of work.
       </div>

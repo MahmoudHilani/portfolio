@@ -98,7 +98,7 @@ export const ParallaxScroll = ({
             height="850"
             width="484"
             alt="thumbnail"
-            className=" rounded-xl object-cover mx-2 sm:mx-4 max-w-3xs sm:max-w-xs snap-center overflow-visible aspect-1/2"
+            className=" rounded-xl object-cover mx-2 sm:mx-4 max-w-3xs sm:max-w-xs snap-center aspect-1/2 "
           ></img>
         ))}
       </div>
@@ -140,7 +140,7 @@ export const ParallaxScrollTwo = ({
                 height="850"
                 width="484"
                 alt={`Fitness App ${idx}`}
-                className="object-cover object-center aspect-1/2"
+                className="object-cover object-center aspect-1/2 rounded-lg"
               />
             </motion.div>
           ))}
@@ -153,7 +153,7 @@ export const ParallaxScrollTwo = ({
                 height="850"
                 width="484"
                 alt={`Fitness App ${idx}`}
-                className="object-cover object-center aspect-1/2"
+                className="object-cover object-center aspect-1/2 rounded-lg"
               />
             </motion.div>
           ))}

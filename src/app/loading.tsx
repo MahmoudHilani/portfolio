@@ -19,7 +19,7 @@ function LoadingThreeDotsJumping() {
         <motion.div
             animate="jump"
             transition={{ staggerChildren: -0.2, staggerDirection: -1 }}
-            className="container h-full w-full"
+            className="container p-24"
         >
             <motion.div className="dot" variants={dotVariants} />
             <motion.div className="dot" variants={dotVariants} />
