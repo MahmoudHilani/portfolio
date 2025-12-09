@@ -15,7 +15,7 @@ export default function InterpreterPage() {
         <div className={cn("w-full md:block md:w-[600px] lg:w-[735px]")}>
           <Terminal />
         </div>
-        <div className="flex md:w-xl justify-center pt-12 pb-16 md:pb-32 xl:pb-0">
+        <div className="flex md:w-xl justify-center pt-12 xl:pt-0 pb-16 md:pb-32 xl:pb-0">
           <GuideCard />
         </div>
       </div>

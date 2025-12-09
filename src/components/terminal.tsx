@@ -54,7 +54,8 @@ export function APITerminal() {
       fitAddon.fit();
     });
 
-    term.write("Connecting... \r\n");
+    term.write("AWS EC2 is too expensive :( \r\n");
+    // term.write("Connecting... \r\n");
 
     let socket: WebSocket;
 

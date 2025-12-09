@@ -73,10 +73,6 @@ export default function SurferPage() {
           <IconBrandGithub className="ml-1 " width={18} />.
         </Link>
       </div>
-      <div className="px-12 pb-32 text-xs sm:text-lg">
-        P. S. This game was made in a big hurry and has many mistakes. I
-        consider this a terrible piece of work.
-      </div>
     </div>
   );
 }
