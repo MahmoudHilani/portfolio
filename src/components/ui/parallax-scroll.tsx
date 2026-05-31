@@ -1,11 +1,9 @@
 "use client";
-import { useScroll, useTransform, useSpring, useInView } from "motion/react";
+import { useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
 import { motion } from "motion/react";
 
 import { cn } from "@/lib/utils";
-import { Images } from "lucide-react";
-import Image from "next/image";
 
 export const ParallaxScroll = ({
   images,
@@ -16,7 +14,7 @@ export const ParallaxScroll = ({
   className?: string;
   imageClassName?: string;
 }) => {
-  const gridRef = useRef<any>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: gridRef,
     offset: ["start start", "end start"],
@@ -109,53 +107,42 @@ export const ParallaxScroll = ({
 export const ParallaxScrollTwo = ({
   className,
   images,
-  height,
-  width,
 }: {
   className?: string;
   images: string[];
-  height?: string;
-  width?: string;
 }) => {
-  const gridRef = useRef<any>(null);
-  const { scrollYProgress } = useScroll({
-    target: gridRef,
-    offset: ["start start", "end start"],
-  });
-
-  const half = Math.floor(images.length / 2);
-  const translateFirst = useTransform(scrollYProgress, [0, 1], [0, -200]);
-  const translateSecond = useTransform(scrollYProgress, [0, 1], [0, 200]);
-  const firstPart = images.slice(0, half);
-  const secondPart = images.slice(half, -1);
+  const gridRef = useRef<HTMLDivElement>(null);
+  const portraitImages = images.filter((image) => image !== "/Game9.png");
+  const firstPart = portraitImages.filter((_, index) => index % 2 === 0);
+  const secondPart = portraitImages.filter((_, index) => index % 2 !== 0);
 
   return (
     <div ref={gridRef} className={cn(className, "h-full w-full mx-auto")}>
       <div className="grid grid-cols-2 gap-6">
-        <div className="grid gap-10">
+        <div className="grid gap-6">
           {firstPart.map((el, idx) => (
-            <motion.div style={{ y: translateFirst }} key={"grid-1" + idx}>
+            <div key={"grid-1" + idx} className="w-full overflow-hidden rounded-lg">
               <img
                 src={el}
                 height="850"
                 width="484"
-                alt={`Fitness App ${idx}`}
-                className="object-cover object-center aspect-1/2 rounded-lg"
+                alt={`Cube Surfer screenshot ${idx + 1}`}
+                className="block w-full aspect-[1/2] object-cover object-center"
               />
-            </motion.div>
+            </div>
           ))}
         </div>
-        <div className="grid gap-10">
+        <div className="grid gap-6">
           {secondPart.map((el, idx) => (
-            <motion.div style={{ y: translateSecond }} key={"grid-2" + idx}>
+            <div key={"grid-2" + idx} className="w-full overflow-hidden rounded-lg">
               <img
                 src={el}
                 height="850"
                 width="484"
-                alt={`Fitness App ${idx}`}
-                className="object-cover object-center aspect-1/2 rounded-lg"
+                alt={`Cube Surfer screenshot ${idx + 1}`}
+                className="block w-full aspect-[1/2] object-cover object-center"
               />
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

@@ -1,4 +1,5 @@
 import { CubeSurfer } from "@/components/spline/cube-surfer";
+import { ProjectBackButton } from "@/components/project-back-button";
 import { SurferParallax } from "@/components/surfer-parallax";
 import { Button } from "@/components/ui/button";
 import { ParallaxScroll, ParallaxScrollTwo } from "@/components/ui/parallax-scroll";
@@ -21,6 +22,7 @@ const images = [
 export default function SurferPage() {
   return (
     <div className="md:px-12 xl:px-48 bg-zinc-900 ">
+      <ProjectBackButton />
       <div className="flex flex-col justify-center items-center text-4xl sm:text-5xl lg:text-6xl pt-8 mb-24 text-gray-500 relative font-roboto">
         <div className="font-extrabold">CUBE SURFER</div>
         <div className="font-extralight text-[53px] sm:text-7xl lg:text-[88px] absolute top-15 sm:top-17 lg:top-19">
@@ -56,7 +58,7 @@ export default function SurferPage() {
             />
             <ParallaxScrollTwo
               images={images}
-              className="hidden md:flex lg:hidden pt-10 pb-52 px-12"
+              className="hidden md:flex lg:hidden pt-10 pb-20 px-12"
             />
       <div className="px-12 pb-10 sm:pb-28 sm:text-2xl">
         The game was built using Unity. With free ready assets ready for use

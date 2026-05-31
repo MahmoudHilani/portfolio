@@ -6,12 +6,8 @@ import { FloatingDock } from "@/components/ui/floating-dock";
 import {
   IconBrandGithub,
   IconBrandX,
-  IconExchange,
   IconHome,
-  IconNewSection,
-  IconTerminal2,
 } from "@tabler/icons-react";
-import { AuroraBackground } from "@/components/ui/aurora-background";
 import { Suspense } from "react";
 import Loading from "./loading";
 import { Toaster } from "sonner";

@@ -2,6 +2,7 @@ import {
   ParallaxScroll,
   ParallaxScrollTwo,
 } from "@/components/ui/parallax-scroll";
+import { ProjectBackButton } from "@/components/project-back-button";
 import Link from "next/link";
 import { IconBrandGithub } from "@tabler/icons-react";
 
@@ -26,6 +27,7 @@ export default function FitnessApp() {
   ];
   return (
     <div className="w-full h-full bg-zinc-900 text-lg md:text-2xl">
+      <ProjectBackButton />
       <div className="flex w-full text-4xl md:text-5xl lg:text-6xl justify-center p-8 font-semibold">
         Fitness App
       </div>
