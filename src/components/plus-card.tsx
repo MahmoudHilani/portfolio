@@ -1,9 +1,7 @@
 import React from "react";
-import { EvervaultCard } from "./ui/evervault-card";
 import { motion } from "motion/react";
 import Link from "next/link";
 import { PlusIcon } from "lucide-react";
-import { SurferCard } from "./surfer-card";
 
 export function PlusCard({
   href,

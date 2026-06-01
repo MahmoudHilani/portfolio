@@ -2,8 +2,12 @@
 import { useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
 import { motion } from "motion/react";
+import Image from "next/image";
 
 import { cn } from "@/lib/utils";
+
+const screenshotSizes =
+  "(max-width: 767px) 75vw, (max-width: 1023px) 40vw, 320px";
 
 export const ParallaxScroll = ({
   images,
@@ -40,15 +44,17 @@ export const ParallaxScroll = ({
           <div className="flex h-full w-full md:grid md:gap-6 lg:gap-10">
             {firstPart.map((el, idx) => (
               <motion.div style={{ y: translateFirst }} key={"grid-1" + idx}>
-                <img
+                <Image
                   src={el}
                   className={cn(
-                    " object-cover object-center rounded-lg gap-6 lg:gap-10 !m-0 !p-0 aspect-1/2",
+                    "w-full object-cover object-center rounded-lg gap-6 lg:gap-10 !m-0 !p-0 aspect-1/2",
                     imageClassName
                   )}
                   alt="thumbnail"
                   width={484}
                   height={850}
+                  sizes={screenshotSizes}
+                  loading="lazy"
                 />
               </motion.div>
             ))}
@@ -56,15 +62,17 @@ export const ParallaxScroll = ({
           <div className={cn(`flex md:grid md:gap-6 lg:gap-10 justify-center`)}>
             {secondPart.map((el, idx) => (
               <motion.div style={{ y: translateSecond }} key={"grid-2" + idx}>
-                <img
+                <Image
                   src={el}
                   className={cn(
-                    "object-cover object-center rounded-lg gap-6 lg:gap-10 !m-0 !p-0 aspect-1/2",
+                    "w-full object-cover object-center rounded-lg gap-6 lg:gap-10 !m-0 !p-0 aspect-1/2",
                     imageClassName
                   )}
                   alt="thumbnail"
                   width={484}
                   height={850}
+                  sizes={screenshotSizes}
+                  loading="lazy"
                 />
               </motion.div>
             ))}
@@ -72,15 +80,17 @@ export const ParallaxScroll = ({
           <div className="flex h-full w-full md:grid md:gap-6 lg:gap-10">
             {thirdPart.map((el, idx) => (
               <motion.div style={{ y: translateThird }} key={"grid-3" + idx}>
-                <img
+                <Image
                   src={el}
                   className={cn(
-                    "object-cover object-center rounded-lg gap-6 lg:gap-10 !m-0 !p-0 aspect-1/2",
+                    "w-full object-cover object-center rounded-lg gap-6 lg:gap-10 !m-0 !p-0 aspect-1/2",
                     imageClassName
                   )}
                   alt="thumbnail"
                   width={484}
                   height={850}
+                  sizes={screenshotSizes}
+                  loading="lazy"
                 />
               </motion.div>
             ))}
@@ -90,14 +100,16 @@ export const ParallaxScroll = ({
 
       <div className="flex overflow-x-scroll snap-x px-12 py-10 scrollbar md:hidden">
         {images.map((el) => (
-          <img
+          <Image
             key={el}
             src={el}
-            height="850"
-            width="484"
+            height={850}
+            width={484}
             alt="thumbnail"
+            sizes={screenshotSizes}
+            loading="lazy"
             className=" rounded-xl object-cover mx-2 sm:mx-4 max-w-3xs sm:max-w-xs snap-center aspect-1/2 "
-          ></img>
+          />
         ))}
       </div>
     </div>
@@ -122,11 +134,13 @@ export const ParallaxScrollTwo = ({
         <div className="grid gap-6">
           {firstPart.map((el, idx) => (
             <div key={"grid-1" + idx} className="w-full overflow-hidden rounded-lg">
-              <img
+              <Image
                 src={el}
-                height="850"
-                width="484"
+                height={850}
+                width={484}
                 alt={`Cube Surfer screenshot ${idx + 1}`}
+                sizes={screenshotSizes}
+                loading="lazy"
                 className="block w-full aspect-[1/2] object-cover object-center"
               />
             </div>
@@ -135,11 +149,13 @@ export const ParallaxScrollTwo = ({
         <div className="grid gap-6">
           {secondPart.map((el, idx) => (
             <div key={"grid-2" + idx} className="w-full overflow-hidden rounded-lg">
-              <img
+              <Image
                 src={el}
-                height="850"
-                width="484"
+                height={850}
+                width={484}
                 alt={`Cube Surfer screenshot ${idx + 1}`}
+                sizes={screenshotSizes}
+                loading="lazy"
                 className="block w-full aspect-[1/2] object-cover object-center"
               />
             </div>

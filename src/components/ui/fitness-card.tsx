@@ -1,6 +1,5 @@
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-import { motion } from "motion/react";
 
 const tags = ["Typescript", "React Native", "UI/UX", "API", "Database"];
 

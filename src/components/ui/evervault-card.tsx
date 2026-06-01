@@ -1,16 +1,16 @@
 "use client";
-import { useMotionValue } from "motion/react";
+import { useMotionValue, useReducedMotion } from "motion/react";
 import React, { useState, useEffect } from "react";
 import { useMotionTemplate, motion } from "motion/react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-import { ArrowRightIcon } from "lucide-react";
 
 const terminalTags = ["Go", "Go Testing", "Web Sockets", "API"];
 
 export const EvervaultCard = ({ className }: { className?: string }) => {
   let mouseX = useMotionValue(0);
   let mouseY = useMotionValue(0);
+  const shouldReduceMotion = useReducedMotion();
 
   const [randomString, setRandomString] = useState("");
 
@@ -24,8 +24,10 @@ export const EvervaultCard = ({ className }: { className?: string }) => {
     mouseX.set(clientX - left);
     mouseY.set(clientY - top);
 
-    const str = generateRandomString(2500);
-    setRandomString(str);
+    if (!shouldReduceMotion) {
+      const str = generateRandomString(2500);
+      setRandomString(str);
+    }
   }
 
   return (

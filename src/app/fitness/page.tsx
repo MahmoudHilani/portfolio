@@ -5,26 +5,27 @@ import {
 import { ProjectBackButton } from "@/components/project-back-button";
 import Link from "next/link";
 import { IconBrandGithub } from "@tabler/icons-react";
+import Image from "next/image";
+
+const images = [
+  "/fitness/1.png",
+  "/fitness/2.png",
+  "/fitness/3.png",
+  "/fitness/4.png",
+  "/fitness/6.png",
+  "/fitness/7.png",
+  "/fitness/8.png",
+  "/fitness/9.png",
+  "/fitness/10.png",
+  "/fitness/11.png",
+  "/fitness/12.png",
+  "/fitness/13.png",
+  "/fitness/14.png",
+  "/fitness/15.png",
+  "/fitness/16.png",
+];
 
 export default function FitnessApp() {
-  const images = [
-    "/fitness/1.png",
-    "/fitness/2.png",
-    "/fitness/3.png",
-    "/fitness/4.png",
-    // "/fitness/5.png",
-    "/fitness/6.png",
-    "/fitness/7.png",
-    "/fitness/8.png",
-    "/fitness/9.png",
-    "/fitness/10.png",
-    "/fitness/11.png",
-    "/fitness/12.png",
-    "/fitness/13.png",
-    "/fitness/14.png",
-    "/fitness/15.png",
-    "/fitness/16.png",
-  ];
   return (
     <div className="w-full h-full bg-zinc-900 text-lg md:text-2xl">
       <ProjectBackButton />
@@ -65,17 +66,23 @@ export default function FitnessApp() {
         the design was a free template from figma. It was fully developed in
         Next.js with custom components and responsive design.
       </div>
-      <img
+      <Image
         src="/fitness/Dribbble.png"
         width={640}
         height={480}
-        className="hidden lg:flex w-full justify-center pt-10 pb-24"
+        alt="Fitness app landing page design"
+        sizes="(min-width: 1024px) 80vw, 100vw"
+        loading="lazy"
+        className="hidden lg:block h-auto w-full justify-center pt-10 pb-24"
       />
-      <img
+      <Image
         src="/fitness/Mobile App.png"
         width={300}
         height={1000}
-        className="flex px-6 sm:px-12 lg:hidden w-full justify-center pt-10 pb-16 shadow-2xl"
+        alt="Fitness mobile app screens"
+        sizes="(max-width: 1023px) 100vw, 300px"
+        loading="lazy"
+        className="flex h-auto w-full justify-center px-6 pt-10 pb-16 shadow-2xl sm:px-12 lg:hidden"
       />
     </div>
   );

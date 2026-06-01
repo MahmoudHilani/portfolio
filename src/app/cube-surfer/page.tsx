@@ -1,8 +1,9 @@
 import { CubeSurfer } from "@/components/spline/cube-surfer";
 import { ProjectBackButton } from "@/components/project-back-button";
-import { SurferParallax } from "@/components/surfer-parallax";
-import { Button } from "@/components/ui/button";
-import { ParallaxScroll, ParallaxScrollTwo } from "@/components/ui/parallax-scroll";
+import {
+  ParallaxScroll,
+  ParallaxScrollTwo,
+} from "@/components/ui/parallax-scroll";
 import { IconBrandGithub } from "@tabler/icons-react";
 import { InfoIcon } from "lucide-react";
 import Link from "next/link";
@@ -39,27 +40,28 @@ export default function SurferPage() {
           <br />
           <br /> I made it so you can go outside of the platform which allows
           for more creative gameplay. I also added different verticality to the
-          game, allowing for multiple routes to complete the same level. <br /> <br />
+          game, allowing for multiple routes to complete the same level. <br />{" "}
+          <br />
           Finally, for the curious, some easter eggs were added, such as a new
           character skin.
         </div>
         <div className="relative aspect-square lg:aspect-auto xl:aspect-square">
           <CubeSurfer />
           <div className="flex w-full justify-center md:absolute md:justify-start bottom-0 text-xs md:text-base md:bottom-7 md:left-2 lg:bottom-0 lg:right-8 xl:bottom-7 xl:left-2 items-center gap-2">
-            <InfoIcon  className="w-4 md:w-6" />
+            <InfoIcon className="w-4 md:w-6" />
             The initial model for the character!
           </div>
         </div>
       </div>
 
       <ParallaxScroll
-              images={images}
-              className="hidden md:py-10 lg:flex px-12"
-            />
-            <ParallaxScrollTwo
-              images={images}
-              className="hidden md:flex lg:hidden pt-10 pb-20 px-12"
-            />
+        images={images}
+        className="hidden md:py-10 lg:flex px-12"
+      />
+      <ParallaxScrollTwo
+        images={images}
+        className="hidden md:flex lg:hidden pt-10 pb-20 px-12"
+      />
       <div className="px-12 pb-10 sm:pb-28 sm:text-2xl">
         The game was built using Unity. With free ready assets ready for use
         (Thank you open-source). The logic for the game was made using C#, with
