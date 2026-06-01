@@ -2,40 +2,10 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Roboto } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
-import { FloatingDock } from "@/components/ui/floating-dock";
-import {
-  IconBrandGithub,
-  IconBrandX,
-  IconHome,
-} from "@tabler/icons-react";
+import { Navbar } from "@/components/navbar";
 import { Suspense } from "react";
 import Loading from "./loading";
 import { Toaster } from "sonner";
-
-const links = [
-  {
-    title: "Home",
-    icon: (
-      <IconHome className="h-full w-full text-neutral-500 dark:text-neutral-300" />
-    ),
-    href: "/",
-  },
-
-  {
-    title: "Twitter",
-    icon: (
-      <IconBrandX className="h-full w-full text-neutral-500 dark:text-neutral-300" />
-    ),
-    href: "https://x.com/MahmoodHilani",
-  },
-  {
-    title: "GitHub",
-    icon: (
-      <IconBrandGithub className="h-full w-full text-neutral-500 dark:text-neutral-300" />
-    ),
-    href: "https://github.com/MahmoudHilani",
-  },
-];
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -80,9 +50,7 @@ export default function RootLayout({
       <body className="scrollbar-none">
         <div>
           <Suspense fallback={<Loading />}>{children}</Suspense>
-          <div className="flex z-50 justify-center items-center fixed bottom-4 inset-x-0">
-            <FloatingDock items={links} />
-          </div>
+          <Navbar />
           <Toaster />
         </div>
       </body>
