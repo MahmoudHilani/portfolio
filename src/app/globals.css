@@ -146,13 +146,24 @@
 /* Custom Aurora Animation */
 @keyframes aurora {
   0% {
-    background-position: 50% 50%, 50% 50%;
+    transform: translate3d(-3%, -2%, 0) scale(1.05);
+  }
+  50% {
+    transform: translate3d(3%, 2%, 0) scale(1.1);
   }
   100% {
-    background-position: 350% 50%, 350% 50%;
+    transform: translate3d(-2%, 3%, 0) scale(1.06);
   }
 }
 
 .animate-aurora {
-  animation: aurora 60s linear infinite;
+  animation: aurora 28s ease-in-out infinite alternate;
+  transform-origin: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-aurora {
+    animation: none;
+    transform: none;
+  }
 }

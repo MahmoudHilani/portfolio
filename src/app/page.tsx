@@ -19,7 +19,7 @@ export default function Home() {
               initial={{ opacity: 0.0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
-                duration: 0.5,
+                duration: 0.35,
                 ease: "easeInOut",
               }}
               className="dark:text-white"
@@ -31,7 +31,7 @@ export default function Home() {
               initial={{ opacity: 0.0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
-                duration: 0.5,
+                duration: 0.35,
                 ease: "easeInOut",
               }}
               className="text-white mix-blend-soft-light"
@@ -47,11 +47,11 @@ export default function Home() {
                 .map((word, index) => (
                   <motion.span
                     key={index}
-                    initial={{ opacity: 0, filter: "blur(2px)", y: 10 }}
-                    animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
                     transition={{
-                      duration: 0.2,
-                      delay: index * 0.1 + 0.4,
+                      duration: 0.18,
+                      delay: index * 0.04 + 0.2,
                       ease: "easeInOut",
                     }}
                     className="mr-2 inline-block"
@@ -65,11 +65,11 @@ export default function Home() {
             {"What I've been up to".split(" ").map((word, index) => (
               <motion.span
                 key={index}
-                initial={{ opacity: 0, filter: "blur(2px)", y: 10 }}
-                animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{
-                  duration: 0.2,
-                  delay: index * 0.1 + 1.3,
+                  duration: 0.18,
+                  delay: index * 0.05 + 0.6,
                   ease: "easeInOut",
                 }}
                 className="hidden lg:flex"
@@ -78,11 +78,11 @@ export default function Home() {
               </motion.span>
             ))}
             <motion.div
-              initial={{ opacity: 0, filter: "blur(2px)", y: 10 }}
-              animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{
-                delay: 2,
-                duration: 0.2,
+                delay: 0.9,
+                duration: 0.18,
                 ease: "easeInOut",
               }}
             >
@@ -103,7 +103,8 @@ export default function Home() {
         and this website!
       </div>
       <div className="flex flex-col text-center justify-center text-4xl md:text-4xl lg:text-5xl pb-24 px-10 md:px-40 lg:px-80">
-        Want to work with me? Contact me! <br /> <p className="font-bold">(it's worth it)</p>
+        <span>Want to work with me? Contact me!</span>
+        <span className="font-bold">(it's worth it)</span>
       </div>
     </div>
   );
