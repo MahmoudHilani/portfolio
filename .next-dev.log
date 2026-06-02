@@ -6,13 +6,32 @@
 - Local:         http://localhost:3000
 - Network:       http://169.254.83.107:3000
 - Environments: .env.local, .env
-✓ Ready in 3.1s
+✓ Ready in 772ms
 
- GET / 200 in 3.9s (next.js: 3.5s, application-code: 378ms)
- GET / 200 in 111ms (next.js: 8ms, application-code: 103ms)
- GET / 200 in 240ms (next.js: 7ms, application-code: 233ms)
- GET / 200 in 91ms (next.js: 9ms, application-code: 82ms)
- GET /interpreter 200 in 1121ms (next.js: 1080ms, application-code: 41ms)
- GET / 200 in 24ms (next.js: 4ms, application-code: 21ms)
- GET /cube-surfer 200 in 2.4s (next.js: 2.3s, application-code: 64ms)
- GET / 200 in 30ms (next.js: 6ms, application-code: 24ms)
+ GET / 200 in 516ms (next.js: 215ms, application-code: 302ms)
+ GET / 200 in 113ms (next.js: 7ms, application-code: 106ms)
+ GET / 200 in 94ms (next.js: 6ms, application-code: 88ms)
+ GET / 200 in 87ms (next.js: 5ms, application-code: 82ms)
+ GET / 200 in 85ms (next.js: 5ms, application-code: 80ms)
+ GET / 200 in 85ms (next.js: 5ms, application-code: 80ms)
+✓ Compiled in 1082ms
+ GET / 200 in 487ms (next.js: 142ms, application-code: 344ms)
+ GET / 200 in 493ms (next.js: 214ms, application-code: 279ms)
+ GET / 200 in 264ms (next.js: 20ms, application-code: 244ms)
+ GET / 200 in 160ms (next.js: 9ms, application-code: 151ms)
+ GET / 200 in 101ms (next.js: 10ms, application-code: 91ms)
+ GET / 200 in 99ms (next.js: 56ms, application-code: 43ms)
+ GET / 200 in 463ms (next.js: 8ms, application-code: 455ms)
+✓ Compiled in 521ms
+ GET / 200 in 480ms (next.js: 220ms, application-code: 260ms)
+ GET / 200 in 495ms (next.js: 285ms, application-code: 210ms)
+ GET / 200 in 228ms (next.js: 7ms, application-code: 222ms)
+ GET / 200 in 193ms (next.js: 12ms, application-code: 181ms)
+ GET / 200 in 129ms (next.js: 9ms, application-code: 121ms)
+ GET / 200 in 72ms (next.js: 14ms, application-code: 58ms)
+ GET / 200 in 508ms (next.js: 10ms, application-code: 498ms)
+ GET / 200 in 212ms (next.js: 10ms, application-code: 202ms)
+ GET / 200 in 390ms (next.js: 21ms, application-code: 369ms)
+✓ Compiled in 338ms
+ GET / 200 in 399ms (next.js: 248ms, application-code: 150ms)
+ GET / 200 in 52ms (next.js: 7ms, application-code: 45ms)
