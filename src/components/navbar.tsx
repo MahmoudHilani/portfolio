@@ -31,7 +31,7 @@ const links = [
 
 export function Navbar() {
   return (
-    <div className="flex z-50 justify-center items-center fixed bottom-4 inset-x-0">
+    <div className="fixed bottom-4 right-4 z-50 flex items-center justify-end md:inset-x-0 md:justify-center">
       <FloatingDock items={links} />
     </div>
   );
