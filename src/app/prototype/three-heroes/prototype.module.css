@@ -1,0 +1,188 @@
+.hero {
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  font-family: var(--font-satoshi), Arial, sans-serif;
+  isolation: isolate;
+}
+
+.hero canvas { display: block; width: 100%; height: 100%; }
+
+.header {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  padding: 24px 2.4vw;
+  border-bottom: 1px solid currentColor;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: start;
+  font-size: 11px;
+  line-height: 1.2;
+}
+
+.header > a { font-size: 16px; font-weight: 700; }
+.header > span { justify-self: center; }
+.header nav { display: flex; justify-self: end; gap: 24px; }
+
+.index {
+  position: absolute;
+  z-index: 2;
+  top: 98px;
+  right: 2.4vw;
+  left: 2.4vw;
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-geist-mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+}
+
+.copy {
+  position: absolute;
+  z-index: 2;
+  right: 2.4vw;
+  bottom: 34px;
+  left: 2.4vw;
+  pointer-events: none;
+}
+
+.copy > p {
+  margin-bottom: 10px;
+  font-size: 13px;
+}
+
+.copy h1 {
+  max-width: 92vw;
+  font-size: clamp(76px, min(13.4vw, 29vh), 220px);
+  font-weight: 470;
+  line-height: .78;
+  letter-spacing: -.075em;
+  text-wrap: balance;
+}
+
+.copy > div {
+  display: grid;
+  margin-top: 24px;
+  padding-top: 14px;
+  border-top: 1px solid currentColor;
+  grid-template-columns: 1fr 1fr;
+  align-items: end;
+  font-size: 12px;
+}
+
+.copy > div > p { max-width: 390px; line-height: 1.35; }
+
+.copy > div > a {
+  display: flex;
+  width: min(100%, 320px);
+  padding-bottom: 8px;
+  border-bottom: 1px solid;
+  pointer-events: auto;
+  justify-self: end;
+  justify-content: space-between;
+}
+
+.sceneLabel {
+  position: absolute;
+  z-index: 2;
+  top: 47%;
+  right: 2.4vw;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+  font-family: var(--font-geist-mono);
+  font-size: 8px;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+}
+
+.variantA { color: #171816; background: #c9c7bc; }
+.variantB { color: #e6eadf; background: #151816; }
+.variantB .copy h1 { color: #d6ff55; mix-blend-mode: difference; }
+.variantC { color: #201b13; background: #e5a936; }
+.variantC .copy h1 { max-width: 60vw; }
+
+.switcher {
+  position: fixed;
+  z-index: 20;
+  bottom: 20px;
+  left: 50%;
+  display: flex;
+  padding: 5px;
+  border: 1px solid #ffffff25;
+  border-radius: 999px;
+  align-items: center;
+  color: #fff;
+  background: #0d0e0de8;
+  box-shadow: 0 12px 40px #0005;
+  backdrop-filter: blur(12px);
+  transform: translateX(-50%);
+  font-family: var(--font-geist-mono);
+  font-size: 10px;
+}
+
+.switcher button {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  place-items: center;
+  transition: background 180ms ease;
+}
+
+.switcher button:hover,
+.switcher button:focus-visible { background: #ffffff18; }
+.switcher span { min-width: 190px; padding: 0 12px; text-align: center; }
+
+@media (max-width: 700px) {
+  .header {
+    padding: 19px 18px;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .header > span { display: none; }
+  .header nav { gap: 16px; }
+  .index { top: 79px; right: 18px; left: 18px; }
+  .index span:last-child { display: none; }
+
+  .copy {
+    right: 18px;
+    bottom: 92px;
+    left: 18px;
+  }
+
+  .copy h1 {
+    max-width: 100%;
+    font-size: clamp(68px, 21vw, 96px);
+    line-height: .82;
+  }
+
+  .copy > div { grid-template-columns: 1fr; gap: 22px; }
+  .copy > div > p { max-width: 270px; }
+  .copy > div > a { justify-self: start; }
+  .sceneLabel { display: none; }
+  .variantC .copy h1 { max-width: 100%; }
+  .variantB .copy > div,
+  .variantC .copy > div {
+    padding: 14px;
+    margin-right: -14px;
+    margin-left: -14px;
+    backdrop-filter: blur(8px);
+  }
+  .variantB .copy > div { background: #151816cc; }
+  .variantC .copy > div { background: #e5a936d9; }
+  .switcher { bottom: 16px; }
+  .switcher span { min-width: 165px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero *,
+  .hero *::before,
+  .hero *::after {
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+  }
+}

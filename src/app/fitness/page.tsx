@@ -6,6 +6,21 @@ import { ProjectBackButton } from "@/components/project-back-button";
 import Link from "next/link";
 import { IconBrandGithub } from "@tabler/icons-react";
 import Image from "next/image";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Fitness & Nutrition Tracker",
+  description:
+    "A React Native fitness and nutrition tracker with authentication, APIs, a database, and a responsive Next.js landing page.",
+  alternates: { canonical: "/fitness" },
+  openGraph: {
+    url: "/fitness",
+    title: "Fitness & Nutrition Tracker | Mahmoud Hilani",
+    description:
+      "A React Native app for quickly tracking nutrition, exercise, and steady fitness progress.",
+    images: [{ url: "/fitness/Dribbble.png", alt: "Fitness tracker app and landing page" }],
+  },
+};
 
 const images = [
   "/fitness/1.png",

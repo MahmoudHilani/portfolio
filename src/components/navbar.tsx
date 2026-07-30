@@ -3,6 +3,7 @@
 import { FloatingDock } from "@/components/ui/floating-dock";
 import { IconBrandGithub, IconBrandX, IconHome } from "@tabler/icons-react";
 import { Linkedin } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 const iconClassName = "h-full w-full text-neutral-500 dark:text-neutral-300";
 
@@ -30,6 +31,12 @@ const links = [
 ];
 
 export function Navbar() {
+  const pathname = usePathname();
+
+  if (pathname === "/" || pathname.startsWith("/prototype/")) {
+    return null;
+  }
+
   return (
     <div className="fixed bottom-4 right-4 z-50 flex items-center justify-end md:inset-x-0 md:justify-center">
       <FloatingDock items={links} />

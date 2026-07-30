@@ -7,6 +7,21 @@ import {
 import { IconBrandGithub } from "@tabler/icons-react";
 import { InfoIcon } from "lucide-react";
 import Link from "next/link";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Cube Surfer Extreme",
+  description:
+    "A Unity and C# game that reimagines Cube Surfer with off-platform movement, vertical level design, multiple routes, and hidden easter eggs.",
+  alternates: { canonical: "/cube-surfer" },
+  openGraph: {
+    url: "/cube-surfer",
+    title: "Cube Surfer Extreme | Mahmoud Hilani",
+    description:
+      "A Unity game with expanded movement, vertical level design, multiple routes, and easter eggs.",
+    images: [{ url: "/Game1.png", alt: "Cube Surfer Extreme gameplay" }],
+  },
+};
 
 const images = [
   "/Game1.png",
