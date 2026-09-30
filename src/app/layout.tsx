@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist_Mono, Roboto } from "next/font/google";
+import { Geist_Mono, Handjet, Roboto } from "next/font/google";
 import localFont from "next/font/local";
 import "@fontsource/instrument-serif";
 import "@fontsource/instrument-serif/400-italic.css";
@@ -11,6 +11,11 @@ import { Toaster } from "sonner";
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+const handjet = Handjet({
+  variable: "--font-handjet",
   subsets: ["latin"],
 });
 
@@ -86,7 +91,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`dark ${roboto.variable} ${geistMono.variable} ${satoshi.className}`}
+      className={`dark ${roboto.variable} ${geistMono.variable} ${handjet.variable} ${satoshi.className}`}
     >
       <body className="scrollbar-none">
         <script

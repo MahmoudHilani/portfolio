@@ -139,11 +139,12 @@
 
 .name {
   display: flex;
-  margin: auto 0;
+  /* Sits high so the name covers the hair rather than the face. */
+  margin: 2vh 0 auto;
   flex-direction: column;
   font-size: clamp(88px, min(15.4vw, 34vh), 250px);
   font-weight: 500;
-  line-height: .72;
+  line-height: .8;
   letter-spacing: -.082em;
   z-index: 3 !important;
   filter: drop-shadow(0 8px 18px #11110f80);
@@ -153,23 +154,45 @@
   position: relative;
   display: block;
   width: fit-content;
-  padding-bottom: .1em;
-  margin-bottom: -.1em;
+  /* Room for the dithered glow, which the reveal mask would otherwise clip. */
+  padding: .08em .08em .1em;
+  margin: -.08em -.08em -.1em;
   overflow: hidden;
 }
 
 .name span:first-child { align-self: flex-start; }
 .name span:last-child { align-self: flex-end; padding-right: .14em; }
+.name span:first-child b {
+  font-family: var(--font-handjet), monospace;
+  font-size: 1.25em;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
 .name span:last-child b {
-  font-weight: 360;
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: 1.1em;
+  font-weight: 400;
   font-style: italic;
-  letter-spacing: -.095em;
+  letter-spacing: -.04em;
 }
 
 .name b {
+  position: relative;
   display: block;
-  font-weight: inherit;
   will-change: transform;
+}
+
+/* The real text stays for layout and screen readers until its dithered copy
+   is drawn over it. */
+.name b:has(:global(.dither-text[data-ready])) {
+  -webkit-text-fill-color: transparent;
+}
+
+.name :global(.dither-text) {
+  position: absolute;
+  pointer-events: none;
+  image-rendering: pixelated;
 }
 
 .heroBottom {
@@ -421,7 +444,7 @@
       linear-gradient(180deg, #11110fe6 0%, transparent 25%, transparent 64%, #11110ff2 100%);
   }
   .name {
-    margin: auto 0;
+    margin: 4vh 0 auto;
     font-size: clamp(72px, 21.5vw, 100px);
     line-height: .78;
     letter-spacing: -.075em;

@@ -11,6 +11,7 @@ import {
 } from "motion/react";
 import { useRef, useState } from "react";
 import { PortraitFilter } from "@/components/portrait-filter";
+import { DitherText } from "@/components/dither-text";
 import { Manicule } from "@/components/manicule";
 import { projects } from "@/lib/projects";
 import styles from "./home.module.css";
@@ -53,7 +54,7 @@ function HeroName() {
             ease: [0.16, 1, 0.3, 1],
           }}
         >
-          Mahmoud
+          <DitherText text="Mahmoud" />
         </motion.b>
       </span>
       <span>
@@ -67,7 +68,7 @@ function HeroName() {
             ease: [0.16, 1, 0.3, 1],
           }}
         >
-          Hilani
+          <DitherText text="Hilani" />
         </motion.b>
       </span>
     </div>
