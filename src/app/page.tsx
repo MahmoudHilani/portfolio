@@ -1,16 +1,18 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import {
   motion,
+  useMotionValue,
   useReducedMotion,
   useScroll,
+  useSpring,
   useTransform,
 } from "motion/react";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { PortraitFilter } from "@/components/portrait-filter";
-import { CubeSurferDecor } from "@/components/cube-surfer-decor";
+import { Manicule } from "@/components/manicule";
+import { projects } from "@/lib/projects";
 import styles from "./home.module.css";
 
 const reveal = {
@@ -25,14 +27,6 @@ function Arrow() {
     <svg viewBox="0 0 24 24" aria-hidden="true">
       <path d="M5 12h13M13 6l6 6-6 6" />
     </svg>
-  );
-}
-
-function ExploreLink({ href }: { href: string }) {
-  return (
-    <Link href={href} className={styles.languageExplore}>
-      Explore <Arrow />
-    </Link>
   );
 }
 
@@ -80,91 +74,77 @@ function HeroName() {
   );
 }
 
-const codeLines = [
-  ["01", "let", " makeAdder ", "= fn(x) {"],
-  ["02", "  return", " fn(y) { return x + y; };"],
-  ["03", "}"],
-  ["04", ""],
-  ["05", "let", " addTwo ", "= makeAdder(2);"],
-  ["06", "addTwo(5);", "  // 7"],
-];
-
-function LanguageVisual() {
-  return (
-    <div className={styles.languageVisual} aria-label="Animated interpreter example">
-      <div className={styles.terminalChrome}>
-        <span>go-interpreter / closure.go</span>
-      </div>
-      <div className={styles.codePanel}>
-        <div className={styles.codeLines}>
-          {codeLines.map(([number, ...parts], index) => (
-            <motion.div
-              key={number}
-              initial={{ opacity: 0, x: -14 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{
-                duration: 0.35,
-                delay: 0.12 + index * 0.07,
-                ease: "easeOut",
-              }}
-            >
-              <span>{number}</span>
-              <code>
-                {parts.map((part, partIndex) => (
-                  <b key={`${number}-${partIndex}`}>{part}</b>
-                ))}
-              </code>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function FitnessVisual() {
-  const stageRef = useRef<HTMLDivElement>(null);
+function ProjectIndex() {
+  const listRef = useRef<HTMLOListElement>(null);
   const reduceMotion = useReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target: stageRef,
-    offset: ["start end", "end start"],
-  });
-  const backdropY = useTransform(scrollYProgress, [0, 1], ["-4%", "4%"]);
-  const phoneY = useTransform(scrollYProgress, [0, 1], ["8%", "-8%"]);
+  const pointerY = useMotionValue(0);
+  const smoothY = useSpring(pointerY, { stiffness: 380, damping: 34, mass: 0.6 });
+  const [pointing, setPointing] = useState(false);
+
+  // The hand tracks the cursor's height over the list, and snaps to a row
+  // when it takes keyboard focus.
+  const trackPointer = (event: React.PointerEvent<HTMLOListElement>) => {
+    const list = listRef.current;
+    if (!list || event.pointerType !== "mouse") return;
+    pointerY.set(event.clientY - list.getBoundingClientRect().top);
+    setPointing(true);
+  };
+
+  const pointAtRow = (event: React.FocusEvent<HTMLAnchorElement>) => {
+    const list = listRef.current;
+    if (!list) return;
+    const row = event.currentTarget.getBoundingClientRect();
+    pointerY.set(row.top + row.height / 2 - list.getBoundingClientRect().top);
+    setPointing(true);
+  };
 
   return (
-    <div className={styles.fitnessStage} ref={stageRef}>
-      <motion.figure
-        className={styles.fitnessPhoto}
-        style={reduceMotion ? undefined : { y: backdropY }}
-      >
-        <Image
-          src="/fitness/Dribbble.png"
-          alt="Fitness app landing page"
-          fill
-          sizes="(max-width: 800px) 94vw, 66vw"
-        />
-      </motion.figure>
-      <motion.figure
-        className={styles.fitnessUi}
-        style={reduceMotion ? { rotate: -2.5 } : { y: phoneY, rotate: -2.5 }}
-        whileHover={reduceMotion ? undefined : { rotate: 0, scale: 1.025 }}
-        transition={{ duration: 0.25 }}
-      >
-        <Image
-          src="/fitness/4.png"
-          alt="Fitness tracker overview showing steps, workouts, and calories"
-          fill
-          sizes="(max-width: 800px) 48vw, 28vw"
-        />
-      </motion.figure>
-      <p>
-        Fitness app
-        <br />
-        and website.
-      </p>
-    </div>
+    <section className={styles.work} id="work">
+      <motion.p className={`${styles.aboutLabel} ${styles.workLabel}`} {...reveal}>
+        <span>Selected work</span>
+        <span>{String(projects.length).padStart(2, "0")}</span>
+      </motion.p>
+
+      <motion.div className={styles.workIndex} {...reveal}>
+        <motion.div
+          className={styles.workPointer}
+          style={{ y: reduceMotion ? pointerY : smoothY }}
+          animate={{ opacity: pointing ? 1 : 0 }}
+          transition={{ duration: 0.18 }}
+        >
+          <Manicule />
+        </motion.div>
+
+        <ol
+          ref={listRef}
+          className={styles.workList}
+          onPointerMove={trackPointer}
+          onPointerLeave={() => setPointing(false)}
+        >
+          {projects.map((project, index) => (
+            <li key={project.href}>
+              <a
+                href={project.href}
+                target="_blank"
+                rel="noreferrer"
+                onFocus={pointAtRow}
+                onBlur={() => setPointing(false)}
+              >
+                <span className={styles.workNumber}>
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <span className={styles.workTitle}>{project.title}</span>
+                <span className={styles.workMeta}>{project.stack}</span>
+                <span className={`${styles.workMeta} ${styles.workYear}`}>{project.year}</span>
+                <span className={styles.workArrow} aria-hidden="true">
+                  ↗
+                </span>
+              </a>
+            </li>
+          ))}
+        </ol>
+      </motion.div>
+    </section>
   );
 }
 
@@ -199,63 +179,7 @@ export default function Home() {
         </motion.div>
       </section>
 
-      <section className={`${styles.project} ${styles.language}`} id="work">
-        <div className={styles.languageLayout}>
-          <div className={styles.languageCopy}>
-            <motion.div className={styles.projectTitle} {...reveal}>
-              <h2>
-                A Go interpreter, built <em>from scratch.</em>
-              </h2>
-            </motion.div>
-            <motion.div className={styles.projectFoot} {...reveal}>
-              <p>
-                A tree-walk interpreter with a browser guide to lexing, parsing,
-                environments, and evaluation.
-              </p>
-            </motion.div>
-          </div>
-          <motion.div className={styles.languageTerminal} {...reveal}>
-            <LanguageVisual />
-            <ExploreLink href="/interpreter" />
-          </motion.div>
-        </div>
-      </section>
-
-      <section className={`${styles.project} ${styles.play}`}>
-        <motion.div className={styles.projectTitle} {...reveal}>
-          <h2>
-            Cube Surfer, reimagined <em>with a twist.</em>
-          </h2>
-        </motion.div>
-        <motion.div className={styles.projectFoot} {...reveal}>
-          <p>
-            A Unity game built in C#, expanding Cube Surfer with off-platform
-            movement, vertical level design, multiple routes, and easter eggs.
-          </p>
-          <ExploreLink href="/cube-surfer" />
-        </motion.div>
-        <CubeSurferDecor />
-      </section>
-
-      <section className={`${styles.project} ${styles.body}`}>
-        <motion.div className={styles.projectTitle} {...reveal}>
-          <h2>
-            Fitness tracking, built for <em>steady progress.</em>
-          </h2>
-        </motion.div>
-        <motion.div {...reveal}>
-          <FitnessVisual />
-        </motion.div>
-        <motion.div className={styles.projectFoot} {...reveal}>
-          <p>
-            A React Native fitness and nutrition tracker with authentication,
-            APIs, and a database, plus a responsive Next.js landing page.
-          </p>
-          <Link href="/fitness">
-            Enter the archive <Arrow />
-          </Link>
-        </motion.div>
-      </section>
+      <ProjectIndex />
 
       <section className={styles.about} id="about">
         <motion.p className={styles.aboutLabel} {...reveal}>
