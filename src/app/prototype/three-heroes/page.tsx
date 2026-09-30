@@ -97,7 +97,7 @@ export default function ThreeHeroPrototypePage() {
         <span>Software engineer / design habit</span>
         <nav>
           <a href="#work">Work</a>
-          <a href="mailto:mahmoodhilani@gmail.com">Email</a>
+          <a href="mailto:mahmoudhilani18@gmail.com">Email</a>
         </nav>
       </header>
 

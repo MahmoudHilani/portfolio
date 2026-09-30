@@ -1,14 +1,19 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { ditherCoverage, dotPixels, parseColor } from "@/lib/dither";
+import {
+  DITHER_FRAMES,
+  ditherCoverage,
+  dotPixels,
+  FRAME_DURATION,
+  parseColor,
+} from "@/lib/dither";
 
 // The glyphs fade from full ink at the cap line to this at the baseline, so
 // the dither shows as a crosshatch rather than solid dots.
 const BASE_TONE = 0.42;
-// A soft glow around the glyphs that dithers into a speckled halo.
-const GLOW = 0.04; // of the font size
-const GLOW_ALPHA = 0.55;
+// Canvas margin for glyphs that overhang their box, like italic swashes.
+const OVERHANG = 0.08; // of the font size
 
 // Draws one line of text through the same ordered dither as the portrait.
 // Mount it inside the element that holds the text: the real text stays in
@@ -24,7 +29,24 @@ export function DitherText({ text }: { text: string }) {
     if (!canvas || !host || !context) return;
 
     let frame = 0;
+    let animationFrame = 0;
     let cancelled = false;
+    let ditherFrames: ImageData[] = [];
+    let activeFrame = 0;
+    let previousFrameTime = 0;
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    // Cycles the grain phases in step with the portrait's shimmer.
+    const animate = (time: number) => {
+      if (time - previousFrameTime >= FRAME_DURATION) {
+        activeFrame = (activeFrame + 1) % ditherFrames.length;
+        context.putImageData(ditherFrames[activeFrame], 0, 0);
+        previousFrameTime = time;
+      }
+      animationFrame = requestAnimationFrame(animate);
+    };
 
     const render = async () => {
       const style = getComputedStyle(host);
@@ -38,7 +60,7 @@ export function DitherText({ text }: { text: string }) {
       const width = host.offsetWidth;
       const height = host.offsetHeight;
       const lineHeight = parseFloat(style.lineHeight) || height;
-      const pad = Math.ceil(fontSize * GLOW * 2);
+      const pad = Math.ceil(fontSize * OVERHANG);
       const scale = window.devicePixelRatio / dotPixels();
 
       canvas.style.left = canvas.style.top = `${-pad}px`;
@@ -69,10 +91,7 @@ export function DitherText({ text }: { text: string }) {
       tone.addColorStop(0, "rgba(255, 255, 255, 1)");
       tone.addColorStop(1, `rgba(255, 255, 255, ${BASE_TONE})`);
       context.fillStyle = tone;
-      context.shadowColor = `rgba(255, 255, 255, ${GLOW_ALPHA})`;
-      context.shadowBlur = fontSize * GLOW * scale;
       context.fillText(text, pad * scale, baseline);
-      context.shadowBlur = 0;
 
       const coverage = context.getImageData(
         0,
@@ -81,10 +100,24 @@ export function DitherText({ text }: { text: string }) {
         canvas.height,
       ).data;
       const ink = parseColor(context, style.color);
-      const output = context.createImageData(canvas.width, canvas.height);
-      ditherCoverage(coverage, output, { ink });
-      context.putImageData(output, 0, 0);
+      ditherFrames = Array.from(
+        { length: reducedMotion ? 1 : DITHER_FRAMES },
+        (_, phase) => {
+          const output = context.createImageData(canvas.width, canvas.height);
+          ditherCoverage(coverage, output, {
+            ink,
+            phase: reducedMotion ? undefined : phase,
+          });
+          return output;
+        },
+      );
+      activeFrame = 0;
+      context.putImageData(ditherFrames[0], 0, 0);
       canvas.dataset.ready = "true";
+
+      if (!reducedMotion && !animationFrame) {
+        animationFrame = requestAnimationFrame(animate);
+      }
     };
 
     const queueRender = () => {
@@ -100,6 +133,7 @@ export function DitherText({ text }: { text: string }) {
     return () => {
       cancelled = true;
       cancelAnimationFrame(frame);
+      cancelAnimationFrame(animationFrame);
       resizeObserver.disconnect();
       document.fonts.removeEventListener("loadingdone", queueRender);
     };

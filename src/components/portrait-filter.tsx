@@ -4,15 +4,16 @@ import { useEffect, useRef } from "react";
 import {
   bayerThreshold,
   CHANNEL_SHIFT,
+  DITHER_FRAMES,
   ditherLevel,
   dotPixels,
+  FRAME_DURATION,
+  grain,
 } from "@/lib/dither";
 
 const MAX_SAMPLE_WIDTH = 1600;
 const CONTRAST = 1.12;
 const EXPOSURE = 0.018;
-const DITHER_FRAMES = 4;
-const FRAME_DURATION = 150;
 // How much the photo's own color pushes each channel off the ink's tone.
 const CHROMA = 1.6;
 
@@ -43,9 +44,8 @@ function drawDither(
       // Preserve true black while opening the low-mid tones where the hair lives.
       if (sourceValue < 0.04) continue;
       const value = Math.pow(sourceValue, 0.68) * 0.94;
-      const grain =
-        (((index * 17 + phase * 31) % 23) / 22 - 0.5) * 0.045;
-      const tone = (value - 0.5) * CONTRAST + 0.5 + EXPOSURE + grain;
+      const tone =
+        (value - 0.5) * CONTRAST + 0.5 + EXPOSURE + grain(index, phase);
       const threshold = bayerThreshold(x, y);
       let lit = false;
 
@@ -71,29 +71,22 @@ function drawDither(
 export function PortraitFilter() {
   const rootRef = useRef<HTMLDivElement>(null);
   const baseRef = useRef<HTMLCanvasElement>(null);
-  const accentRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     const root = rootRef.current;
     const base = baseRef.current;
-    const accent = accentRef.current;
-    if (!root || !base || !accent) return;
+    if (!root || !base) return;
 
     const baseContext = base.getContext("2d");
-    const accentContext = accent.getContext("2d");
     const sample = document.createElement("canvas");
     const sampleContext = sample.getContext("2d", { willReadFrequently: true });
-    if (!baseContext || !accentContext || !sampleContext) return;
+    if (!baseContext || !sampleContext) return;
 
     const source = new Image();
     source.src = "/portrait-hero-wide.png";
     let resizeFrame = 0;
-    let pointerFrame = 0;
     let animationFrame = 0;
-    let ditherFrames: Array<{
-      base: ImageData;
-      accent: ImageData;
-    }> = [];
+    let ditherFrames: ImageData[] = [];
     let activeFrame = 0;
     let previousFrameTime = 0;
     const reducedMotion = window.matchMedia(
@@ -106,8 +99,7 @@ export function PortraitFilter() {
         time - previousFrameTime >= FRAME_DURATION
       ) {
         activeFrame = (activeFrame + 1) % ditherFrames.length;
-        baseContext.putImageData(ditherFrames[activeFrame].base, 0, 0);
-        accentContext.putImageData(ditherFrames[activeFrame].accent, 0, 0);
+        baseContext.putImageData(ditherFrames[activeFrame], 0, 0);
         previousFrameTime = time;
       }
 
@@ -130,8 +122,8 @@ export function PortraitFilter() {
 
       sample.width = width;
       sample.height = height;
-      base.width = accent.width = width;
-      base.height = accent.height = height;
+      base.width = width;
+      base.height = height;
 
       const sourceRatio = source.naturalWidth / source.naturalHeight;
       const targetRatio = width / height;
@@ -163,28 +155,11 @@ export function PortraitFilter() {
       const pixels = sampleContext.getImageData(0, 0, width, height).data;
       ditherFrames = Array.from(
         { length: reducedMotion ? 1 : DITHER_FRAMES },
-        (_, phase) => ({
-          base: drawDither(
-            baseContext,
-            pixels,
-            width,
-            height,
-            [222, 221, 212],
-            phase,
-          ),
-          accent: drawDither(
-            accentContext,
-            pixels,
-            width,
-            height,
-            [255, 91, 53],
-            phase,
-          ),
-        }),
+        (_, phase) =>
+          drawDither(baseContext, pixels, width, height, [222, 221, 212], phase),
       );
       activeFrame = 0;
-      baseContext.putImageData(ditherFrames[0].base, 0, 0);
-      accentContext.putImageData(ditherFrames[0].accent, 0, 0);
+      baseContext.putImageData(ditherFrames[0], 0, 0);
       root.dataset.ready = "true";
 
       if (!reducedMotion && !animationFrame) {
@@ -197,42 +172,22 @@ export function PortraitFilter() {
       resizeFrame = requestAnimationFrame(render);
     };
 
-    const movePointer = (event: PointerEvent) => {
-      cancelAnimationFrame(pointerFrame);
-      pointerFrame = requestAnimationFrame(() => {
-        const bounds = root.getBoundingClientRect();
-        root.style.setProperty("--pointer-x", `${event.clientX - bounds.left}px`);
-        root.style.setProperty("--pointer-y", `${event.clientY - bounds.top}px`);
-      });
-    };
-
-    const resetPointer = () => {
-      root.style.removeProperty("--pointer-x");
-      root.style.removeProperty("--pointer-y");
-    };
-
     const resizeObserver = new ResizeObserver(queueRender);
     resizeObserver.observe(root);
     source.addEventListener("load", render);
-    window.addEventListener("pointermove", movePointer, { passive: true });
-    document.documentElement.addEventListener("pointerleave", resetPointer);
     if (source.complete) render();
 
     return () => {
       cancelAnimationFrame(resizeFrame);
-      cancelAnimationFrame(pointerFrame);
       cancelAnimationFrame(animationFrame);
       resizeObserver.disconnect();
       source.removeEventListener("load", render);
-      window.removeEventListener("pointermove", movePointer);
-      document.documentElement.removeEventListener("pointerleave", resetPointer);
     };
   }, []);
 
   return (
     <div ref={rootRef} className="portrait-filter" aria-hidden="true">
       <canvas ref={baseRef} />
-      <canvas ref={accentRef} className="portrait-filter__accent" />
     </div>
   );
 }

@@ -5,6 +5,10 @@ export const DOT_SIZE = 2;
 export const DITHER_LEVELS = 3;
 // A slight warm/cool offset per channel, so tone edges pick up faint specks.
 export const CHANNEL_SHIFT = [0.035, 0, -0.035] as const;
+// The dither cycles through a few grain phases so it shimmers.
+export const DITHER_FRAMES = 4;
+export const FRAME_DURATION = 150; // ms
+const GRAIN = 0.045;
 
 function bayerMatrix(size: number) {
   let matrix = [
@@ -46,6 +50,12 @@ export function bayerThreshold(x: number, y: number) {
   return (BAYER[y % BAYER.length][x % BAYER.length] + 0.5) / BAYER_CELLS;
 }
 
+// A small tone offset that shifts with the frame phase, nudging which dots
+// round up so the pattern crawls between frames.
+export function grain(index: number, phase: number) {
+  return (((index * 17 + phase * 31) % 23) / 22 - 0.5) * GRAIN;
+}
+
 // Cuts a 0-1 tone to one of DITHER_LEVELS, letting the matrix decide which
 // way it rounds so the missing tones read as a crosshatch.
 export function ditherLevel(tone: number, threshold: number) {
@@ -68,7 +78,15 @@ export function ditherCoverage(
     paper,
     gamma = 1,
     shiftScale = 1,
-  }: { ink: Rgb; paper?: Rgb; gamma?: number; shiftScale?: number },
+    phase,
+  }: {
+    ink: Rgb;
+    paper?: Rgb;
+    gamma?: number;
+    shiftScale?: number;
+    // Adds animated grain; leave unset for a still dither.
+    phase?: number;
+  },
 ) {
   const { width, height, data } = output;
 
@@ -77,7 +95,9 @@ export function ditherCoverage(
       const pixel = (y * width + x) * 4;
       const alpha = source[pixel + 3];
       if (alpha === 0) continue;
-      const tone = Math.pow(alpha / 255, gamma);
+      const tone =
+        Math.pow(alpha / 255, gamma) +
+        (phase === undefined ? 0 : grain(pixel / 4, phase));
       const threshold = bayerThreshold(x, y);
       let lit = Boolean(paper);
 

@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import {
   motion,
   useMotionValue,
@@ -9,8 +8,9 @@ import {
   useSpring,
   useTransform,
 } from "motion/react";
-import { useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { PortraitFilter } from "@/components/portrait-filter";
+import { DitherArrow } from "@/components/dither-arrow";
 import { DitherText } from "@/components/dither-text";
 import { Manicule } from "@/components/manicule";
 import { projects } from "@/lib/projects";
@@ -22,14 +22,6 @@ const reveal = {
   viewport: { once: true, margin: "-12%" },
   transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] },
 } as const;
-
-function Arrow() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M5 12h13M13 6l6 6-6 6" />
-    </svg>
-  );
-}
 
 function HeroName() {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -79,19 +71,31 @@ function ProjectIndex() {
   const reduceMotion = useReducedMotion();
   const pointerY = useMotionValue(0);
   const smoothY = useSpring(pointerY, { stiffness: 380, damping: 34, mass: 0.6 });
-  const [pointing, setPointing] = useState(false);
+  const listRef = useRef<HTMLOListElement>(null);
+  const aimedRow = useRef<Element | null>(null);
 
-  // The hand snaps to the middle of the hovered or focused title and glides
-  // between rows. It appears in place rather than gliding in from wherever
-  // it was last hidden.
+  // The hand points at the middle of the hovered or focused title and glides
+  // between rows. With nothing hovered it rests on the first title.
   const aim = (row: Element | null) => {
     const title = row?.querySelector<HTMLElement>(`.${styles.workTitle}`);
     if (!title) return;
-    const y = title.offsetTop + title.offsetHeight / 2;
-    pointerY.set(y);
-    if (!pointing) smoothY.jump(y);
-    setPointing(true);
+    aimedRow.current = row;
+    pointerY.set(title.offsetTop + title.offsetHeight / 2);
   };
+
+  const rest = () => aim(listRef.current?.querySelector("a") ?? null);
+
+  // Start at rest without gliding in, and follow the aimed title as the
+  // layout reflows.
+  useEffect(() => {
+    const list = listRef.current;
+    if (!list) return;
+    rest();
+    smoothY.jump(pointerY.get());
+    const resizeObserver = new ResizeObserver(() => aim(aimedRow.current));
+    resizeObserver.observe(list);
+    return () => resizeObserver.disconnect();
+  }, []);
 
   const trackPointer = (event: React.PointerEvent<HTMLOListElement>) => {
     if (event.pointerType !== "mouse") return;
@@ -100,25 +104,24 @@ function ProjectIndex() {
 
   return (
     <section className={styles.work} id="work">
-      <motion.p className={`${styles.aboutLabel} ${styles.workLabel}`} {...reveal}>
-        <span>Selected work</span>
-        <span>{String(projects.length).padStart(2, "0")}</span>
+      <motion.p className={`${styles.label} ${styles.workLabel}`} {...reveal}>
+        Selected work
+        <sup>{String(projects.length).padStart(2, "0")}</sup>
       </motion.p>
 
       <motion.div className={styles.workIndex} {...reveal}>
         <motion.div
           className={styles.workPointer}
           style={{ y: reduceMotion ? pointerY : smoothY }}
-          animate={{ opacity: pointing ? 1 : 0 }}
-          transition={{ duration: 0.18 }}
         >
           <Manicule />
         </motion.div>
 
         <ol
+          ref={listRef}
           className={styles.workList}
           onPointerMove={trackPointer}
-          onPointerLeave={() => setPointing(false)}
+          onPointerLeave={rest}
         >
           {projects.map((project, index) => (
             <li key={project.href}>
@@ -127,7 +130,7 @@ function ProjectIndex() {
                 target="_blank"
                 rel="noreferrer"
                 onFocus={(event) => aim(event.currentTarget)}
-                onBlur={() => setPointing(false)}
+                onBlur={rest}
               >
                 <span className={styles.workNumber}>
                   {String(index + 1).padStart(2, "0")}
@@ -150,55 +153,24 @@ function ProjectIndex() {
 export default function Home() {
   return (
     <main className={styles.page}>
-      <header className={styles.header}>
-        <Link href="/" className={styles.wordmark} aria-label="Mahmoud Hilani, home">
-          MH
-        </Link>
-        <nav aria-label="Primary navigation">
-          <a href="#work">Work</a>
-          <a href="#about">About</a>
-          <a href="mailto:mahmoodhilani@gmail.com">Email</a>
-        </nav>
-      </header>
-
       <section className={styles.hero}>
         <PortraitFilter />
         <HeroName />
 
-        <motion.div
-          className={styles.heroBottom}
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.62, duration: 0.55 }}
-        >
-          <a href="#work">
-            Selected work
-            <span>↓</span>
-          </a>
-        </motion.div>
       </section>
 
       <ProjectIndex />
 
-      <section className={styles.about} id="about">
-        <motion.p className={styles.aboutLabel} {...reveal}>
-          About
-        </motion.p>
-        <motion.div className={styles.aboutCopy} {...reveal}>
-          <h2>
-            Software engineer in <em>Dublin.</em> I build web products,
-            developer tools, and small games.
-          </h2>
-        </motion.div>
-      </section>
-
       <footer className={styles.footer}>
-        <p>Contact</p>
-        <a href="mailto:mahmoodhilani@gmail.com">
-          Email me
-          <Arrow />
+        <p className={`${styles.label} ${styles.footerLabel}`}>Contact</p>
+        <a className={styles.email} href="mailto:mahmoudhilani18@gmail.com">
+          <b>
+            <DitherText text="Email me" />
+          </b>
+          <DitherArrow className={styles.emailArrow} />
         </a>
-        <div>
+        <p className={styles.emailAddress}>mahmoudhilani18@gmail.com</p>
+        <div className={styles.footerBottom}>
           <span>© {new Date().getFullYear()} Mahmoud Hilani</span>
           <nav aria-label="Social links">
             <a href="https://github.com/MahmoudHilani">GitHub</a>

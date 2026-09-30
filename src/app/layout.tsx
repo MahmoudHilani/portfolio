@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist_Mono, Handjet, Roboto } from "next/font/google";
 import localFont from "next/font/local";
 import "@fontsource/instrument-serif";
@@ -72,6 +72,13 @@ export const metadata: Metadata = {
   icons: {
     icon: "/icon.svg",
   },
+};
+
+// Tint the browser chrome (the status bar around the notch) to match the hero,
+// and let the page draw beneath Safari's floating toolbar.
+export const viewport: Viewport = {
+  themeColor: "#11110f",
+  viewportFit: "cover",
 };
 
 const satoshi = localFont({

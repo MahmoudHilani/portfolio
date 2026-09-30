@@ -8,72 +8,35 @@
   font-family: var(--font-satoshi), Arial, sans-serif;
 }
 
+/* Safari tints the status bar and overscroll areas from the page background,
+   so match it to the hero rather than the global dark theme. */
+:global(html):has(.page),
+:global(body):has(.page) {
+  background: #11110f;
+}
+
 .page a:focus-visible {
   outline: 2px solid currentColor;
   outline-offset: 5px;
 }
 
-.header {
-  position: absolute;
-  z-index: 10;
-  top: 0;
-  left: 0;
-  display: grid;
-  width: 100%;
-  padding: 26px 2.4vw;
-  color: #f4f3ed;
-  grid-template-columns: 1fr 1fr;
-  align-items: start;
-  font-size: 12px;
-  line-height: 1.25;
-  letter-spacing: .02em;
-}
-
-.wordmark {
-  width: fit-content;
-  font-size: 16px;
-  font-weight: 700;
-  letter-spacing: -.04em;
-}
-
-.header nav {
-  display: flex;
-  justify-self: end;
-  gap: 24px;
-}
-
-.header a {
-  position: relative;
-}
-
-.header nav a::after {
-  position: absolute;
-  right: 0;
-  bottom: -3px;
-  left: 0;
-  height: 1px;
-  content: "";
-  background: currentColor;
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform 200ms ease;
-}
-
-.header nav a:hover::after,
-.header nav a:focus-visible::after {
-  transform: scaleX(1);
-  transform-origin: left;
-}
-
 .hero {
   position: relative;
   display: flex;
-  min-height: 100svh;
+  /* Fill the viewport as if the browser toolbars were hidden, plus some
+     overscan for the strip Safari keeps under its collapsed toolbar, so the
+     hero runs all the way under it. */
+  --overscan: 0px;
+  min-height: calc(100lvh + var(--overscan));
   padding: 90px 2.4vw 28px;
   overflow: hidden;
   color: #f4f3ed;
   background: #11110f;
   flex-direction: column;
+}
+
+@media (pointer: coarse) {
+  .hero { --overscan: 96px; }
 }
 
 .hero :global(.portrait-filter) {
@@ -82,8 +45,6 @@
   inset: 0;
   width: 100%;
   height: 100%;
-  --pointer-x: 62%;
-  --pointer-y: 46%;
   opacity: 0;
   pointer-events: none;
   transition: opacity 700ms cubic-bezier(.22, 1, .36, 1);
@@ -101,22 +62,6 @@
   image-rendering: pixelated;
 }
 
-.hero :global(.portrait-filter__accent) {
-  opacity: .94;
-  mask-image: radial-gradient(
-    circle clamp(150px, 19vw, 330px) at var(--pointer-x) var(--pointer-y),
-    #000 0%,
-    #000 18%,
-    transparent 76%
-  );
-  -webkit-mask-image: radial-gradient(
-    circle clamp(150px, 19vw, 330px) at var(--pointer-x) var(--pointer-y),
-    #000 0%,
-    #000 18%,
-    transparent 76%
-  );
-}
-
 .hero::after {
   position: absolute;
   z-index: 2;
@@ -131,10 +76,6 @@
 .hero > *:not(:global(.portrait-filter)) {
   position: relative;
   z-index: 3;
-}
-
-.heroBottom {
-  z-index: 4 !important;
 }
 
 .name {
@@ -154,7 +95,7 @@
   position: relative;
   display: block;
   width: fit-content;
-  /* Room for the dithered glow, which the reveal mask would otherwise clip. */
+  /* Room for overhanging glyphs, which the reveal mask would otherwise clip. */
   padding: .08em .08em .1em;
   margin: -.08em -.08em -.1em;
   overflow: hidden;
@@ -185,59 +126,16 @@
 
 /* The real text stays for layout and screen readers until its dithered copy
    is drawn over it. */
-.name b:has(:global(.dither-text[data-ready])) {
+.name b:has(:global(.dither-text[data-ready])),
+.email b:has(:global(.dither-text[data-ready])) {
   -webkit-text-fill-color: transparent;
 }
 
-.name :global(.dither-text) {
+.name :global(.dither-text),
+.email :global(.dither-text) {
   position: absolute;
   pointer-events: none;
   image-rendering: pixelated;
-}
-
-.heroBottom {
-  display: flex;
-  padding-top: 22px;
-  border-top: 1px solid #ffffff42;
-  align-items: end;
-  justify-content: flex-end;
-  text-shadow: 0 1px 20px #11110f;
-}
-
-.heroBottom > a {
-  display: flex;
-  width: 100%;
-  max-width: 320px;
-  padding: 14px 0 7px;
-  border-bottom: 1px solid currentColor;
-  justify-self: end;
-  justify-content: space-between;
-  font-size: 13px;
-}
-
-.footer > a {
-  display: flex;
-  width: 100%;
-  max-width: 360px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid currentColor;
-  align-items: center;
-  justify-self: end;
-  justify-content: space-between;
-  font-size: 13px;
-}
-
-.footer svg {
-  width: 22px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.4;
-  transition: transform 200ms ease;
-}
-
-.footer > a:hover svg,
-.footer > a:focus-visible svg {
-  transform: translateX(5px);
 }
 
 .work {
@@ -248,8 +146,7 @@
 }
 
 .workLabel {
-  display: flex;
-  justify-content: space-between;
+  margin-bottom: 28px;
 }
 
 .workIndex {
@@ -264,7 +161,6 @@
   width: var(--hand);
   /* Align the engraved fingertip with the tracked pointer position. */
   margin-top: calc(var(--hand) * -.08);
-  opacity: 0;
   pointer-events: none;
   will-change: transform;
 }
@@ -277,6 +173,7 @@
 }
 
 .workList {
+  border-top: 1px solid #17171433;
   list-style: none;
 }
 
@@ -338,50 +235,23 @@
   .workIndex { padding-left: 0; }
 }
 
-.about {
-  padding: 110px 2.4vw 160px;
-  color: #171714;
-  background: #f0efe9;
-}
-
-.aboutLabel {
-  padding-bottom: 16px;
-  border-bottom: 1px solid;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: .08em;
-}
-
-.aboutCopy {
-  display: grid;
-  padding-top: 56px;
-  grid-template-columns: 2fr 1fr;
-  gap: 8vw;
-}
-
-.aboutCopy h2 {
-  max-width: 970px;
+/* Section heads in the italic serif, with a small mono count beside. */
+.label {
   font-family: "Instrument Serif", Georgia, serif;
-  font-size: clamp(44px, 6.3vw, 100px);
-  font-weight: 400;
-  line-height: .91;
-  letter-spacing: -.045em;
-}
-
-.aboutCopy h2 em {
-  color: #e84e2c;
-  font-weight: 350;
+  font-size: clamp(30px, 3.2vw, 48px);
   font-style: italic;
+  line-height: 1;
+  letter-spacing: -.02em;
 }
 
-.aboutCopy > div {
-  display: flex;
-  padding-top: 10px;
-  flex-direction: column;
-  gap: 26px;
-  font-size: 18px;
-  line-height: 1.38;
-  letter-spacing: -.018em;
+.label sup {
+  margin-left: .35em;
+  color: #6f6e67;
+  font-family: var(--font-geist-mono);
+  font-size: 11px;
+  font-style: normal;
+  letter-spacing: .06em;
+  vertical-align: 1.6em;
 }
 
 .footer {
@@ -390,33 +260,92 @@
   background: #11110f;
 }
 
-.footer > p {
-  padding-bottom: 18px;
+.footerLabel {
+  color: #aaa9a2;
+}
+
+.email {
+  position: relative;
+  display: flex;
+  margin-top: 14vh;
+  padding-bottom: 2.4vw;
   border-bottom: 1px solid #ffffff42;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 4vw;
+}
+
+/* An accent rule that draws in under the link on hover. */
+.email::after {
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  height: 1px;
+  content: "";
+  background: #e84e2c;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 500ms cubic-bezier(.22, 1, .36, 1);
+}
+
+.email:hover::after,
+.email:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.email b {
+  position: relative;
+  display: block;
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: clamp(88px, 17vw, 290px);
+  font-weight: 400;
+  font-style: italic;
+  line-height: .9;
+  letter-spacing: -.04em;
+  white-space: nowrap;
+  transition: transform 500ms cubic-bezier(.22, 1, .36, 1);
+}
+
+.email:hover b,
+.email:focus-visible b {
+  transform: translateX(1.2vw);
+}
+
+.emailArrow {
+  position: relative;
+  display: block;
+  width: clamp(64px, 10vw, 170px);
+  aspect-ratio: 1;
+  flex: none;
+  /* Drop it onto the baseline of the italic beside it. */
+  margin-bottom: .6vw;
+  transition: transform 500ms cubic-bezier(.22, 1, .36, 1);
+}
+
+.emailArrow canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+}
+
+.email:hover .emailArrow,
+.email:focus-visible .emailArrow {
+  transform: translate(8%, -8%);
+}
+
+.emailAddress {
+  margin-top: 16px;
   color: #aaa9a2;
   font-family: var(--font-geist-mono);
   font-size: 10px;
-  text-transform: uppercase;
   letter-spacing: .1em;
 }
 
-.footer > a {
-  max-width: none;
-  margin-top: 11vh;
-  padding-bottom: 28px;
-  font-size: clamp(80px, 16vw, 250px);
-  font-weight: 580;
-  line-height: .75;
-  letter-spacing: -.075em;
-  font-style: italic;
-}
-
-.footer > a svg {
-  width: .65em;
-  stroke-width: .7;
-}
-
-.footer > div {
+.footerBottom {
   display: flex;
   margin-top: 18vh;
   padding-top: 18px;
@@ -429,15 +358,7 @@
 .footer nav { display: flex; gap: 26px; color: #f4f3ed; }
 
 @media (max-width: 800px) {
-  .header {
-    padding: 20px 18px;
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .header nav { gap: 16px; }
-  .header nav a:first-child { display: none; }
-
-  .hero { min-height: 100svh; padding: 78px 18px 20px; }
+  .hero { padding: 78px 18px 20px; }
   .hero :global(.portrait-filter[data-ready="true"]) { opacity: .78; }
   .hero::after {
     background:
@@ -457,12 +378,6 @@
 
   .name span:last-child { align-self: flex-start; }
 
-  .heroBottom {
-    justify-content: flex-start;
-  }
-
-  .heroBottom > a { justify-self: start; }
-
   .work { padding: 80px 18px 100px; }
   .workIndex { padding-left: 0; }
   .workPointer { display: none; }
@@ -476,20 +391,21 @@
   .workYear { justify-self: end; }
   .workArrow { grid-column: 3; grid-row: 1; }
 
-  .about { padding: 80px 18px 110px; }
-  .aboutCopy { grid-template-columns: 1fr; gap: 48px; }
-
   .footer {
     padding: 28px 18px 22px;
   }
 
-  .footer > a {
-    margin-top: 12vh;
-    font-size: 22vw;
+  .email {
+    margin-top: 10vh;
+    padding-bottom: 14px;
+    gap: 12px;
   }
 
-  .footer > div {
-    margin-top: 22vh;
+  .email b { font-size: 22vw; }
+  .emailArrow { width: 16vw; margin-bottom: 1vw; }
+
+  .footerBottom {
+    margin-top: 16vh;
     flex-direction: column-reverse;
     gap: 28px;
   }
