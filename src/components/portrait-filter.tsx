@@ -1,52 +1,22 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import {
+  bayerThreshold,
+  CHANNEL_SHIFT,
+  ditherLevel,
+  dotPixels,
+} from "@/lib/dither";
 
-// Dot size in CSS pixels. playgrnd's full-bleed view lands at ~1.9px.
-const DOT_SIZE = 2;
 const MAX_SAMPLE_WIDTH = 1600;
 const CONTRAST = 1.12;
 const EXPOSURE = 0.018;
 const DITHER_FRAMES = 4;
 const FRAME_DURATION = 150;
-const DITHER_LEVELS = 3;
-// How much the photo's own color and a slight warm/cool channel offset push
-// each channel off the ink's tone before it's dithered.
+// How much the photo's own color pushes each channel off the ink's tone.
 const CHROMA = 1.6;
-const CHANNEL_SHIFT = [0.035, 0, -0.035] as const;
 
 type DitherColor = readonly [number, number, number];
-
-function bayerMatrix(size: number) {
-  let matrix = [
-    [0, 2],
-    [3, 1],
-  ];
-
-  while (matrix.length < size) {
-    const half = matrix.length;
-    const next = Array.from({ length: half * 2 }, () =>
-      new Array<number>(half * 2),
-    );
-
-    for (let y = 0; y < half; y += 1) {
-      for (let x = 0; x < half; x += 1) {
-        const value = matrix[y][x] * 4;
-        next[y][x] = value;
-        next[y][x + half] = value + 2;
-        next[y + half][x] = value + 3;
-        next[y + half][x + half] = value + 1;
-      }
-    }
-
-    matrix = next;
-  }
-
-  return matrix;
-}
-
-const BAYER = bayerMatrix(8);
-const BAYER_CELLS = BAYER.length * BAYER.length;
 
 function drawDither(
   context: CanvasRenderingContext2D,
@@ -57,14 +27,11 @@ function drawDither(
   phase: number,
 ) {
   const output = context.createImageData(width, height);
-  const steps = DITHER_LEVELS - 1;
 
   // Ordered Bayer dither, cut per channel like playgrnd: each channel rounds
   // to a few levels on its own, so where they disagree along a tone edge the
   // ink picks up a faint warm or cool speck. Flat areas stay the exact ink.
   for (let y = 0; y < height; y += 1) {
-    const row = BAYER[y % BAYER.length];
-
     for (let x = 0; x < width; x += 1) {
       const index = y * width + x;
       const pixel = index * 4;
@@ -79,19 +46,15 @@ function drawDither(
       const grain =
         (((index * 17 + phase * 31) % 23) / 22 - 0.5) * 0.045;
       const tone = (value - 0.5) * CONTRAST + 0.5 + EXPOSURE + grain;
-      const threshold = (row[x % BAYER.length] + 0.5) / BAYER_CELLS;
+      const threshold = bayerThreshold(x, y);
       let lit = false;
 
       for (let channel = 0; channel < 3; channel += 1) {
         const chroma = (pixels[pixel + channel] / 255 - sourceValue) * CHROMA;
-        const channelTone = Math.min(
-          1,
-          Math.max(0, tone + chroma + CHANNEL_SHIFT[channel]),
+        const level = ditherLevel(
+          tone + chroma + CHANNEL_SHIFT[channel],
+          threshold,
         );
-        const scaled = channelTone * steps;
-        const floor = Math.floor(scaled);
-        const level =
-          Math.min(steps, floor + (scaled - floor > threshold ? 1 : 0)) / steps;
 
         output.data[pixel + channel] = color[channel] * level;
         if (level > 0) lit = true;
@@ -155,12 +118,13 @@ export function PortraitFilter() {
       if (!source.naturalWidth) return;
 
       const bounds = root.getBoundingClientRect();
-      const pixelRatio = window.devicePixelRatio;
-      // Whole device pixels per dot keeps every dot the same size on screen.
-      const dotSize = Math.max(1, Math.round(DOT_SIZE * pixelRatio));
+      const dotSize = dotPixels();
       const width = Math.min(
         MAX_SAMPLE_WIDTH,
-        Math.max(1, Math.round((bounds.width * pixelRatio) / dotSize)),
+        Math.max(
+          1,
+          Math.round((bounds.width * window.devicePixelRatio) / dotSize),
+        ),
       );
       const height = Math.max(1, Math.round(width / (bounds.width / bounds.height)));
 

@@ -218,7 +218,7 @@
 }
 
 .work {
-  --hand: clamp(72px, 7vw, 112px);
+  --hand: clamp(160px, 17vw, 280px);
   padding: 110px 2.4vw 140px;
   color: #171714;
   background: #f0efe9;
@@ -246,10 +246,11 @@
   will-change: transform;
 }
 
-.workPointer svg {
+.workPointer canvas {
   display: block;
   width: 100%;
-  height: auto;
+  aspect-ratio: 3860 / 2150;
+  image-rendering: pixelated;
 }
 
 .workList {

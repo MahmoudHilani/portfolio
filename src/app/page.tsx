@@ -75,27 +75,26 @@ function HeroName() {
 }
 
 function ProjectIndex() {
-  const listRef = useRef<HTMLOListElement>(null);
   const reduceMotion = useReducedMotion();
   const pointerY = useMotionValue(0);
   const smoothY = useSpring(pointerY, { stiffness: 380, damping: 34, mass: 0.6 });
   const [pointing, setPointing] = useState(false);
 
-  // The hand tracks the cursor's height over the list, and snaps to a row
-  // when it takes keyboard focus.
-  const trackPointer = (event: React.PointerEvent<HTMLOListElement>) => {
-    const list = listRef.current;
-    if (!list || event.pointerType !== "mouse") return;
-    pointerY.set(event.clientY - list.getBoundingClientRect().top);
+  // The hand snaps to the middle of the hovered or focused title and glides
+  // between rows. It appears in place rather than gliding in from wherever
+  // it was last hidden.
+  const aim = (row: Element | null) => {
+    const title = row?.querySelector<HTMLElement>(`.${styles.workTitle}`);
+    if (!title) return;
+    const y = title.offsetTop + title.offsetHeight / 2;
+    pointerY.set(y);
+    if (!pointing) smoothY.jump(y);
     setPointing(true);
   };
 
-  const pointAtRow = (event: React.FocusEvent<HTMLAnchorElement>) => {
-    const list = listRef.current;
-    if (!list) return;
-    const row = event.currentTarget.getBoundingClientRect();
-    pointerY.set(row.top + row.height / 2 - list.getBoundingClientRect().top);
-    setPointing(true);
+  const trackPointer = (event: React.PointerEvent<HTMLOListElement>) => {
+    if (event.pointerType !== "mouse") return;
+    aim((event.target as Element).closest("a"));
   };
 
   return (
@@ -116,7 +115,6 @@ function ProjectIndex() {
         </motion.div>
 
         <ol
-          ref={listRef}
           className={styles.workList}
           onPointerMove={trackPointer}
           onPointerLeave={() => setPointing(false)}
@@ -127,7 +125,7 @@ function ProjectIndex() {
                 href={project.href}
                 target="_blank"
                 rel="noreferrer"
-                onFocus={pointAtRow}
+                onFocus={(event) => aim(event.currentTarget)}
                 onBlur={() => setPointing(false)}
               >
                 <span className={styles.workNumber}>
