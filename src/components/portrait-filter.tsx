@@ -2,13 +2,18 @@
 
 import { useEffect, useRef } from "react";
 
-const CELL_SIZE = 3;
-const MAX_SAMPLE_WIDTH = 720;
+// Dot size in CSS pixels. playgrnd's full-bleed view lands at ~1.9px.
+const DOT_SIZE = 2;
+const MAX_SAMPLE_WIDTH = 1600;
 const CONTRAST = 1.12;
 const EXPOSURE = 0.018;
 const DITHER_FRAMES = 4;
 const FRAME_DURATION = 150;
 const DITHER_LEVELS = 3;
+// How much the photo's own color and a slight warm/cool channel offset push
+// each channel off the ink's tone before it's dithered.
+const CHROMA = 1.6;
+const CHANNEL_SHIFT = [0.035, 0, -0.035] as const;
 
 type DitherColor = readonly [number, number, number];
 
@@ -51,49 +56,48 @@ function drawDither(
   color: DitherColor,
   phase: number,
 ) {
-  const luminance = new Float32Array(width * height);
-
-  for (let index = 0; index < luminance.length; index += 1) {
-    const pixel = index * 4;
-    const sourceValue =
-      (pixels[pixel] * 0.2126 +
-        pixels[pixel + 1] * 0.7152 +
-        pixels[pixel + 2] * 0.0722) /
-      255;
-    // Preserve true black while opening the low-mid tones where the hair lives.
-    const value =
-      sourceValue < 0.04 ? 0 : Math.pow(sourceValue, 0.68) * 0.94;
-    const grain =
-      (((index * 17 + phase * 31) % 23) / 22 - 0.5) * 0.045;
-
-    luminance[index] = Math.min(
-      1,
-      Math.max(0, (value - 0.5) * CONTRAST + 0.5 + EXPOSURE + grain),
-    );
-  }
-
   const output = context.createImageData(width, height);
   const steps = DITHER_LEVELS - 1;
 
-  // Ordered Bayer dither: each tone is cut to a few levels and the matrix
-  // decides which way a pixel rounds, so the gaps read as a crosshatch.
+  // Ordered Bayer dither, cut per channel like playgrnd: each channel rounds
+  // to a few levels on its own, so where they disagree along a tone edge the
+  // ink picks up a faint warm or cool speck. Flat areas stay the exact ink.
   for (let y = 0; y < height; y += 1) {
     const row = BAYER[y % BAYER.length];
 
     for (let x = 0; x < width; x += 1) {
       const index = y * width + x;
-      const threshold = (row[x % BAYER.length] + 0.5) / BAYER_CELLS;
-      const scaled = luminance[index] * steps;
-      const floor = Math.floor(scaled);
-      const level =
-        Math.min(steps, floor + (scaled - floor > threshold ? 1 : 0)) / steps;
-      if (level === 0) continue;
-
       const pixel = index * 4;
-      output.data[pixel] = color[0] * level;
-      output.data[pixel + 1] = color[1] * level;
-      output.data[pixel + 2] = color[2] * level;
-      output.data[pixel + 3] = 255;
+      const sourceValue =
+        (pixels[pixel] * 0.2126 +
+          pixels[pixel + 1] * 0.7152 +
+          pixels[pixel + 2] * 0.0722) /
+        255;
+      // Preserve true black while opening the low-mid tones where the hair lives.
+      if (sourceValue < 0.04) continue;
+      const value = Math.pow(sourceValue, 0.68) * 0.94;
+      const grain =
+        (((index * 17 + phase * 31) % 23) / 22 - 0.5) * 0.045;
+      const tone = (value - 0.5) * CONTRAST + 0.5 + EXPOSURE + grain;
+      const threshold = (row[x % BAYER.length] + 0.5) / BAYER_CELLS;
+      let lit = false;
+
+      for (let channel = 0; channel < 3; channel += 1) {
+        const chroma = (pixels[pixel + channel] / 255 - sourceValue) * CHROMA;
+        const channelTone = Math.min(
+          1,
+          Math.max(0, tone + chroma + CHANNEL_SHIFT[channel]),
+        );
+        const scaled = channelTone * steps;
+        const floor = Math.floor(scaled);
+        const level =
+          Math.min(steps, floor + (scaled - floor > threshold ? 1 : 0)) / steps;
+
+        output.data[pixel + channel] = color[channel] * level;
+        if (level > 0) lit = true;
+      }
+
+      if (lit) output.data[pixel + 3] = 255;
     }
   }
 
@@ -151,9 +155,12 @@ export function PortraitFilter() {
       if (!source.naturalWidth) return;
 
       const bounds = root.getBoundingClientRect();
+      const pixelRatio = window.devicePixelRatio;
+      // Whole device pixels per dot keeps every dot the same size on screen.
+      const dotSize = Math.max(1, Math.round(DOT_SIZE * pixelRatio));
       const width = Math.min(
         MAX_SAMPLE_WIDTH,
-        Math.max(1, Math.round(bounds.width / CELL_SIZE)),
+        Math.max(1, Math.round((bounds.width * pixelRatio) / dotSize)),
       );
       const height = Math.max(1, Math.round(width / (bounds.width / bounds.height)));
 
