@@ -8,8 +8,40 @@ const CONTRAST = 1.12;
 const EXPOSURE = 0.018;
 const DITHER_FRAMES = 4;
 const FRAME_DURATION = 150;
+const DITHER_LEVELS = 3;
 
 type DitherColor = readonly [number, number, number];
+
+function bayerMatrix(size: number) {
+  let matrix = [
+    [0, 2],
+    [3, 1],
+  ];
+
+  while (matrix.length < size) {
+    const half = matrix.length;
+    const next = Array.from({ length: half * 2 }, () =>
+      new Array<number>(half * 2),
+    );
+
+    for (let y = 0; y < half; y += 1) {
+      for (let x = 0; x < half; x += 1) {
+        const value = matrix[y][x] * 4;
+        next[y][x] = value;
+        next[y][x + half] = value + 2;
+        next[y + half][x] = value + 3;
+        next[y + half][x + half] = value + 1;
+      }
+    }
+
+    matrix = next;
+  }
+
+  return matrix;
+}
+
+const BAYER = bayerMatrix(8);
+const BAYER_CELLS = BAYER.length * BAYER.length;
 
 function drawDither(
   context: CanvasRenderingContext2D,
@@ -41,38 +73,27 @@ function drawDither(
   }
 
   const output = context.createImageData(width, height);
+  const steps = DITHER_LEVELS - 1;
 
+  // Ordered Bayer dither: each tone is cut to a few levels and the matrix
+  // decides which way a pixel rounds, so the gaps read as a crosshatch.
   for (let y = 0; y < height; y += 1) {
-    const leftToRight = y % 2 === 0;
-    const start = leftToRight ? 0 : width - 1;
-    const end = leftToRight ? width : -1;
-    const direction = leftToRight ? 1 : -1;
+    const row = BAYER[y % BAYER.length];
 
-    for (let x = start; x !== end; x += direction) {
+    for (let x = 0; x < width; x += 1) {
       const index = y * width + x;
-      const oldValue = luminance[index];
-      const newValue = oldValue >= 0.5 ? 1 : 0;
-      const error = oldValue - newValue;
+      const threshold = (row[x % BAYER.length] + 0.5) / BAYER_CELLS;
+      const scaled = luminance[index] * steps;
+      const floor = Math.floor(scaled);
+      const level =
+        Math.min(steps, floor + (scaled - floor > threshold ? 1 : 0)) / steps;
+      if (level === 0) continue;
 
-      if (newValue === 1) {
-        const pixel = index * 4;
-        output.data[pixel] = color[0];
-        output.data[pixel + 1] = color[1];
-        output.data[pixel + 2] = color[2];
-        output.data[pixel + 3] = 255;
-      }
-
-      const spread = (offsetX: number, offsetY: number, amount: number) => {
-        const targetX = x + offsetX * direction;
-        const targetY = y + offsetY;
-        if (targetX < 0 || targetX >= width || targetY >= height) return;
-        luminance[targetY * width + targetX] += error * amount;
-      };
-
-      spread(1, 0, 7 / 16);
-      spread(-1, 1, 3 / 16);
-      spread(0, 1, 5 / 16);
-      spread(1, 1, 1 / 16);
+      const pixel = index * 4;
+      output.data[pixel] = color[0] * level;
+      output.data[pixel + 1] = color[1] * level;
+      output.data[pixel + 2] = color[2] * level;
+      output.data[pixel + 3] = 255;
     }
   }
 
