@@ -67,9 +67,11 @@ export function ditherLevel(tone: number, threshold: number) {
 
 type Rgb = readonly [number, number, number];
 
-// Dithers a shape by its alpha coverage. With a paper color the dots mix
-// from paper to ink, for dark ink on a light page; without one, lit dots
-// are the ink scaled by tone over transparency, for light ink on dark.
+// Dithers a shape by its alpha coverage in a single ink. The per-channel
+// specks suit the photo but read as noise on type and line art, so every
+// channel here rounds together. With a paper color the dots mix from paper
+// to ink, for dark ink on a light page; without one, lit dots are the ink
+// scaled by tone over transparency, for light ink on dark.
 export function ditherCoverage(
   source: Uint8ClampedArray,
   output: ImageData,
@@ -77,13 +79,11 @@ export function ditherCoverage(
     ink,
     paper,
     gamma = 1,
-    shiftScale = 1,
     phase,
   }: {
     ink: Rgb;
     paper?: Rgb;
     gamma?: number;
-    shiftScale?: number;
     // Adds animated grain; leave unset for a still dither.
     phase?: number;
   },
@@ -98,21 +98,15 @@ export function ditherCoverage(
       const tone =
         Math.pow(alpha / 255, gamma) +
         (phase === undefined ? 0 : grain(pixel / 4, phase));
-      const threshold = bayerThreshold(x, y);
-      let lit = Boolean(paper);
+      const level = ditherLevel(tone, bayerThreshold(x, y));
+      if (!paper && level === 0) continue;
 
       for (let channel = 0; channel < 3; channel += 1) {
-        const level = ditherLevel(
-          tone + CHANNEL_SHIFT[channel] * shiftScale,
-          threshold,
-        );
         data[pixel + channel] = paper
           ? paper[channel] + (ink[channel] - paper[channel]) * level
           : ink[channel] * level;
-        if (level > 0) lit = true;
       }
-
-      if (lit) data[pixel + 3] = 255;
+      data[pixel + 3] = 255;
     }
   }
 }

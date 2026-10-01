@@ -8,12 +8,9 @@ const SOURCE = "/manicule.svg";
 const ASPECT = 3860 / 2150;
 // Thickens the fine hatching so it survives being cut down to a few dots.
 const INK_GAMMA = 0.55;
-// Dark ink on paper runs the other way from the hero, and every stray channel
-// jumps the full paper-to-ink contrast, so the shift is flipped and halved.
-const SHIFT_SCALE = -0.5;
 
 // Drawn through the same ordered dither as the hero portrait: the engraving's
-// ink coverage is cut to a few tones between paper and ink, per channel.
+// ink coverage is cut to a few tones between paper and ink.
 export function Manicule({ className }: { className?: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -51,12 +48,7 @@ export function Manicule({ className }: { className?: string }) {
       const coverage = context.getImageData(0, 0, width, height).data;
       const output = context.createImageData(width, height);
 
-      ditherCoverage(coverage, output, {
-        ink,
-        paper,
-        gamma: INK_GAMMA,
-        shiftScale: SHIFT_SCALE,
-      });
+      ditherCoverage(coverage, output, { ink, paper, gamma: INK_GAMMA });
 
       context.putImageData(output, 0, 0);
     };
