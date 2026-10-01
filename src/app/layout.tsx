@@ -27,7 +27,7 @@ const roboto = Roboto({
 export const metadata: Metadata = {
   metadataBase: new URL("https://mahmoudhilani.com"),
   title: {
-    default: "Mahmoud Hilani — Software Engineer",
+    default: "Mahmoud's portfolio",
     template: "%s | Mahmoud Hilani",
   },
   description:
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     locale: "en_IE",
     url: "/",
     siteName: "Mahmoud Hilani",
-    title: "Mahmoud Hilani — Software Engineer",
+    title: "Mahmoud's portfolio",
     description:
       "Dublin-based software engineer building web products, developer tools, mobile apps, and games.",
     images: [
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Mahmoud Hilani — Software Engineer",
+    title: "Mahmoud's portfolio",
     description:
       "Dublin-based software engineer building web products, developer tools, mobile apps, and games.",
     images: ["/portrait-hero-wide.png"],
@@ -98,9 +98,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`dark ${roboto.variable} ${geistMono.variable} ${handjet.variable} ${satoshi.className}`}
+      className={`dark scrollbar-none ${roboto.variable} ${geistMono.variable} ${handjet.variable} ${satoshi.className}`}
     >
-      <body className="scrollbar-none">
+      <body>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
