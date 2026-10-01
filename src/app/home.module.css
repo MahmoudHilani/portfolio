@@ -187,8 +187,10 @@
   transition: opacity 250ms ease;
 }
 
+/* Keyboard focus dims the other rows like hover does. A clicked link keeps
+   focus without :focus-visible, so it mustn't dim the hovered row. */
 .workList:hover a:not(:hover),
-.workList:focus-within a:not(:focus-visible) {
+.workList:has(a:focus-visible) a:not(:focus-visible) {
   opacity: .32;
 }
 
@@ -235,23 +237,13 @@
   .workIndex { padding-left: 0; }
 }
 
-/* Section heads in the italic serif, with a small mono count beside. */
+/* Section heads in the italic serif. */
 .label {
   font-family: "Instrument Serif", Georgia, serif;
   font-size: clamp(30px, 3.2vw, 48px);
   font-style: italic;
   line-height: 1;
   letter-spacing: -.02em;
-}
-
-.label sup {
-  margin-left: .35em;
-  color: #6f6e67;
-  font-family: var(--font-geist-mono);
-  font-size: 11px;
-  font-style: normal;
-  letter-spacing: .06em;
-  vertical-align: 1.6em;
 }
 
 .footer {

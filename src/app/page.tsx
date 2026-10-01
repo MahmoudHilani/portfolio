@@ -98,8 +98,9 @@ function ProjectIndex() {
     return () => resizeObserver.disconnect();
   }, []);
 
-  const trackPointer = (event: React.PointerEvent<HTMLOListElement>) => {
-    if (event.pointerType !== "mouse") return;
+  // Follows mouseover rather than moves: scrolling a title under a still mouse
+  // fires mouseover but no mousemove.
+  const trackPointer = (event: React.MouseEvent<HTMLOListElement>) => {
     aim((event.target as Element).closest("a"));
   };
 
@@ -107,7 +108,6 @@ function ProjectIndex() {
     <section className={styles.work} id="work">
       <motion.p className={`${styles.label} ${styles.workLabel}`} {...reveal}>
         Selected work
-        <sup>{String(projects.length).padStart(2, "0")}</sup>
       </motion.p>
 
       <motion.div className={styles.workIndex} {...reveal}>
@@ -121,8 +121,8 @@ function ProjectIndex() {
         <ol
           ref={listRef}
           className={styles.workList}
-          onPointerMove={trackPointer}
-          onPointerLeave={rest}
+          onMouseOver={trackPointer}
+          onMouseLeave={rest}
         >
           {projects.map((project, index) => (
             <li key={project.href}>
