@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     template: "%s | Mahmoud Hilani",
   },
   description:
-    "Portfolio of Mahmoud Hilani, a Dublin-based software engineer building web products, developer tools, mobile apps, and games.",
+    "I dithered my own face instead of writing a bio.",
   keywords: [
     "Mahmoud Hilani",
     "software engineer",
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     siteName: "Mahmoud Hilani",
     title: "Mahmoud's portfolio",
     description:
-      "Dublin-based software engineer building web products, developer tools, mobile apps, and games.",
+      "I dithered my own face instead of writing a bio.",
     images: [
       {
         url: "/portrait-hero-wide.png",
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Mahmoud's portfolio",
     description:
-      "Dublin-based software engineer building web products, developer tools, mobile apps, and games.",
+      "I dithered my own face instead of writing a bio.",
     images: ["/portrait-hero-wide.png"],
     creator: "@MahmoodHilani",
   },
