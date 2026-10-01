@@ -255,9 +255,32 @@
 }
 
 .footer {
-  padding: 36px 2.4vw 28px;
+  /* Room under the links for the terrain's glow. */
+  --glow: clamp(150px, 20vw, 320px);
+  position: relative;
+  isolation: isolate;
+  padding: 36px 2.4vw var(--glow);
+  overflow: hidden;
   color: #f4f3ed;
   background: #11110f;
+}
+
+/* The terrain glows up from the bottom edge, fading out under the links. */
+.footerArt {
+  position: absolute;
+  z-index: -1;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: var(--glow);
+  -webkit-mask-image: linear-gradient(transparent, #000 70%);
+  mask-image: linear-gradient(transparent, #000 70%);
+}
+
+.footerArt img {
+  object-fit: cover;
+  object-position: 50% 100%;
+  image-rendering: pixelated;
 }
 
 .footerLabel {
@@ -265,7 +288,6 @@
 }
 
 .email {
-  position: relative;
   display: flex;
   margin-top: 14vh;
   padding-bottom: 2.4vw;
@@ -273,26 +295,6 @@
   align-items: flex-end;
   justify-content: space-between;
   gap: 4vw;
-}
-
-/* An accent rule that draws in under the link on hover. */
-.email::after {
-  position: absolute;
-  right: 0;
-  bottom: -1px;
-  left: 0;
-  height: 1px;
-  content: "";
-  background: #e84e2c;
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform 500ms cubic-bezier(.22, 1, .36, 1);
-}
-
-.email:hover::after,
-.email:focus-visible::after {
-  transform: scaleX(1);
-  transform-origin: left;
 }
 
 .email b {
@@ -352,7 +354,10 @@
   border-top: 1px solid #ffffff42;
   justify-content: space-between;
   color: #aaa9a2;
+  font-family: var(--font-geist-mono);
   font-size: 11px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
 }
 
 .footer nav { display: flex; gap: 26px; color: #f4f3ed; }
@@ -392,7 +397,7 @@
   .workArrow { grid-column: 3; grid-row: 1; }
 
   .footer {
-    padding: 28px 18px 22px;
+    padding: 28px 18px var(--glow);
   }
 
   .email {

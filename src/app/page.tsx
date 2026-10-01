@@ -8,6 +8,7 @@ import {
   useSpring,
   useTransform,
 } from "motion/react";
+import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { PortraitFilter } from "@/components/portrait-filter";
 import { DitherArrow } from "@/components/dither-arrow";
@@ -156,12 +157,17 @@ export default function Home() {
       <section className={styles.hero}>
         <PortraitFilter />
         <HeroName />
-
       </section>
 
       <ProjectIndex />
 
       <footer className={styles.footer}>
+        {/* Made in playgrnd.tools' Terrain: variation 4242, balance -120%,
+            bands #11110f #1b1a17 #2a2824 #5a2519 #e84e2c #deddd4. Kept
+            lossless so the grain stays crisp. */}
+        <div className={styles.footerArt} aria-hidden="true">
+          <Image src="/footer-terrain.webp" alt="" fill sizes="100vw" unoptimized />
+        </div>
         <p className={`${styles.label} ${styles.footerLabel}`}>Contact</p>
         <a className={styles.email} href="mailto:mahmoudhilani18@gmail.com">
           <b>
