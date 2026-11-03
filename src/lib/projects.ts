@@ -32,3 +32,18 @@ export const projects: Project[] = [
     href: "https://github.com/MahmoudHilani/minimalistic-cube-surfer",
   },
 ];
+
+export const papers: Project[] = [
+  {
+    title: "Agent Authorization Gateway",
+    stack: "M.Sc. dissertation",
+    year: 2026,
+    href: "/papers/erpnext-agent-authorization-gateway.pdf",
+  },
+  {
+    title: "Chromosome Classification",
+    stack: "Deep learning report",
+    year: 2026,
+    href: "/papers/chromosome-classification.pdf",
+  },
+];

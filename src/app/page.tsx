@@ -14,7 +14,7 @@ import { PortraitFilter } from "@/components/portrait-filter";
 import { DitherArrow } from "@/components/dither-arrow";
 import { DitherText } from "@/components/dither-text";
 import { Manicule } from "@/components/manicule";
-import { projects } from "@/lib/projects";
+import { papers, projects, type Project } from "@/lib/projects";
 import styles from "./home.module.css";
 
 const reveal = {
@@ -68,7 +68,15 @@ function HeroName() {
   );
 }
 
-function ProjectIndex() {
+function ProjectIndex({
+  id,
+  label,
+  items,
+}: {
+  id: string;
+  label: string;
+  items: Project[];
+}) {
   const reduceMotion = useReducedMotion();
   const pointerY = useMotionValue(0);
   const smoothY = useSpring(pointerY, { stiffness: 380, damping: 34, mass: 0.6 });
@@ -105,9 +113,9 @@ function ProjectIndex() {
   };
 
   return (
-    <section className={styles.work} id="work">
+    <section className={styles.work} id={id}>
       <motion.p className={`${styles.label} ${styles.workLabel}`} {...reveal}>
-        Selected work
+        {label}
       </motion.p>
 
       <motion.div className={styles.workIndex} {...reveal}>
@@ -124,7 +132,7 @@ function ProjectIndex() {
           onMouseOver={trackPointer}
           onMouseLeave={rest}
         >
-          {projects.map((project, index) => (
+          {items.map((project, index) => (
             <li key={project.href}>
               <a
                 href={project.href}
@@ -159,7 +167,8 @@ export default function Home() {
         <HeroName />
       </section>
 
-      <ProjectIndex />
+      <ProjectIndex id="work" label="Selected work" items={projects} />
+      <ProjectIndex id="papers" label="Papers" items={papers} />
 
       <footer className={styles.footer}>
         {/* Made in playgrnd.tools' Terrain: variation 4242, balance -120%,

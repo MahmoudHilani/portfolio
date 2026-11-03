@@ -145,6 +145,10 @@
   background: #f0efe9;
 }
 
+.work + .work {
+  padding-top: 0;
+}
+
 .workLabel {
   margin-bottom: 28px;
 }
