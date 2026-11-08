@@ -39,7 +39,7 @@ export default function SurferPage() {
   return (
     <div className="md:px-12 xl:px-48 bg-zinc-900 ">
       <ProjectBackButton />
-      <div className="flex flex-col justify-center items-center text-4xl sm:text-5xl lg:text-6xl pt-8 mb-24 text-gray-500 relative font-roboto">
+      <div className="flex flex-col justify-center items-center text-4xl sm:text-5xl lg:text-6xl pt-8 mb-24 text-gray-500 relative">
         <div className="font-extrabold">CUBE SURFER</div>
         <div className="font-extralight text-[53px] sm:text-7xl lg:text-[88px] absolute top-15 sm:top-17 lg:top-19">
           EXTREME

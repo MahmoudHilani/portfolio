@@ -14,7 +14,7 @@ const TAIL_TONE = 0.3;
 
 // A tapered shaft into a swept-back harpoon head, pointing right along the
 // x axis from the tail at 0 to the tip at 1. The barbs curve in like a serif
-// bracket to sit with the italic Instrument Serif beside it.
+// bracket.
 function traceArrow(context: CanvasRenderingContext2D) {
   context.beginPath();
   context.moveTo(0, -0.028);

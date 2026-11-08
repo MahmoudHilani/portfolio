@@ -5,7 +5,7 @@
   overflow: clip;
   color: var(--ink);
   background: var(--paper);
-  font-family: var(--font-satoshi), Arial, sans-serif;
+  font-family: var(--font-bricolage), Arial, sans-serif;
 }
 
 /* Safari tints the status bar and overscroll areas from the page background,
@@ -84,9 +84,9 @@
   margin: 2vh 0 auto;
   flex-direction: column;
   font-size: clamp(88px, min(15.4vw, 34vh), 250px);
-  font-weight: 500;
-  line-height: .8;
-  letter-spacing: -.082em;
+  font-weight: 700;
+  line-height: .86;
+  letter-spacing: -.035em;
   z-index: 3 !important;
   filter: drop-shadow(0 8px 18px #11110f80);
 }
@@ -103,21 +103,6 @@
 
 .name span:first-child { align-self: flex-start; }
 .name span:last-child { align-self: flex-end; padding-right: .14em; }
-.name span:first-child b {
-  font-family: var(--font-handjet), monospace;
-  font-size: 1.25em;
-  font-weight: 800;
-  letter-spacing: 0;
-}
-
-.name span:last-child b {
-  font-family: "Instrument Serif", Georgia, serif;
-  font-size: 1.1em;
-  font-weight: 400;
-  font-style: italic;
-  letter-spacing: -.04em;
-}
-
 .name b {
   position: relative;
   display: block;
@@ -185,7 +170,7 @@
   display: grid;
   padding: 26px 0 22px;
   border-bottom: 1px solid #17171433;
-  grid-template-columns: 44px 1fr minmax(120px, auto) 64px 28px;
+  grid-template-columns: 1fr 64px;
   gap: 24px;
   align-items: baseline;
   transition: opacity 250ms ease;
@@ -198,42 +183,24 @@
   opacity: .32;
 }
 
-.workNumber,
-.workMeta {
+.workYear {
   color: #6f6e67;
-  font-family: var(--font-geist-mono);
-  font-size: 11px;
-  letter-spacing: .06em;
-  text-transform: uppercase;
+  font-size: 16px;
+  text-align: right;
 }
 
-.workYear { text-align: right; }
-
 .workTitle {
-  font-family: "Instrument Serif", Georgia, serif;
   font-size: clamp(40px, 6vw, 96px);
-  font-weight: 400;
-  line-height: .95;
+  font-weight: 500;
+  line-height: 1;
   letter-spacing: -.04em;
-  transition: transform 350ms cubic-bezier(.22, 1, .36, 1);
+  transition: transform 350ms cubic-bezier(.22, 1, .36, 1), font-weight 350ms cubic-bezier(.22, 1, .36, 1);
 }
 
 .workList a:hover .workTitle,
 .workList a:focus-visible .workTitle {
   transform: translateX(14px);
-  font-style: italic;
-}
-
-.workArrow {
-  justify-self: end;
-  font-size: 22px;
-  transition: transform 250ms ease;
-}
-
-.workList a:hover .workArrow,
-.workList a:focus-visible .workArrow {
-  transform: translate(3px, -3px);
-  color: #e84e2c;
+  font-weight: 800;
 }
 
 @media (hover: none) {
@@ -241,13 +208,11 @@
   .workIndex { padding-left: 0; }
 }
 
-/* Section heads in the italic serif. */
 .label {
-  font-family: "Instrument Serif", Georgia, serif;
   font-size: clamp(30px, 3.2vw, 48px);
-  font-style: italic;
+  font-weight: 500;
   line-height: 1;
-  letter-spacing: -.02em;
+  letter-spacing: -.03em;
 }
 
 .footer {
@@ -296,12 +261,10 @@
 .email b {
   position: relative;
   display: block;
-  font-family: "Instrument Serif", Georgia, serif;
   font-size: clamp(88px, 17vw, 290px);
-  font-weight: 400;
-  font-style: italic;
+  font-weight: 700;
   line-height: .9;
-  letter-spacing: -.04em;
+  letter-spacing: -.03em;
   white-space: nowrap;
   transition: transform 500ms cubic-bezier(.22, 1, .36, 1);
 }
@@ -317,7 +280,7 @@
   width: clamp(64px, 10vw, 170px);
   aspect-ratio: 1;
   flex: none;
-  /* Drop it onto the baseline of the italic beside it. */
+  /* Drop it onto the baseline of the text beside it. */
   margin-bottom: .6vw;
   transition: transform 500ms cubic-bezier(.22, 1, .36, 1);
 }
@@ -338,9 +301,7 @@
 .emailAddress {
   margin-top: 16px;
   color: #aaa9a2;
-  font-family: var(--font-geist-mono);
-  font-size: 10px;
-  letter-spacing: .1em;
+  font-size: 16px;
 }
 
 .footerBottom {
@@ -350,10 +311,7 @@
   border-top: 1px solid #ffffff42;
   justify-content: space-between;
   color: #aaa9a2;
-  font-family: var(--font-geist-mono);
-  font-size: 11px;
-  letter-spacing: .06em;
-  text-transform: uppercase;
+  font-size: 16px;
 }
 
 .footer nav { display: flex; gap: 26px; color: #f4f3ed; }
@@ -366,31 +324,29 @@
       linear-gradient(180deg, #11110fe6 0%, transparent 25%, transparent 64%, #11110ff2 100%);
   }
   .name {
-    margin: 4vh 0 auto;
-    font-size: clamp(72px, 21.5vw, 100px);
-    line-height: .78;
-    letter-spacing: -.075em;
+    margin: 0 0 auto;
+    font-size: min(20.5vw, 13vh);
+    font-weight: 600;
+    line-height: .84;
+    letter-spacing: -.02em;
   }
 
-  .name span {
-    max-width: 100%;
-    white-space: nowrap;
-  }
+  .name span { white-space: nowrap; }
 
   .name span:last-child { align-self: flex-start; }
+
+  /* Scaled so both lines run the same width, as one block. */
+  .name span:last-child b { font-size: 1.86em; }
 
   .work { padding: 80px 18px 100px; }
   .workIndex { padding-left: 0; }
   .workPointer { display: none; }
   .workList a {
     padding: 20px 0 16px;
-    grid-template-columns: 28px 1fr 20px;
-    gap: 6px 12px;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
   }
   .workTitle { font-size: clamp(38px, 11vw, 56px); }
-  .workMeta { grid-column: 2; grid-row: 2; }
-  .workYear { justify-self: end; }
-  .workArrow { grid-column: 3; grid-row: 1; }
 
   .footer {
     padding: 28px 18px var(--glow);
@@ -402,7 +358,7 @@
     gap: 12px;
   }
 
-  .email b { font-size: 22vw; }
+  .email b { font-size: 17.5vw; }
   .emailArrow { width: 16vw; margin-bottom: 1vw; }
 
   .footerBottom {

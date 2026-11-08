@@ -70,8 +70,12 @@ export function DitherText({ text }: { text: string }) {
       canvas.height = Math.max(1, Math.round((height + pad * 2) * scale));
 
       context.clearRect(0, 0, canvas.width, canvas.height);
-      context.font = `${style.fontStyle} ${style.fontWeight} ${fontSize * scale}px ${style.fontFamily}`;
-      context.letterSpacing = `${(parseFloat(style.letterSpacing) || 0) * scale}px`;
+      // Scale the context rather than the font size: an optical-size axis
+      // picks wider glyphs at a smaller size, which would outgrow the canvas.
+      context.save();
+      context.scale(scale, scale);
+      context.font = font;
+      context.letterSpacing = `${parseFloat(style.letterSpacing) || 0}px`;
       context.textBaseline = "alphabetic";
 
       // Place the baseline where the browser puts it: the font's content box
@@ -79,8 +83,7 @@ export function DitherText({ text }: { text: string }) {
       const metrics = context.measureText(text);
       const ascent = metrics.fontBoundingBoxAscent;
       const descent = metrics.fontBoundingBoxDescent;
-      const baseline =
-        pad * scale + (lineHeight * scale - (ascent + descent)) / 2 + ascent;
+      const baseline = pad + (lineHeight - (ascent + descent)) / 2 + ascent;
 
       const tone = context.createLinearGradient(
         0,
@@ -91,7 +94,8 @@ export function DitherText({ text }: { text: string }) {
       tone.addColorStop(0, "rgba(255, 255, 255, 1)");
       tone.addColorStop(1, `rgba(255, 255, 255, ${BASE_TONE})`);
       context.fillStyle = tone;
-      context.fillText(text, pad * scale, baseline);
+      context.fillText(text, pad, baseline);
+      context.restore();
 
       const coverage = context.getImageData(
         0,

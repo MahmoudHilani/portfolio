@@ -1,28 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Geist_Mono, Handjet, Roboto } from "next/font/google";
-import localFont from "next/font/local";
-import "@fontsource/instrument-serif";
-import "@fontsource/instrument-serif/400-italic.css";
+import { Bricolage_Grotesque } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/navbar";
 import { Suspense } from "react";
 import Loading from "./loading";
 import { Toaster } from "sonner";
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-const handjet = Handjet({
-  variable: "--font-handjet",
-  subsets: ["latin"],
-});
-
-const roboto = Roboto({
-  variable: "--font-roboto",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://mahmoudhilani.com"),
@@ -81,12 +63,10 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 };
 
-const satoshi = localFont({
-  src: [
-    { path: "./fonts/Satoshi-Variable.woff2", style: "normal" },
-    { path: "./fonts/Satoshi-VariableItalic.woff2", style: "italic" },
-  ],
-  variable: "--font-satoshi",
+const bricolage = Bricolage_Grotesque({
+  subsets: ["latin"],
+  axes: ["opsz"],
+  variable: "--font-bricolage",
   display: "swap",
 });
 
@@ -98,7 +78,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`dark scrollbar-none ${roboto.variable} ${geistMono.variable} ${handjet.variable} ${satoshi.className}`}
+      className={`dark scrollbar-none ${bricolage.variable} ${bricolage.className}`}
     >
       <body>
         <script

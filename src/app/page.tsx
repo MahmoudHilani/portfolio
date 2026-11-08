@@ -132,7 +132,7 @@ function ProjectIndex({
           onMouseOver={trackPointer}
           onMouseLeave={rest}
         >
-          {items.map((project, index) => (
+          {items.map((project) => (
             <li key={project.href}>
               <a
                 href={project.href}
@@ -141,15 +141,8 @@ function ProjectIndex({
                 onFocus={(event) => aim(event.currentTarget)}
                 onBlur={rest}
               >
-                <span className={styles.workNumber}>
-                  {String(index + 1).padStart(2, "0")}
-                </span>
                 <span className={styles.workTitle}>{project.title}</span>
-                <span className={styles.workMeta}>{project.stack}</span>
-                <span className={`${styles.workMeta} ${styles.workYear}`}>{project.year}</span>
-                <span className={styles.workArrow} aria-hidden="true">
-                  ↗
-                </span>
+                <span className={styles.workYear}>{project.year}</span>
               </a>
             </li>
           ))}
@@ -167,7 +160,7 @@ export default function Home() {
         <HeroName />
       </section>
 
-      <ProjectIndex id="work" label="Selected work" items={projects} />
+      <ProjectIndex id="work" label="Projects" items={projects} />
       <ProjectIndex id="papers" label="Papers" items={papers} />
 
       <footer className={styles.footer}>
